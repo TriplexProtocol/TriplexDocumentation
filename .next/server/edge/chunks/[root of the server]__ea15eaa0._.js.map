@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 23, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/middleware.ts"],"sourcesContent":["export { middleware } from 'nextra/locales'\n\nexport const config = {\n  // Matcher ignoring `/_next/` and `/api/`\n  matcher: [\n    '/((?!api|_next/static|_next/image|favicon.ico|icon.svg|apple-icon.png|manifest|_pagefind).*)'\n  ]\n}\n"],"names":[],"mappings":";;;;AAEO,MAAM,SAAS;IACpB,yCAAyC;IACzC,SAAS;QACP;KACD;AACH"}}]
+}

@@ -1,0 +1,3 @@
+{
+  "/[lang]/[[...mdxPath]]/page": "app/[lang]/[[...mdxPath]]/page.js"
+}

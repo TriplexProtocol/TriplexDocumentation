@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/gz/Documents/GitHub/TriplexDocumentation/app/_dictionaries/ru.ts"],"sourcesContent":["import type { Dictionary } from './i18n-config'\n\nexport default {\n  dark: 'Темный',\n  light: 'Светлый',\n  system: 'Системный',\n  backToTop: 'Перейти наверх',\n  lastUpdated: 'Последнее обновление',\n  logo: {\n    title: 'React хуки для выборки данных'\n  },\n  // notFound: 'Эта страница не может быть найдена',\n  poweredBy: 'Работает на',\n  link: {\n    vercel: 'https://vercel.com/?utm_source=swr_ru'\n  },\n  lightweight: 'Лёгкий',\n  realtime: 'В реальном времени',\n  suspense: 'Задержка',\n  pagination: 'Пагинация',\n  backendAgnostic: 'Бэкэнд-независимый',\n  renderingStrategies: 'SSR / SSG',\n  typescript: 'TypeScript',\n  remoteLocal: 'Удалённо + Локально',\n  editPage: 'Редактировать на GitHub',\n  by: 'от'\n} satisfies Dictionary\n"],"names":[],"mappings":";;;uCAEe;IACb,MAAM;IACN,OAAO;IACP,QAAQ;IACR,WAAW;IACX,aAAa;IACb,MAAM;QACJ,OAAO;IACT;IACA,kDAAkD;IAClD,WAAW;IACX,MAAM;QACJ,QAAQ;IACV;IACA,aAAa;IACb,UAAU;IACV,UAAU;IACV,YAAY;IACZ,iBAAiB;IACjB,qBAAqB;IACrB,YAAY;IACZ,aAAa;IACb,UAAU;IACV,IAAI;AACN","debugId":null}}]
+}

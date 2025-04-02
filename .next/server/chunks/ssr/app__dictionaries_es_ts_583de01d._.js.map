@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/gz/Documents/GitHub/TriplexDocumentation/app/_dictionaries/es.ts"],"sourcesContent":["import type { Dictionary } from './i18n-config'\n\nexport default {\n  dark: 'Oscuro',\n  light: 'Luz',\n  system: 'Sistema',\n  backToTop: 'Desplazarse hacia arriba',\n  lastUpdated: 'Última actualización el',\n  logo: {\n    title: 'Biblioteca React Hooks para la obtención de datos'\n  },\n  // notFound: 'Esta pagina no se pudo encontrar',\n  poweredBy: 'Desarrollado por',\n  link: {\n    vercel: 'https://vercel.com/?utm_source=swr_es-es'\n  },\n  lightweight: 'Ligero',\n  realtime: 'Tiempo real',\n  suspense: 'Suspenso',\n  pagination: 'Paginación',\n  backendAgnostic: 'Agnóstico del Backend',\n  renderingStrategies: 'SSR / SSG',\n  typescript: 'TypeScript',\n  remoteLocal: 'Remoto + Local',\n  editPage: 'Edite esta página en GitHub',\n  by: 'por'\n} satisfies Dictionary\n"],"names":[],"mappings":";;;uCAEe;IACb,MAAM;IACN,OAAO;IACP,QAAQ;IACR,WAAW;IACX,aAAa;IACb,MAAM;QACJ,OAAO;IACT;IACA,gDAAgD;IAChD,WAAW;IACX,MAAM;QACJ,QAAQ;IACV;IACA,aAAa;IACb,UAAU;IACV,UAAU;IACV,YAAY;IACZ,iBAAiB;IACjB,qBAAqB;IACrB,YAAY;IACZ,aAAa;IACb,UAAU;IACV,IAAI;AACN","debugId":null}}]
+}

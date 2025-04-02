@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/gz/Documents/GitHub/TriplexDocumentation/app/_dictionaries/en.ts"],"sourcesContent":["export default {\n  dark: 'Dark',\n  light: 'Light',\n  system: 'System',\n  backToTop: 'Scroll to top',\n  lastUpdated: 'Last updated on',\n  logo: {\n    title: 'React Hooks for Data Fetching'\n  },\n  // notFound: 'This page could not be found',\n  poweredBy: 'Powered by',\n  link: {\n    vercel: 'https://vercel.com/?utm_source=swr'\n  },\n  lightweight: 'Lightweight',\n  realtime: 'Realtime',\n  suspense: 'Suspense',\n  pagination: 'Pagination',\n  backendAgnostic: 'Backend Agnostic',\n  renderingStrategies: 'SSR / SSG Ready',\n  typescript: 'TypeScript Ready',\n  remoteLocal: 'Remote + Local',\n  editPage: 'Edit this page on GitHub',\n  by: 'by'\n}\n"],"names":[],"mappings":";;;uCAAe;IACb,MAAM;IACN,OAAO;IACP,QAAQ;IACR,WAAW;IACX,aAAa;IACb,MAAM;QACJ,OAAO;IACT;IACA,4CAA4C;IAC5C,WAAW;IACX,MAAM;QACJ,QAAQ;IACV;IACA,aAAa;IACb,UAAU;IACV,UAAU;IACV,YAAY;IACZ,iBAAiB;IACjB,qBAAqB;IACrB,YAAY;IACZ,aAAa;IACb,UAAU;IACV,IAAI;AACN","debugId":null}}]
+}

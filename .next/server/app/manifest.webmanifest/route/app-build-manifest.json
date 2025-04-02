@@ -1,0 +1,13 @@
+{
+  "pages": {
+    "/manifest.webmanifest/route": [
+      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_58c1f228._.js",
+      "static/chunks/185ab_next_dist_compiled_98823982._.js",
+      "static/chunks/185ab_next_dist_client_475ddfb1._.js",
+      "static/chunks/185ab_next_dist_80645080._.js",
+      "static/chunks/61dca_@swc_helpers_cjs_e27e0aca._.js",
+      "static/chunks/_e69f0d32._.js",
+      "static/chunks/_fcf44c54._.js"
+    ]
+  }
+}

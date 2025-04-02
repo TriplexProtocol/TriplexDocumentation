@@ -1,0 +1,4 @@
+{
+  "/[lang]/[[...mdxPath]]/page": "app/[lang]/[[...mdxPath]]/page.js",
+  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js"
+}
