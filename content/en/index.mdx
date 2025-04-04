@@ -1,118 +1,130 @@
 ---
-title: Leading Decentralized Liquidity Protocol
+title: React Hooks for Data Fetching
 searchable: false
 ---
 
-import { Callout, Tabs, Steps } from 'nextra/components'
 import { Features } from '@app/_components/features'
-import { SwrIcon } from '@app/_icons'
+import { Callout, Tabs } from 'nextra/components'
 
-# Triplex
-
-Triplex is a next-generation decentralized liquidity protocol built on Aptos and multichain technology, featuring an innovative modular architecture with intelligent capital allocation systems. As a breakthrough solution for DeFi infrastructure, Triplex effectively addresses core challenges faced by traditional derivatives platforms, including liquidity fragmentation, capital inefficiency, and cross-chain interoperability.
-
-With Triplex, institutional and individual users experience:
-- **Maximum Capital Efficiency**: Proprietary liquidity aggregation and distribution mechanisms achieve up to 10x improvement in capital utilization
-- **Multidimensional Risk Management**: Granular risk exposure control supporting customized strategy deployment
-- **Seamless Interoperability**: Cross-chain liquidity integration eliminating ecosystem silos
-
-<div className="mt-16 mb-20 text-center">
-  [Get Started](/docs/getting-started) · [Examples](/examples/basic) ·
-  [Blog](/blog) · [Architecture Analysis](/architecturalanalysis) · [GitHub Repository](https://github.com/triplexlabs/triplex)
-</div>
+# SWR
 
 <Features lang={props.params.lang} title={metadata.title} />
 
-## Core Technology Architecture
-
-Triplex employs advanced technology architecture, providing clean and intuitive developer interfaces while maintaining powerful underlying functionality.
-
-<Tabs items={['Account Integration', 'Market Data', 'Trading Execution']}>
+<Tabs items={['JavaScript', 'C++', {label:'C', disabled: true}, 'Python', 'TypeScript', 'GraphQL', 'Rust', 'C#', 'Go', 'HTML', 'CSS', 'plaintext', 'bash']} defaultIndex={1}>
   <Tabs.Tab>
-    ```jsx
-    import { useAccount } from '@triplexjs/hooks'
-    
-    // Comprehensive account data access
-    const { data } = useAccount()
-    
-    // Access liquidity, positions, rewards, etc.
-    const { liquidity, positions, rewards } = data
+    ```js filename="hi.js"
+    import { useState, useEffect } from 'react';
     ```
-    
-    Triplex account system supports unified multichain identity management with complete asset visibility.
   </Tabs.Tab>
   <Tabs.Tab>
-    ```jsx
-    import { useMarket } from '@triplexjs/hooks'
-    
-    // Real-time market data and depth analysis
-    const { data, metrics } = useMarket('BTC-USDC')
-    
-    // Advanced market metrics
-    const { liquidity, volatility, fundingRate } = metrics
+    ```cpp filename="hi.cpp"
+    #include <iostream>
     ```
-    
-    Millisecond-level market data updates supporting complex indicators calculation and risk assessment.
   </Tabs.Tab>
   <Tabs.Tab>
-    ```jsx
-    import { useTrading } from '@triplexjs/hooks'
-    
-    // Advanced trading functions
-    const { openPosition, closePosition, adjustLeverage } = useTrading()
-    
-    // Execute strategic trades
-    await openPosition({
-      market: 'ETH-USDC',
-      size: 10,
-      leverage: 5,
-      direction: 'long'
-    })
+    ```c filename="hi.c"
+    #include <stdio.h>
     ```
-    
-    One-stop trading interface supporting complex order types and strategy execution.
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```c filename="hi.c"
+    #include <stdio.h>
+    ```
   </Tabs.Tab>
 </Tabs>
 
-## Technology Ecosystem
+The name "SWR" is derived from `stale-while-revalidate`, a HTTP cache
+invalidation strategy popularized by
+[HTTP RFC 5861](https://tools.ietf.org/html/rfc5861). SWR is a strategy to first
+return the data from cache (stale), then send the fetch request (revalidate),
+and finally come with the up-to-date data.
 
-Triplex V3 builds a complete DeFi infrastructure ecosystem with four core components working in harmony to achieve unparalleled capital efficiency and risk management capabilities:
+<Callout emoji="✅">
+  With SWR, components will get a stream of data updates **constantly** and
+  **automatically**.
 
-<Steps>
-### Intelligent Vault System
-Vaults function as liquidity infrastructure, employing a layered risk architecture supporting multi-asset portfolio strategies, providing users with customizable yield and risk configurations. Vaults are managed through smart contracts, ensuring fund security while maximizing returns.
+And the UI will be always **fast** and **reactive**.
 
-### Dynamic Liquidity Pools
-Innovative liquidity aggregation technology enables efficient cross-pool capital deployment. Through smart algorithms that continuously optimize capital allocation based on market demand and yield opportunities, fragmented funds are transformed into powerful market depth.
-
-### Derivatives Trading Markets
-Based on Triplex's proprietary risk hedging model, supporting efficient perpetual contracts, leverage tokens, and synthetic asset trading. Advanced price discovery mechanisms and liquidity routing technologies ensure trade execution efficiency and minimal slippage.
-
-### Governance and Incentive Mechanisms
-Comprehensive on-chain governance system combined with tokenomics models enables decentralized protocol development. Through carefully designed incentive mechanisms, stakeholders are motivated to contribute to the ecosystem, achieving sustainable growth.
-</Steps>
-
-The Triplex ecosystem continues to expand, currently encompassing:
-
-- Advanced perpetual contract trading systems
-- Innovative leverage token products
-- Smart synthetic asset portfolios
-- Decentralized governance framework
-- Rich developer integration tools
-
-<Callout type="info">
-  Join the Triplex developer community to participate in protocol building and receive early ecosystem incentives! We welcome builders to explore the future of decentralized finance together.
 </Callout>
 
-<div className="mt-16 mb-20 text-center">
-  [Technical Documentation](/docs/getting-started) · [Integration Guide](/examples/basic) · [Community Forum](/blog) · [Core Team](/team)
+<div className="mb-20 mt-16 text-center">
+  [Get Started](/docs/getting-started) · [Examples](/examples/basic) ·
+  [Blog](/blog) · [GitHub Repository](https://github.com/vercel/swr)
 </div>
 
-<div className="mt-32 flex flex-wrap gap-3 items-center">
-  <img alt="stars" src="https://badgen.net/github/stars/triplexlabs/triplex" />
+## Overview
+
+```jsx
+import useSWR from 'swr'
+
+function Profile() {
+  const { data, error } = useSWR('/api/user', fetcher)
+
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
+  return <div>hello {data.name}!</div>
+}
+```
+
+```diff
+import useSWR from 'swr'
+
+function Profile() {
+  const { data, error } = useSWR('/api/user', fetcher)
+
+-  if (error) return <div>failed to load</div>
++  if (!data) return <div>loading...</div>
+  return <div>hello {data.name}!</div>
+}
+```
+
+In this example, the `useSWR` hook accepts a `key` string and a `fetcher`
+function. `key` is a unique identifier of the data (normally the API URL) and
+will be passed to `fetcher`. `fetcher` can be any asynchronous function which
+returns the data, you can use the native fetch or tools like Axios.
+
+The hook returns 2 values: `data` and `error`, based on the status of the
+request.
+
+## Features
+
+With just one single line of code, you can simplify the logic of data fetching
+in your project, and also have all these amazing features out-of-the-box:
+
+- **Fast**, **lightweight** and **reusable** data fetching
+- Built-in **cache** and request deduplication
+- **Real-time** experience
+- Transport and protocol agnostic
+- SSR / ISR / SSG support
+- TypeScript ready
+- React Native
+
+SWR has you covered in all aspects of speed, correctness, and stability to help
+you build better experiences:
+
+- Fast page navigation
+- Polling on interval
+- Data dependency
+- Revalidation on focus
+- Revalidation on network recovery
+- Local mutation (Optimistic UI)
+- Smart error retry
+- Pagination and scroll position recovery
+- React Suspense
+
+And a lot [more](/docs/getting-started).
+
+## Community
+
+<p className="mt-6 flex h-6 gap-2">
+  <img alt="stars" src="https://badgen.net/github/stars/vercel/swr" />
+  <img alt="downloads" src="https://badgen.net/npm/dt/swr" />
   <img alt="license" src="https://badgen.net/npm/license/swr" />
-</div>
+</p>
 
-<div className="mb-10 mt-4 text-gray-600 dark:text-gray-400 text-sm">
-  Triplex V3 is a next-generation decentralized liquidity infrastructure created by Triplex Labs Inc., fully launched on the Aptos ecosystem in 2024, with plans to expand across multiple blockchain ecosystems.
-</div>
+SWR is created by the same team behind [Next.js](https://nextjs.org), the React
+framework. Follow [@vercel](https://twitter.com/vercel) on Twitter for future
+project updates.
+
+Feel free to join the
+[discussions on GitHub](https://github.com/vercel/swr/discussions)!

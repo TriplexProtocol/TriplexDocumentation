@@ -4,8 +4,7 @@ import nextra from 'nextra'
 const withNextra = nextra({
   defaultShowCopyCode: true,
   latex: true,
-  contentDirBasePath: '/',
-  staticImage: true
+  contentDirBasePath: '/'
 })
 
 const withBundleAnalyzer = bundleAnalyzer({
@@ -20,9 +19,8 @@ const nextConfig = withBundleAnalyzer(
       // your project has ESLint errors.
       ignoreDuringBuilds: true
     },
-    pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
     i18n: {
-      locales: ['en', 'zh-SG'],
+      locales: ['en', 'es', 'ru'],
       defaultLocale: 'en'
     },
     redirects: async () => [
@@ -32,35 +30,10 @@ const nextConfig = withBundleAnalyzer(
         statusCode: 302
       }
     ],
-    rewrites: async () => [
-      {
-        source: '/en/android-chrome-192x192.png',
-        destination: '/android-chrome-192x192.png'
-      },
-      {
-        source: '/en/android-chrome-512x512.png',
-        destination: '/android-chrome-512x512.png'
-      },
-      {
-        source: '/zh-SG/android-chrome-192x192.png',
-        destination: '/android-chrome-192x192.png'
-      },
-      {
-        source: '/zh-SG/android-chrome-512x512.png',
-        destination: '/android-chrome-512x512.png'
-      },
-      {
-        source: '/en/favicon/:path*',
-        destination: '/favicon/:path*'
-      },
-      {
-        source: '/zh-SG/favicon/:path*',
-        destination: '/favicon/:path*'
-      }
-    ],
     webpack(config) {
       // rule.exclude doesn't work starting from Next.js 15
       const { test: _test, ...imageLoaderOptions } = config.module.rules.find(
+        // @ts-expect-error -- fixme
         rule => rule.test?.test?.('.svg')
       )
       config.module.rules.push({
