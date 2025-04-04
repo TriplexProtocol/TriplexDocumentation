@@ -1,0 +1,255 @@
+import { Callout, Cards, FileTree, Steps, Tabs } from 'nextra/components'
+
+# Synthetix V3 治理系统
+
+<Callout type="info">
+  Synthetix V3 实现了多层次的治理架构，结合链上投票、代表制和技术自动化，确保协议的安全运行和持续发展。系统通过分散决策权力，实现高效且去中心化的治理。
+</Callout>
+
+## 治理架构
+
+### 核心组件
+
+<Cards>
+  <Cards.Card title="代币治理">
+    SNX投票、权益分配、提案机制
+  </Cards.Card>
+  <Cards.Card title="代表制">
+    理事会选举、池代表、专家委员会
+  </Cards.Card>
+  <Cards.Card title="参数治理">
+    系统配置、风险控制、收益分配
+  </Cards.Card>
+  <Cards.Card title="升级治理">
+    协议升级、模块更新、紧急响应
+  </Cards.Card>
+</Cards>
+
+### 系统结构
+
+<FileTree>
+  <FileTree.Folder name="Governance System" defaultOpen>
+    <FileTree.Folder name="Core" defaultOpen>
+      <FileTree.File name="VotingModule.sol" />
+      <FileTree.File name="CouncilManager.sol" />
+      <FileTree.File name="ProposalSystem.sol" />
+    </FileTree.Folder>
+    <FileTree.Folder name="Parameters">
+      <FileTree.File name="ParamController.sol" />
+      <FileTree.File name="SecurityParams.sol" />
+      <FileTree.File name="PoolParams.sol" />
+    </FileTree.Folder>
+    <FileTree.Folder name="Implementation">
+      <FileTree.File name="Executor.sol" />
+      <FileTree.File name="Timelock.sol" />
+      <FileTree.File name="EmergencyModule.sol" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+## 治理机制
+
+### 投票系统
+
+<Tabs items={['投票权重', '提案流程', '执行机制']}>
+  <Tabs.Tab>
+    ```solidity
+    interface IVotingPower {
+        function getVotingPower(
+            address account,
+            uint256 snapshotId
+        ) external view returns (uint256);
+        
+        function delegate(
+            address delegatee
+        ) external;
+        
+        function getVotes(
+            address account
+        ) external view returns (uint256);
+        
+        event DelegateChanged(
+            address indexed delegator,
+            address indexed fromDelegate,
+            address indexed toDelegate
+        );
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **提案创建**
+         - 提案阈值
+         - 提案格式
+         - 讨论期
+      
+      2. **投票阶段**
+         - 投票期限
+         - 法定人数
+         - 通过条件
+      
+      3. **执行阶段**
+         - 时间锁
+         - 执行确认
+         - 结果公示
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="时间锁">
+        延迟执行、撤销机制、紧急处理
+      </Cards.Card>
+      <Cards.Card title="多重签名">
+        阈值签名、角色验证、权限控制
+      </Cards.Card>
+      <Cards.Card title="执行确认">
+        状态验证、事件通知、结果确认
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+### 代表制度
+
+<Steps>
+  1. **代表理事会**
+     - 定期选举
+     - 职责范围
+     - 决策权限
+  
+  2. **池代表**
+     - LP代币投票
+     - 池参数管理
+     - 市场准入
+  
+  3. **专家委员会**
+     - 技术审核
+     - 参数建议
+     - 风险评估
+</Steps>
+
+## 参数管理
+
+### 参数类型
+
+<Cards>
+  <Cards.Card title="全局参数">
+    协议费率、安全限制、奖励分配
+  </Cards.Card>
+  <Cards.Card title="池参数">
+    抵押要求、容量限制、资产策略
+  </Cards.Card>
+  <Cards.Card title="模块参数">
+    更新频率、清算条件、交易规则
+  </Cards.Card>
+  <Cards.Card title="市场参数">
+    费率设置、风险控制、容量管理
+  </Cards.Card>
+</Cards>
+
+### 参数控制
+
+<Tabs items={['配置管理', '约束机制', '调整流程']}>
+  <Tabs.Tab>
+    ```solidity
+    interface IParameterController {
+        function setParameter(
+            bytes32 paramId,
+            uint256 value
+        ) external;
+        
+        function getParameter(
+            bytes32 paramId
+        ) external view returns (uint256);
+        
+        function isValidValue(
+            bytes32 paramId,
+            uint256 value
+        ) external view returns (bool);
+        
+        event ParameterUpdated(
+            bytes32 indexed paramId,
+            uint256 oldValue,
+            uint256 newValue
+        );
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="值范围">
+        最大最小值、步长控制、有效性验证
+      </Cards.Card>
+      <Cards.Card title="时间限制">
+        冷却期、生效时间、过期设置
+      </Cards.Card>
+      <Cards.Card title="依赖检查">
+        参数关联、冲突检测、一致性维护
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **提议阶段**
+         - 参数分析
+         - 影响评估
+         - 提案准备
+      
+      2. **审核阶段**
+         - 专家审查
+         - 社区讨论
+         - 风险评估
+      
+      3. **执行阶段**
+         - 分步调整
+         - 效果监控
+         - 回滚准备
+    </Steps>
+  </Tabs.Tab>
+</Tabs>
+
+## 升级机制
+
+### 协议升级
+
+<Callout type="warning">
+  系统实现了安全可控的升级机制，包括标准升级流程和紧急响应机制，确保协议能够安全地进行功能更新和漏洞修复。
+</Callout>
+
+<Steps>
+  1. **提案阶段**
+     - 升级规划
+     - 代码审计
+     - 社区讨论
+  
+  2. **测试阶段**
+     - 功能测试
+     - 安全验证
+     - 性能评估
+  
+  3. **部署阶段**
+     - 分步升级
+     - 状态迁移
+     - 功能验证
+</Steps>
+
+### 紧急响应
+
+<Cards>
+  <Cards.Card title="漏洞响应">
+    快速修复、临时措施、影响控制
+  </Cards.Card>
+  <Cards.Card title="攻击防护">
+    攻击检测、系统防护、损失控制
+  </Cards.Card>
+  <Cards.Card title="恢复流程">
+    状态恢复、功能恢复、补偿方案
+  </Cards.Card>
+  <Cards.Card title="后续优化">
+    原因分析、改进方案、预防措施
+  </Cards.Card>
+</Cards>

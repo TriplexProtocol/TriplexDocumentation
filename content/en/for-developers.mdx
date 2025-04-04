@@ -1,0 +1,174 @@
+# Developer Guide
+
+## Getting Started
+
+欢迎来到Triplex开发者文档。本指南将帮助您了解如何使用Triplex协议进行开发和集成。
+
+## 开发环境设置
+
+### 前置要求
+
+- Node.js >= 16
+- Yarn 或 npm
+- Git
+
+### 本地开发环境搭建
+
+```bash
+# 克隆代码仓库
+git clone https://github.com/your-org/triplex
+cd triplex
+
+# 安装依赖
+yarn install
+
+# 启动本地开发环境
+yarn dev
+```
+
+## 智能合约集成
+
+### 合约地址
+
+- Mainnet: `0x...`
+- Testnet: `0x...`
+
+### 核心接口
+
+```solidity
+interface ITriplexPerpetual {
+    function openPosition(
+        address token,
+        bool isLong,
+        uint256 size,
+        uint256 margin
+    ) external;
+
+    function closePosition(
+        address token,
+        uint256 size
+    ) external;
+
+    function addMargin(
+        address token,
+        uint256 amount
+    ) external;
+
+    function removeMargin(
+        address token,
+        uint256 amount
+    ) external;
+}
+```
+
+### JavaScript/TypeScript SDK
+
+```typescript
+import { TriplexSDK } from '@triplex/sdk';
+
+// 初始化SDK
+const sdk = new TriplexSDK({
+    provider: window.ethereum,
+    network: 'mainnet'
+});
+
+// 开仓示例
+async function openLongPosition() {
+    const tx = await sdk.perpetual.openPosition({
+        token: 'ETH',
+        isLong: true,
+        size: '1.0',
+        margin: '0.1'
+    });
+    await tx.wait();
+}
+```
+
+## API参考
+
+### REST API
+
+基础URL: `https://api.triplex.io`
+
+#### 获取市场数据
+
+```bash
+GET /v1/markets
+```
+
+响应:
+```json
+{
+    "markets": [
+        {
+            "symbol": "ETH-USD",
+            "price": "2000.00",
+            "24h_volume": "1000000.00",
+            "open_interest": "5000.00"
+        }
+    ]
+}
+```
+
+### WebSocket API
+
+```javascript
+const ws = new WebSocket('wss://ws.triplex.io');
+
+// 订阅行情数据
+ws.send(JSON.stringify({
+    op: 'subscribe',
+    channel: 'market',
+    symbols: ['ETH-USD']
+}));
+```
+
+## 最佳实践
+
+### 安全性建议
+
+1. 始终验证用户输入
+2. 实现适当的错误处理
+3. 使用安全的依赖包版本
+4. 定期更新SDK和依赖
+
+### 性能优化
+
+1. 实现合适的缓存策略
+2. 批量处理交易
+3. 使用WebSocket而不是轮询
+4. 优化Gas使用
+
+## 示例项目
+
+- [交易界面示例](https://github.com/your-org/triplex-example-ui)
+- [机器人交易示例](https://github.com/your-org/triplex-bot-example)
+- [数据分析工具](https://github.com/your-org/triplex-analytics)
+
+## 故障排除
+
+### 常见问题
+
+1. 连接问题
+2. 交易失败
+3. 数据不同步
+
+### 调试工具
+
+- 合约验证器
+- 交易模拟器
+- 测试网浏览器
+
+## 技术支持
+
+- Discord: [Triplex开发者社区](https://discord.gg/triplex)
+- GitHub Issues: [问题追踪](https://github.com/your-org/triplex/issues)
+- 邮件支持: dev@triplex.io
+
+## 更新日志
+
+### v1.0.0 (2024-03)
+
+- 初始版本发布
+- 支持基础永续合约功能
+- REST和WebSocket API 

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triplex协议操作界面</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #4285f4;
+            --background-color: #111827;
+            --card-color: #1f2937;
+            --text-color: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .user-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .user-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .user-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .user-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .wallet-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .wallet-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .menu-item {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .menu-item.active {
+            background-color: rgba(26, 115, 232, 0.2);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .card {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .collateral-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .collateral-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .collateral-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .collateral-item.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(26, 115, 232, 0.1);
+        }
+        
+        .collateral-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        
+        .input-with-max {
+            display: flex;
+            position: relative;
+        }
+        
+        .amount-input {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 16px;
+        }
+        
+        .max-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .info-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .info-label {
+            color: var(--text-secondary);
+        }
+        
+        .info-value {
+            font-weight: 500;
+        }
+        
+        .action-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .action-button:disabled {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-title {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-change {
+            font-size: 14px;
+            color: var(--success-color);
+        }
+        
+        .stat-change.negative {
+            color: var(--danger-color);
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .tab:hover:not(.active) {
+            color: var(--secondary-color);
+        }
+        
+        .slider-container {
+            margin: 25px 0;
+        }
+        
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+        
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">T</div>
+                <span>Triplex</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="triplex-dashboard.html">仪表盘</a>
+                <a href="triplex-borrow.html">借贷</a>
+                <a href="triplex-collateral-management.html">抵押管理</a>
+                <a href="triplex-synthetic-assets.html">合成资产</a>
+                <a href="triplex-liquidity-mining.html">流动性挖矿</a>
+                <a href="triplex-governance.html">治理</a>
+                <a href="triplex-analytics.html">数据分析</a>
+                <a href="triplex-help-center.html">帮助中心</a>
+            </div>
+            <div class="user-links">
+                <a href="triplex-user-profile.html">个人中心</a>
+                <a href="triplex-notifications.html">通知</a>
+                <a href="triplex-rewards-center.html">奖励中心</a>
+                <button class="wallet-button" onclick="alert('连接钱包功能将在实际部署中启用')">连接钱包</button>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="menu-item active">抵押借贷</div>
+                <div class="menu-item">铸造合成资产</div>
+                <div class="menu-item">资产管理</div>
+                <div class="menu-item">清算监控</div>
+                <div class="menu-item">预言机数据</div>
+                <div class="menu-item">风险参数</div>
+            </div>
+            
+            <div class="content-area">
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-title">总锁仓价值 (TVL)</div>
+                        <div class="stat-value">$152,835,691</div>
+                        <div class="stat-change">+5.8% (24h)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-title">已铸造 trxUSD</div>
+                        <div class="stat-value">78,542,905</div>
+                        <div class="stat-change">+3.2% (24h)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-title">平均抵押率</div>
+                        <div class="stat-value">215%</div>
+                        <div class="stat-change negative">-1.5% (24h)</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">创建CDP头寸</div>
+                        <div class="tabs">
+                            <div class="tab active">存入抵押品</div>
+                            <div class="tab">铸造trxUSD</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="input-group">
+                            <div class="input-label">选择抵押品类型</div>
+                            <div class="collateral-selection">
+                                <div class="collateral-item selected">
+                                    <div class="collateral-icon">APT</div>
+                                    <div>APT</div>
+                                </div>
+                                <div class="collateral-item">
+                                    <div class="collateral-icon">St</div>
+                                    <div>stAPT</div>
+                                </div>
+                                <div class="collateral-item">
+                                    <div class="collateral-icon">Am</div>
+                                    <div>amAPT</div>
+                                </div>
+                                <div class="collateral-item">
+                                    <div class="collateral-icon">W₿</div>
+                                    <div>WBTC</div>
+                                </div>
+                                <div class="collateral-item">
+                                    <div class="collateral-icon">WΞ</div>
+                                    <div>WETH</div>
+                                </div>
+                                <div class="collateral-item">
+                                    <div class="collateral-icon">zΞ</div>
+                                    <div>zWETH</div>
+                                </div>
+                                <div class="collateral-item">
+                                    <div class="collateral-icon">z₿</div>
+                                    <div>zWBTC</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <div class="input-label">抵押数量</div>
+                            <div class="input-with-max">
+                                <input type="text" class="amount-input" placeholder="0.00" value="100">
+                                <button class="max-button">最大</button>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-row">
+                                <div class="info-label">当前价格</div>
+                                <div class="info-value">$8.24 / APT</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">抵押价值</div>
+                                <div class="info-value">$824.00</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">最低抵押率</div>
+                                <div class="info-value">150%</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">清算阈值</div>
+                                <div class="info-value">130%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <div class="input-label">可铸造 trxUSD 上限</div>
+                            <div class="input-with-max">
+                                <input type="text" class="amount-input" placeholder="0.00" value="549.33">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <div class="input-label">铸造 trxUSD 数量</div>
+                            <div class="input-with-max">
+                                <input type="text" class="amount-input" placeholder="0.00" value="400.00">
+                                <button class="max-button">最大</button>
+                            </div>
+                        </div>
+                        
+                        <div class="slider-container">
+                            <div class="input-label">当前抵押率: 206%</div>
+                            <input type="range" min="150" max="500" value="206" class="slider">
+                            <div class="slider-labels">
+                                <span>150%</span>
+                                <span>安全</span>
+                                <span>500%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-row">
+                                <div class="info-label">铸造费用</div>
+                                <div class="info-value">0.5% (2.00 trxUSD)</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">最终获得</div>
+                                <div class="info-value">398.00 trxUSD</div>
+                            </div>
+                        </div>
+                        
+                        <button class="action-button">确认创建CDP</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">合成资产铸造</div>
+                    </div>
+                    
+                    <div class="tabs">
+                        <div class="tab active">加密货币合成资产</div>
+                        <div class="tab">实物资产 (RWA)</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="input-label">选择要铸造的合成资产</div>
+                        <div class="collateral-selection">
+                            <div class="collateral-item selected">
+                                <div class="collateral-icon">₿</div>
+                                <div>tpxBTC</div>
+                            </div>
+                            <div class="collateral-item">
+                                <div class="collateral-icon">Ξ</div>
+                                <div>tpxETH</div>
+                            </div>
+                            <div class="collateral-item">
+                                <div class="collateral-icon">S</div>
+                                <div>tpxSOL</div>
+                            </div>
+                            <div class="collateral-item">
+                                <div class="collateral-icon">A</div>
+                                <div>tpxAPT</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="input-label">使用 trxUSD 数量</div>
+                        <div class="input-with-max">
+                            <input type="text" class="amount-input" placeholder="0.00" value="398.00">
+                            <button class="max-button">最大</button>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <div class="info-row">
+                            <div class="info-label">当前价格</div>
+                            <div class="info-value">$35,842.12 / BTC</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">可铸造数量</div>
+                            <div class="info-value">0.01110 tpxBTC</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">铸造费用</div>
+                            <div class="info-value">0.3% (1.19 trxUSD)</div>
+                        </div>
+                    </div>
+                    
+                    <button class="action-button">铸造tpxBTC</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

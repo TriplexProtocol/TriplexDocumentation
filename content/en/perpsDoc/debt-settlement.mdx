@@ -1,0 +1,179 @@
+# Debt Settlement Mechanism
+
+In Triplex's perpetual contract trading system, debt settlement is a core function that ensures the system remains solvent under various market conditions. This article will explain the mechanism, process, and impact of debt settlement on traders in detail.
+
+import { Callout } from 'nextra/components'
+
+## What is Debt Settlement?
+
+Debt settlement refers to the process by which the system handles and clears the debts incurred by users during trading in perpetual contracts. In Triplex V3, this mechanism has been redesigned to offer greater efficiency and a better user experience.
+
+<Callout type="info">
+Debt settlement is a key mechanism for Triplex to ensure system stability and fairness for all participants.
+</Callout>
+
+## Types of Debt
+
+In the Triplex system, debt can be categorized into several main types:
+
+### 1. Trading Debt
+
+When traders open positions, the system records their potential debt obligations. This includes:
+
+- **Trade Size**: The dollar value of the position
+- **Leverage**: The leverage multiple used
+- **Margin Requirements**: The minimum collateral required to maintain the position
+
+### 2. Unrealized Debt
+
+When market price movements are unfavorable to a position, traders accumulate unrealized debt:
+
+- For long positions, when prices fall
+- For short positions, when prices rise
+
+### 3. Realized Debt
+
+Unrealized debt becomes realized debt when:
+
+- Traders manually close positions
+- The system executes liquidation
+- A forced closure event occurs
+
+## Debt Settlement Process
+
+import { Steps } from 'nextra/components'
+
+<Steps>
+### Debt Identification
+
+The system continuously monitors the debt status and health of all accounts.
+
+### Health Check
+
+Regularly assess account health to identify accounts nearing the liquidation threshold.
+
+### Trigger Settlement
+
+Settlement is triggered when account health falls below the maintenance margin requirement (100%).
+
+### Execute Liquidation
+
+The system or third-party liquidators execute liquidation, closing or partially closing positions.
+
+### Debt Clearance
+
+Use liquidation proceeds to settle debts, including counterparty, funding, and protocol fees.
+</Steps>
+
+## Partial vs. Full Liquidation
+
+Triplex offers two liquidation methods to settle debts:
+
+### Partial Liquidation
+
+When account health declines but there is still sufficient collateral:
+
+- Only the necessary portion of the position is liquidated to restore health
+- Remaining collateral and positions are retained
+- Allows traders to continue trading after adding more collateral
+
+### Full Liquidation
+
+Full liquidation is executed when:
+
+- Account health severely deteriorates
+- Extreme market volatility occurs
+- Insufficient collateral for partial liquidation
+
+<Callout type="warning">
+Full liquidation closes all positions and returns remaining collateral (if any). This usually results in greater losses and should be avoided.
+</Callout>
+
+## Debt Pool Mechanism
+
+Triplex uses a debt pool to manage debt settlement within the system:
+
+### Role of the Debt Pool
+
+- Acts as a counterparty, ensuring all positions have matching counterparts
+- Absorbs system imbalances caused by short-term market fluctuations
+- Diversifies risk in extreme cases
+
+### Sources of Debt Pool Funding
+
+1. **Trading Fees**: A portion of trading fees is allocated to the debt pool
+2. **Liquidation Penalties**: Penalties collected from liquidated accounts
+3. **System Reserves**: Funds allocated by the protocol to initialize the debt pool
+
+## Debt Settlement in a Multi-Collateral Environment
+
+Triplex V3 supports multiple collaterals, adding complexity to debt settlement:
+
+### Collateral Priority
+
+During liquidation, the system uses collateral in the following order:
+
+1. Highest volatility assets (e.g., ETH, tpxBTC)
+2. Medium volatility assets
+3. Stablecoins (USDC, USDe, etc.)
+
+### Valuation of Different Collaterals
+
+All collaterals are internally valued using USDx to ensure consistent debt settlement:
+
+```
+Collateral Value (USDx) = Collateral Amount × Current Market Price × Discount Factor
+```
+
+The discount factor varies based on the volatility and liquidity of the collateral.
+
+## Socialized Loss Mechanism
+
+In extreme market conditions, if the debt pool funds are insufficient to cover system debts:
+
+### Triggers for Socialized Losses
+
+1. Severe market volatility leading to mass liquidations
+2. Oracle delays causing untimely liquidations
+3. Exhaustion of debt pool funds
+
+### Loss Sharing Method
+
+Triplex adopts a proportional sharing mechanism:
+
+- First, use debt pool funds
+- If insufficient, losses are shared proportionally among profitable parties
+- In extreme cases, all system users may be affected
+
+<Callout type="error">
+Socialized loss is the last line of defense in DeFi systems. Triplex minimizes such occurrences through multi-layered protection measures, but traders should be aware of this risk.
+</Callout>
+
+## Improvements in Debt Settlement
+
+Compared to earlier versions, Triplex V3 has made several improvements in debt settlement:
+
+### Technical Improvements
+
+1. **More Efficient Liquidation Mechanism**: Optimized liquidation process to reduce gas costs
+2. **More Accurate Health Calculation**: Real-time reflection of account status
+3. **Multi-Tier Liquidation**: Execute varying degrees of liquidation based on account status
+
+### User Experience Improvements
+
+1. **Advance Warning System**: Issue warnings before accounts approach liquidation
+2. **More Transparent Settlement Process**: Clearly display each step of the process
+3. **More Self-Help Options**: Provide multiple ways to avoid liquidation
+
+## Best Practices for Traders
+
+To avoid unnecessary debt settlement and liquidation, traders should:
+
+1. **Maintain Adequate Margin**: Keep account health above minimum requirements
+2. **Monitor Account Status**: Regularly check account health, especially during market volatility
+3. **Set Alerts**: Use Triplex's alert features
+4. **Understand Liquidation Thresholds**: Familiarize with maintenance margin requirements for different markets and collaterals
+5. **Use Leverage Wisely**: Choose appropriate leverage based on risk tolerance
+6. **Diversify Investments**: Avoid over-concentration in a single market
+
+By understanding the debt settlement mechanism and adopting appropriate risk management strategies, traders can minimize liquidation risk and more effectively utilize the Triplex platform for trading. 

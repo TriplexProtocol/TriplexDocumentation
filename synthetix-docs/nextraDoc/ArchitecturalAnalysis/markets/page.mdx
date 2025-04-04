@@ -1,0 +1,298 @@
+import { Callout, Cards, FileTree, Steps, Tabs } from 'nextra/components'
+
+# Synthetix V3 市场系统
+
+<Callout type="info">
+  Synthetix V3 的市场系统是一个模块化、可扩展的架构，支持多种衍生品市场类型，包括永续合约、现货交易和二元期权等。每个市场模块都建立在核心协议之上，共享相同的抵押品管理和风险评估基础设施。
+</Callout>
+
+## 市场类型
+
+<Cards>
+  <Card title="永续合约市场">
+    提供无到期日的杠杆交易，包含资金费率和风险管理
+  </Card>
+  <Card title="现货市场">
+    通过原子订单模块实现合成资产直接交易
+  </Card>
+  <Card title="基础费用池市场">
+    专门用于对冲以太坊基础费用波动的创新市场
+  </Card>
+  <Card title="扩展市场">
+    支持未来添加新的市场类型
+  </Card>
+</Cards>
+
+## 系统架构
+
+<FileTree>
+  <FileTree.Folder name="Market System" defaultOpen>
+    <FileTree.Folder name="Core Components" defaultOpen>
+      <FileTree.File name="MarketManager.sol" />
+      <FileTree.File name="MarketRegistry.sol" />
+      <FileTree.File name="MarketRouter.sol" />
+    </FileTree.Folder>
+    <FileTree.Folder name="Market Types">
+      <FileTree.File name="PerpetualMarket.sol" />
+      <FileTree.File name="SpotMarket.sol" />
+      <FileTree.File name="BaseFeeMarket.sol" />
+    </FileTree.Folder>
+    <FileTree.Folder name="Integration">
+      <FileTree.File name="OracleConnector.sol" />
+      <FileTree.File name="PoolIntegration.sol" />
+      <FileTree.File name="LiquidationModule.sol" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+## 永续合约市场
+
+<Tabs items={['功能特点', '交易机制', '风险控制']}>
+  <Tabs.Tab>
+    <Cards>
+      <Card title="杠杆交易">
+        支持高杠杆的多空交易
+      </Card>
+      <Card title="资金费率">
+        维持价格收敛的机制
+      </Card>
+      <Card title="持仓管理">
+        跟踪未平仓合约和偏斜度
+      </Card>
+      <Card title="订单执行">
+        高效的订单处理系统
+      </Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **开仓流程**
+         - 验证保证金
+         - 计算杠杆率
+         - 执行开仓
+      
+      2. **持仓维护**
+         - 计算资金费率
+         - 更新持仓状态
+         - 监控风险指标
+      
+      3. **平仓结算**
+         - 计算盈亏
+         - 处理手续费
+         - 更新系统状态
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Card title="保证金要求">
+        动态保证金计算系统
+      </Card>
+      <Card title="清算机制">
+        自动化清算流程
+      </Card>
+      <Card title="风险限额">
+        多层次的限额控制
+      </Card>
+      <Card title="价格保护">
+        防止价格操纵机制
+      </Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 现货市场
+
+<Callout type="warning">
+  现货市场采用原子订单模块，确保交易的即时性和价格发现的准确性。
+</Callout>
+
+### 交易机制
+
+<Steps>
+  1. **订单创建**
+     - 验证交易对
+     - 检查流动性
+     - 计算滑点
+  
+  2. **价格发现**
+     - 获取预言机价格
+     - 计算成交价格
+     - 验证价格偏差
+  
+  3. **订单执行**
+     - 资产转移
+     - 更新流动性
+     - 收取手续费
+</Steps>
+
+### 流动性管理
+
+<Cards>
+  <Card title="流动性提供">
+    LP参与机制设计
+  </Card>
+  <Card title="价格影响">
+    滑点计算模型
+  </Card>
+  <Card title="费用结构">
+    多层次费用体系
+  </Card>
+  <Card title="激励机制">
+    LP收益分配方案
+  </Card>
+</Cards>
+
+## 基础费用池市场
+
+<Tabs items={['市场特点', '对冲机制', '数据支持']}>
+  <Tabs.Tab>
+    <Cards>
+      <Card title="创新设计">
+        首创的gas费用对冲市场
+      </Card>
+      <Card title="风险管理">
+        特殊的风险控制机制
+      </Card>
+      <Card title="收益模式">
+        独特的收益生成方式
+      </Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **对冲策略**
+         - 分析gas趋势
+         - 构建对冲头寸
+         - 动态调整策略
+      
+      2. **风险控制**
+         - 限制最大敞口
+         - 设置触发条件
+         - 自动平仓机制
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Card title="数据来源">
+        以太坊区块数据
+      </Card>
+      <Card title="预言机">
+        专用gas预言机
+      </Card>
+      <Card title="分析工具">
+        gas趋势分析系统
+      </Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 风险管理系统
+
+<Callout type="error">
+  市场系统实施全面的风险管理措施，确保系统的安全性和稳定性。
+</Callout>
+
+### 风险控制机制
+
+<Steps>
+  1. **持仓限制**
+     - 单个市场限额
+     - 用户持仓上限
+     - 系统总限额
+  
+  2. **偏斜度管理**
+     - 监控持仓偏斜
+     - 动态调整费率
+     - 激励平衡机制
+  
+  3. **清算程序**
+     - 触发条件设定
+     - 自动化执行
+     - 清算奖励分配
+</Steps>
+
+## 治理与参数管理
+
+<Tabs items={['市场治理', '参数调整', '费用管理']}>
+  <Tabs.Tab>
+    <Cards>
+      <Card title="市场创建">
+        治理投票决策
+      </Card>
+      <Card title="规则修改">
+        参数调整流程
+      </Card>
+      <Card title="紧急响应">
+        应急处理机制
+      </Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **参数评估**
+         - 数据分析
+         - 风险评估
+         - 影响预测
+      
+      2. **调整流程**
+         - 提案创建
+         - 社区讨论
+         - 实施更新
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Card title="费用结构">
+        多层次费用体系
+      </Card>
+      <Card title="分配机制">
+        收益分配方案
+      </Card>
+      <Card title="调整策略">
+        动态费率管理
+      </Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 技术实现
+
+<Callout type="info">
+  市场模块通过标准化接口与核心协议交互，确保系统的可扩展性和模块化。
+</Callout>
+
+### 接口定义
+
+```solidity
+interface IMarketModule {
+    function registerMarket(uint128 requestedMarketId) external;
+    function reportLiquidation(uint128 marketId, int256 debtChange) external;
+    function updatePrices() external;
+    // 更多市场特定功能...
+}
+```
+
+### 系统集成
+
+<Steps>
+  1. **核心协议集成**
+     - 信用额度管理
+     - 头寸报告机制
+     - 债务跟踪系统
+  
+  2. **预言机集成**
+     - 价格数据获取
+     - 数据验证机制
+     - 异常处理流程
+  
+  3. **流动性池集成**
+     - 抵押品管理
+     - 风险分配
+     - 收益分配
+</Steps>

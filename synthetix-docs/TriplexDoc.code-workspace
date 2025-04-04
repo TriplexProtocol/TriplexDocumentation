@@ -1,0 +1,44 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../synthetix-v3"
+		},
+		{
+			"path": "../../synthetix-vaults"
+		},
+		{
+			"path": "../../SIPs"
+		},
+		{
+			"path": "../../snx-api"
+		},
+		{
+			"path": "../../synthetix-analysis"
+		},
+		{
+			"path": "../../synthetix-assets"
+		},
+		{
+			"path": "../../synthetix-deployments"
+		},
+		{
+			"path": "../../Synthetix-Gitbook-v3"
+		},
+		{
+			"path": "../../liquidity-ui"
+		},
+		{
+			"path": "../../keepers"
+		},
+		{
+			"path": "../../420"
+		},
+		{
+			"path": "../../pyth-examples"
+		}
+	],
+	"settings": {}
+}

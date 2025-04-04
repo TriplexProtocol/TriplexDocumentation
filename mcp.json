@@ -1,0 +1,40 @@
+{
+  "mcpServers": {
+    "Browserbase tool": {
+      "url": "https://mcp.composio.dev/browserbase_tool/skinny-sharp-shoe-gWI1Od"
+    },
+    "Firecrawl tool": {
+      "url": "https://mcp.composio.dev/firecrawl/tasty-moldy-lion-6psIaI",
+      "auth": {
+        "apiKey": "fc-4184382054134ac8805b83d63910aee4"
+      }
+    },
+    "Tavily Search": {
+      "type": "command",
+      "command": "env TAVILY_API_KEY=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 npx -y tavily-mcp@0.1.3"
+    },
+    "@21st-dev/magic": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@21st-dev/magic@latest",
+        "API_KEY=\"007d35c5bf00328d571dababf1e9b2dd1f5e87664720b864151d05d84c2304b7\""
+      ]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "Software-planning-mcp": {
+      "command": "node",
+      "args": [
+        "/Users/zplao/Software-planning-mcp/build/index.js"
+      ],
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

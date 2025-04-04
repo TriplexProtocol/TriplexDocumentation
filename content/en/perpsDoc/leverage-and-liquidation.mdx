@@ -1,0 +1,98 @@
+# Leverage and Liquidation
+
+Understanding leverage trading and liquidation mechanisms is crucial for successful trading. These concepts determine your risk exposure, margin requirements, and account health management.
+
+## Introduction to Leverage Trading
+
+Leverage allows traders to control positions larger than their funds. For example, with 10x leverage, you can control a position worth 10,000 USDC with just 1,000 USDC. However, leverage is a double-edged sword: it can amplify gains but also magnify losses.
+
+On Triplex Exchange, traders can access up to 25x leverage, allowing you to maximize market opportunities while implementing proper risk management practices.
+
+## Initial and Maintenance Margin
+
+Trading margin has two key components:
+
+### Initial Margin
+
+Initial margin is the minimum collateral amount required to open and maintain a leveraged position. It ensures you have enough funds to cover potential losses.
+
+Calculation formula:
+```
+Initial Margin = Position Value / Maximum Available Leverage
+```
+
+For example, a position worth 10,000 USDC with a maximum leverage of 10x will require 1,000 USDC as initial margin.
+
+Initial margin levels determine the maximum leverage you can use:
+- 10x leverage = 10% initial margin requirement
+- 25x leverage = 4% initial margin requirement
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+Higher initial margin (lower leverage) provides a greater safety buffer, while lower initial margin (higher leverage) increases liquidation risk.
+</Callout>
+
+### Maintenance Margin
+
+Maintenance margin is the minimum collateral level that must be maintained to avoid liquidation. When account value falls below this level, the liquidation process begins. It is typically set as a small percentage of the initial margin requirement.
+
+Calculation formula:
+```
+Maintenance Margin = Position Value * Maintenance Margin Rate
+```
+
+On Triplex Exchange, the maintenance margin rate is 2.5%, meaning a position worth 10,000 USDC requires at least 250 USDC as maintenance margin.
+
+## Account Health and Liquidation
+
+### Account Health (Margin Ratio)
+
+Account health is a key indicator of how far your account is from liquidation. It is calculated as:
+
+```
+Account Health = (Account Equity / Maintenance Margin Requirement) * 100%
+```
+
+Where:
+- **Account Equity** = Deposit Balance + Unrealized PnL (UPNL)
+- **Maintenance Margin Requirement** = Total maintenance margin required for all open positions
+
+### Account Health Status Indicator:
+
+- **Good (Green)**: Account Health > 142.85%
+- **Warning (Yellow)**: 142.85% > Account Health > 111.11%
+- **Danger (Red)**: 111.11% > Account Health > 100%
+- **Liquidation (Black)**: Account Health ≤ 100%
+
+<Callout type="error">
+When account health drops to 100% or below, your positions will be liquidated to protect the system from bad debt!
+</Callout>
+
+## Liquidation Process
+
+Liquidation is the automatic closing of positions when a trader's account value falls below the maintenance margin level. Here's how liquidation works:
+
+1. **Trigger**: Liquidation is triggered when account health drops to 100% or below.
+2. **Close Positions**: The system automatically closes all positions in the account.
+3. **Fees**: A liquidation fee is charged, usually a small percentage of the position value.
+4. **Settlement**: Remaining funds are returned to the trader's account.
+
+### Actively Managing Risk
+
+To avoid liquidation, you can adopt the following strategies:
+
+- **Reduce Leverage**: Use lower leverage levels for a greater safety margin.
+- **Add Collateral**: Add more collateral during market volatility to improve account health.
+- **Stop-Loss Orders**: Set stop-loss orders to automatically close positions when prices reach certain levels.
+- **Monitor Funding Rates**: High funding rates can erode your margin over time, especially for high-leverage positions.
+
+## Using the Risk Calculator
+
+Triplex Exchange provides a risk calculator to help you assess potential risks before opening a position:
+
+- **Estimated Liquidation Price**: Clearly see at what price liquidation will be triggered.
+- **Return Potential**: Estimate potential returns at different price levels.
+- **Risk Assessment**: Evaluate the risks associated with leveraged positions.
+
+By understanding these leverage and liquidation mechanisms, you can better manage risk, protect your capital, and make informed decisions for your trading strategy. 

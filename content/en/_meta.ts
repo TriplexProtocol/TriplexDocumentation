@@ -7,41 +7,42 @@ export default {
       toc: false
     }
   },
-  docs: {
+  architecturalanalysis: {
     type: 'page',
-    title: 'Documentation'
+    title: 'Triplex Architecture Analysis'
   },
-  about: {
+  TriplexProtocol: {
+    type: 'page',
+    title: 'Triplex Protocol Analysis'
+  },
+  perpsDoc: {
+    title: 'Perpetual Protocol',
     type: 'menu',
-    title: 'About',
     items: {
-      contributors: {
-        href: 'https://github.com/vercel/swr/graphs/contributors'
+      overview: {
+        title: 'Overview'
       },
-      team: '',
-      acknowledgement: '',
-      'a-page': '',
-      changelog: ''
+      mechanism: {
+        title: 'Protocol Mechanism'
+      },
+      risk: {
+        title: 'Risk Management'
+      }
     }
   },
-  examples: {
-    type: 'page',
-    title: 'Examples',
-    theme: {
-      layout: 'full'
+  fordevelopers: {
+    title: 'For Developers',
+    type: 'menu',
+    items: {
+      overview: {
+        title: 'Overview'
+      },
+      integration: {
+        title: 'Integration Guide'
+      },
+      api: {
+        title: 'API Reference'
+      }
     }
-  },
-  blog: {
-    type: 'page',
-    title: 'Blog',
-    theme: {
-      sidebar: false,
-      typesetting: 'article'
-    }
-  },
-  nextra_link: {
-    type: 'page',
-    title: 'Nextra',
-    href: 'https://github.com/shuding/nextra'
   }
 }

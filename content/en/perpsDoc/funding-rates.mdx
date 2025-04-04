@@ -1,0 +1,68 @@
+# Funding Rates
+
+Funding rates are a key mechanism to ensure that the price of perpetual contracts remains consistent with the value of the underlying asset. On Triplex Exchange, the design of funding rates and premium/discount mechanisms has unique features aimed at enhancing market balance and trading efficiency.
+
+## Basics of Funding Rates
+
+The operation of funding rates is similar to interest payments. It represents a percentage of your position size, adjusted for leverage, and is paid or received periodically.
+
+- **Positive Funding Rate**: Traders with long positions pay traders with short positions.
+- **Negative Funding Rate**: Traders with short positions pay traders with long positions.
+
+## Why Are Funding Rates Needed?
+
+Funding rates exist to balance the market. For every long position, there must be a short position. On Triplex Exchange, liquidity providers pool their assets in vaults to facilitate these trades. Funding rates incentivize traders to hold positions on both sides of the market, ensuring balance and reducing skew.
+
+## Risks of Funding Rates
+
+While funding rates are a key part of market balance, they pose risks to traders:
+
+- **Impact on Profitability**: Funding rates reduce the profitability of trades over time.
+- **Liquidation Risk**: High funding rates can lead to liquidation, especially when using leverage.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+For example, a 0.01% hourly funding rate annualizes to about 87%. If prices remain stable, a position with 2x leverage could face liquidation in less than six months.
+
+At 25x leverage, this timeframe shortens to about two weeks.
+</Callout>
+
+## Advantages of Funding Rates
+
+Funding rates are not only a cost but also an opportunity:
+
+- **Profitability Enhancement**: Traders on the opposite side of the funding payment receive funding rates, which can increase profits.
+- **Advanced Strategies**: Funding payments enable strategies like basis trading and funding rate arbitrage.
+  - **Basis Trading**: Holding an asset in the spot market while shorting an asset with a positive funding rate.
+  - **Funding Rate Arbitrage**: Opening opposite perpetual contract positions on different exchanges to exploit funding rate differences.
+
+These strategies often utilize a delta-neutral approach, balancing short and long exposures to reduce directional risk.
+
+## How Funding Rates Work on Triplex Exchange
+
+Funding rates on Triplex Exchange are influenced by market skew (the imbalance between long and short positions) but adopt a unique approach:
+
+- **Positive Skew**: Funding rates increase.
+- **Negative Skew**: Funding rates decrease.
+- **Neutral Skew**: Funding rates remain stable.
+
+Unlike traditional systems, funding rate changes on Triplex Exchange are gradual, even when skew changes rapidly due to large trades. This ensures stability and prevents sudden changes in funding rates. As a result, some assets may consistently exhibit positive or negative funding rates depending on market conditions.
+
+## Why This Approach?
+
+"Fair market" funding rates are rarely zero. Triplex Exchange's approach ensures that funding rates reflect market dynamics:
+
+- **Bull Markets**: Funding rates may remain positive.
+- **High Inflation Assets**: Funding rates may remain negative.
+
+By finding a balance point where both longs and shorts are equally incentivized, the system ensures a balanced open interest (OI), allowing for higher OI caps and more asset listings without increasing risk to liquidity providers (LPs).
+
+## Premium and Discount Mechanisms
+
+Triplex Exchange also includes premium or discount mechanisms related to skew:
+
+- **Premium as Price Impact**: Simulates order book liquidity, allowing large trades and accommodating less liquid assets.
+- **Premium for Arbitrage Incentives**: Encourages arbitrage traders to maintain balanced open interest and attractive funding rate opportunities.
+
+These mechanisms are designed to stabilize the market, whether demand comes from a single trader or multiple traders. 

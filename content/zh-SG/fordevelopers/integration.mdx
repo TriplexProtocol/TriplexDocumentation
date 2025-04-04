@@ -1,0 +1,143 @@
+# 集成指南
+
+## 快速开始
+
+### 环境准备
+
+```bash
+# 安装 SDK
+npm install @triplex/sdk
+
+# 或使用 yarn
+yarn add @triplex/sdk
+```
+
+## SDK 使用
+
+### 初始化
+
+```typescript
+import { TriplexSDK } from '@triplex/sdk';
+
+const sdk = new TriplexSDK({
+    provider: window.ethereum,
+    network: 'mainnet'
+});
+```
+
+### 合约交互
+
+```typescript
+// 开仓
+async function openPosition() {
+    const tx = await sdk.perpetual.openPosition({
+        token: 'ETH',
+        isLong: true,
+        size: '1.0',
+        margin: '0.1'
+    });
+    await tx.wait();
+}
+
+// 平仓
+async function closePosition() {
+    const tx = await sdk.perpetual.closePosition({
+        token: 'ETH',
+        size: '1.0'
+    });
+    await tx.wait();
+}
+```
+
+## 智能合约集成
+
+### 合约地址
+
+| 网络 | 合约 | 地址 |
+|------|------|------|
+| Mainnet | PerpetualPool | 0x... |
+| Mainnet | MarginBank | 0x... |
+| Testnet | PerpetualPool | 0x... |
+| Testnet | MarginBank | 0x... |
+
+### 核心接口
+
+```solidity
+interface ITriplexPerpetual {
+    struct Position {
+        bool isLong;
+        uint256 size;
+        uint256 margin;
+        uint256 entryPrice;
+    }
+
+    function getPosition(address user, address token) 
+        external view returns (Position memory);
+
+    function openPosition(
+        address token,
+        bool isLong,
+        uint256 size,
+        uint256 margin
+    ) external;
+
+    function closePosition(
+        address token,
+        uint256 size
+    ) external;
+}
+```
+
+## 事件监听
+
+```typescript
+// 监听开仓事件
+sdk.perpetual.on('PositionOpened', (event) => {
+    console.log('New position opened:', event);
+});
+
+// 监听平仓事件
+sdk.perpetual.on('PositionClosed', (event) => {
+    console.log('Position closed:', event);
+});
+```
+
+## 错误处理
+
+```typescript
+try {
+    await openPosition();
+} catch (error) {
+    if (error.code === 'INSUFFICIENT_MARGIN') {
+        console.error('保证金不足');
+    } else if (error.code === 'PRICE_IMPACT_TOO_HIGH') {
+        console.error('价格影响过大');
+    } else {
+        console.error('未知错误:', error);
+    }
+}
+```
+
+## 最佳实践
+
+### 安全建议
+
+1. 始终验证用户输入
+2. 实现适当的错误处理
+3. 使用安全的依赖包版本
+4. 定期更新SDK和依赖
+
+### 性能优化
+
+1. 实现合适的缓存策略
+2. 批量处理交易
+3. 使用WebSocket而不是轮询
+4. 优化Gas使用
+
+## 示例项目
+
+完整的示例项目可以在我们的 [GitHub仓库](https://github.com/your-org/triplex-examples) 找到：
+
+- 基础交易界面
+- 机器人交易示例
+- 数据分析工具 

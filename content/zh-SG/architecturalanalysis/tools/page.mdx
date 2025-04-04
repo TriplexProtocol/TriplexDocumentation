@@ -1,0 +1,756 @@
+import { Callout, Cards, FileTree, Steps, Tabs } from 'nextra/components'
+
+# Triplex 工具系统
+
+<Callout type="info">
+  Triplex 提供了完整的开发工具链和工作流程支持，包括开发环境设置、IDE 集成、测试框架和部署工具，以确保高效的开发和运维过程。
+</Callout>
+
+## 开发环境
+
+### 开发工具链架构图
+
+```mermaid
+graph TD
+    A[开发工具系统] -->|组成| B[开发环境]
+    A -->|组成| C[IDE集成]
+    A -->|组成| D[测试框架]
+    A -->|组成| E[部署工具]
+    A -->|组成| F[监控系统]
+    
+    B -->|包括| B1[编程语言]
+    B1 -->|支持| B11[Solidity]
+    B1 -->|支持| B12[Move]
+    B1 -->|支持| B13[Rust]
+    B1 -->|支持| B14[TypeScript]
+    
+    B -->|包括| B2[框架工具]
+    B2 -->|包括| B21[Hardhat]
+    B2 -->|包括| B22[Foundry]
+    B2 -->|包括| B23[Sui Framework]
+    B2 -->|包括| B24[Aptos Framework]
+    
+    C -->|包括| C1[VSCode]
+    C -->|包括| C2[Windsurf]
+    C -->|包括| C3[WebStorm]
+    C -->|包括| C4[Remix]
+    
+    C1 -->|扩展| C11[语言插件]
+    C1 -->|扩展| C12[调试工具]
+    C1 -->|扩展| C13[版本控制]
+    
+    D -->|包括| D1[单元测试]
+    D -->|包括| D2[集成测试]
+    D -->|包括| D3[性能测试]
+    D -->|包括| D4[安全测试]
+    
+    E -->|包括| E1[自动化部署]
+    E -->|包括| E2[多链支持]
+    E -->|包括| E3[合约验证]
+    E -->|包括| E4[环境管理]
+    
+    F -->|包括| F1[性能监控]
+    F -->|包括| F2[日志分析]
+    F -->|包括| F3[报警系统]
+    
+    subgraph 工作流程
+        G[代码编写]
+        H[本地测试]
+        I[CI验证]
+        J[部署上线]
+        K[运行监控]
+    end
+    
+    G --> H
+    H --> I
+    I --> J
+    J --> K
+    K -->|反馈| G
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:1px
+    style C fill:#bbf,stroke:#333,stroke-width:1px
+    style D fill:#bbf,stroke:#333,stroke-width:1px
+    style E fill:#bbf,stroke:#333,stroke-width:1px
+    style F fill:#bbf,stroke:#333,stroke-width:1px
+```
+
+### 基础工具链
+
+<Cards>
+  <Cards.Card title="编程语言" href="#编程语言">
+    Move、Solidity、Rust
+  </Cards.Card>
+  <Cards.Card title="开发框架" href="#开发框架">
+    Aptos Framework、Sui Framework
+  </Cards.Card>
+  <Cards.Card title="测试工具" href="#测试工具">
+    单元测试、集成测试、模拟测试
+  </Cards.Card>
+  <Cards.Card title="部署工具" href="#部署工具">
+    自动化部署、环境管理、配置工具
+  </Cards.Card>
+</Cards>
+
+### 环境配置
+
+<Tabs items={['Solidity 环境', 'Move 环境', 'TypeScript 环境']}>
+  <Tabs.Tab>
+    <Steps>
+      1. **Node.js 安装**
+         - 使用 nvm 管理版本
+         - 安装 Node.js LTS
+         - 配置 npm 源
+      
+      2. **开发框架**
+         - 安装 Hardhat
+         - 配置 Foundry
+         - 设置编译器
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    ```bash
+    # 安装 Rust
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    
+    # 安装 Sui CLI
+    cargo install --locked --git https://github.com/MystenLabs/sui.git sui
+    
+    # 安装语言分析器
+    cargo install --git https://github.com/move-language/move move-analyzer
+    
+    # 创建项目
+    sui move new project_name
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="依赖管理" href="#依赖管理">
+        包管理、版本控制、依赖解析
+      </Cards.Card>
+      <Cards.Card title="开发工具" href="#开发工具">
+        IDE插件、代码生成、调试工具
+      </Cards.Card>
+      <Cards.Card title="测试框架" href="#测试框架">
+        Move测试、Rust测试、自动化测试
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## IDE 集成
+
+### 开发工具
+
+<Cards>
+  <Cards.Card title="VSCode" href="#vscode">
+    Move语言插件、语法高亮、智能提示
+  </Cards.Card>
+  <Cards.Card title="Windsurf" href="#windsurf">
+    Sui专用IDE、项目管理、自动编译
+  </Cards.Card>
+  <Cards.Card title="WebStorm" href="#webstorm">
+    前端开发、智能补全、调试工具
+  </Cards.Card>
+  <Cards.Card title="Remix" href="#remix">
+    智能合约IDE、在线编译、测试环境
+  </Cards.Card>
+</Cards>
+
+### 扩展配置
+
+<Tabs items={['Solidity', 'Move', 'TypeScript']}>
+  <Tabs.Tab>
+    <FileTree>
+      <FileTree.Folder name="VSCode Extensions" defaultOpen>
+        <FileTree.File name="solidity.solidity" />
+        <FileTree.File name="juanblanco.solidity" />
+        <FileTree.File name="tintinweb.solidity-visual-auditor" />
+      </FileTree.Folder>
+    </FileTree>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **Move 扩展**
+         - Move Analyzer
+         - Sui Move Analyzer
+         - Move Syntax
+         - Move MSL Syntax
+      
+      2. **配置设置**
+         - 语言服务器路径
+         - 语法高亮
+         - 代码格式化
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="TypeScript" href="#typescript">
+        类型检查、接口定义、代码组织
+      </Cards.Card>
+      <Cards.Card title="ESLint" href="#eslint">
+        代码风格、错误检测、最佳实践
+      </Cards.Card>
+      <Cards.Card title="Prettier" href="#prettier">
+        格式化规则、一致风格、版本控制
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 测试框架
+
+### 测试类型
+
+<Cards>
+  <Cards.Card title="单元测试" href="#单元测试">
+    Move测试框架、模块验证、功能测试
+  </Cards.Card>
+  <Cards.Card title="集成测试" href="#集成测试">
+    跨模块测试、系统集成、流程验证
+  </Cards.Card>
+  <Cards.Card title="性能测试" href="#性能测试">
+    基准测试、负载测试、压力测试
+  </Cards.Card>
+  <Cards.Card title="安全测试" href="#安全测试">
+    漏洞扫描、渗透测试、形式化验证
+  </Cards.Card>
+</Cards>
+
+### 测试工具
+
+<Tabs items={['合约测试', 'API 测试', '自动化测试']}>
+  <Tabs.Tab>
+    ```solidity
+    // 测试合约示例
+    contract TestExample {
+        function testDeposit() public {
+            // 准备测试数据
+            uint256 amount = 100;
+            address user = address(1);
+            
+            // 执行测试
+            vm.prank(user);
+            vault.deposit(amount);
+            
+            // 验证结果
+            assertEq(
+                vault.balanceOf(user),
+                amount,
+                "Deposit failed"
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **接口测试**
+         - 请求验证
+         - 响应检查
+         - 状态确认
+      
+      2. **集成测试**
+         - 流程验证
+         - 数据一致性
+         - 异常处理
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="CI/CD" href="#ci-cd">
+        自动化构建、持续集成、部署流水线
+      </Cards.Card>
+      <Cards.Card title="监控工具" href="#监控工具">
+        性能监控、日志收集、警报系统
+      </Cards.Card>
+      <Cards.Card title="报告生成" href="#报告生成">
+        测试报告、覆盖率统计、性能分析
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 部署工具
+
+### 部署流程
+
+<Steps>
+  1. **环境准备**
+     - 网络选择
+     - 配置验证
+     - 密钥管理
+  
+  2. **合约部署**
+     - 编译验证
+     - 部署执行
+     - 地址记录
+  
+  3. **合约验证**
+     - 代码验证
+     - 功能测试
+     - 安全检查
+  
+  4. **监控维护**
+     - 状态监控
+     - 升级管理
+     - 问题处理
+</Steps>
+
+### 多链支持
+
+<Tabs items={['以太坊', 'Layer2', '其他公链']}>
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="主网部署" href="#主网部署">
+        升级策略、风险控制、验证过程
+      </Cards.Card>
+      <Cards.Card title="测试网络" href="#测试网络">
+        预发布环境、功能验证、兼容性测试
+      </Cards.Card>
+      <Cards.Card title="本地网络" href="#本地网络">
+        开发环境、快速测试、调试支持
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **Optimism**
+         - OVM 兼容性
+         - 跨层交互
+         - 状态同步
+      
+      2. **Arbitrum**
+         - Nitro 支持
+         - 交易验证
+         - 数据可用性
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="BSC" href="#bsc">
+        智能合约适配、跨链桥接、资产管理
+      </Cards.Card>
+      <Cards.Card title="Polygon" href="#polygon">
+        扩展性方案、低成本交易、高TPS处理
+      </Cards.Card>
+      <Cards.Card title="Avalanche" href="#avalanche">
+        子网部署、共识适配、跨链资产
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 监控工具
+
+### 监控指标
+
+<Cards>
+  <Cards.Card title="链上数据" href="#链上数据">
+    交易监控、区块分析、合约活动
+  </Cards.Card>
+  <Cards.Card title="性能指标" href="#性能指标">
+    处理延迟、吞吐量、资源利用
+  </Cards.Card>
+  <Cards.Card title="业务指标" href="#业务指标">
+    用户活动、交易量、价值捕获
+  </Cards.Card>
+  <Cards.Card title="安全指标" href="#安全指标">
+    事件监控、风险评估、漏洞分析
+  </Cards.Card>
+</Cards>
+
+### 工具集成
+
+<Tabs items={['监控平台', '告警系统', '分析工具']}>
+  <Tabs.Tab>
+    <Steps>
+      1. **数据采集**
+         - 事件监听
+         - 指标收集
+         - 日志记录
+      
+      2. **数据处理**
+         - 实时分析
+         - 趋势计算
+         - 报告生成
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="告警规则" href="#告警规则">
+        阈值设置、优先级分级、触发条件
+      </Cards.Card>
+      <Cards.Card title="通知渠道" href="#通知渠道">
+        邮件通知、即时消息、语音提醒
+      </Cards.Card>
+      <Cards.Card title="响应流程" href="#响应流程">
+        紧急处理、升级流程、事后分析
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **数据分析**
+         - 模式识别
+         - 异常检测
+         - 性能分析
+      
+      2. **优化建议**
+         - 性能优化
+         - 成本降低
+         - 安全加强
+    </Steps>
+  </Tabs.Tab>
+</Tabs>
+
+## Aptos 专用工具链
+
+### CLI工具
+
+```bash
+# 安装Aptos CLI
+curl -fsSL "https://aptos.dev/scripts/install_cli.py" | python3
+
+# 初始化本地开发环境
+aptos init --network devnet
+
+# 创建账户
+aptos account create --account my_account
+
+# 编译Move模块
+aptos move compile --package-dir /path/to/package
+
+# 运行测试
+aptos move test --package-dir /path/to/package
+
+# 发布模块
+aptos move publish --package-dir /path/to/package
+```
+
+### SDK 集成
+
+<Tabs items={['TypeScript', 'Python', 'Rust']}>
+  <Tabs.Tab>
+    ```typescript
+    import { AptosClient, AptosAccount, FaucetClient, TokenClient } from "aptos";
+
+    // 初始化客户端
+    const client = new AptosClient("https://fullnode.devnet.aptoslabs.com/v1");
+    const faucetClient = new FaucetClient(
+      "https://fullnode.devnet.aptoslabs.com/v1",
+      "https://faucet.devnet.aptoslabs.com"
+    );
+
+    // 创建账户
+    const account = new AptosAccount();
+    
+    // 获取测试代币
+    await faucetClient.fundAccount(account.address(), 100_000_000);
+    
+    // 调用合约函数
+    const payload = {
+      function: "0x1::coin::transfer",
+      type_arguments: ["0x1::aptos_coin::AptosCoin"],
+      arguments: [recipient.address().hex(), "1000"]
+    };
+    
+    const txnRequest = await client.generateTransaction(account.address(), payload);
+    const signedTxn = await client.signTransaction(account, txnRequest);
+    const transactionRes = await client.submitTransaction(signedTxn);
+    await client.waitForTransaction(transactionRes.hash);
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    ```python
+    from aptos_sdk.account import Account
+    from aptos_sdk.client import RestClient
+    from aptos_sdk.transactions import TransactionArgument, TransactionPayload
+
+    # 初始化客户端
+    rest_client = RestClient("https://fullnode.devnet.aptoslabs.com/v1")
+    
+    # 创建账户
+    account = Account.generate()
+    
+    // 构建交易
+    payload = {
+        "function": "0x1::coin::transfer",
+        "type_arguments": ["0x1::aptos_coin::AptosCoin"],
+        "arguments": [recipient_address, "1000"]
+    }
+    
+    // 提交交易
+    tx_hash = rest_client.submit_transaction(account, payload)
+    rest_client.wait_for_transaction(tx_hash)
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    ```rust
+    use aptos_sdk::rest_client::{Client, FaucetClient};
+    use aptos_sdk::types::LocalAccount;
+    
+    // 初始化客户端
+    let rest_client = Client::new("https://fullnode.devnet.aptoslabs.com/v1");
+    let faucet_client = FaucetClient::new(
+        "https://faucet.devnet.aptoslabs.com",
+        "https://fullnode.devnet.aptoslabs.com/v1",
+    );
+    
+    // 创建账户
+    let mut account = LocalAccount::generate(&mut rand::rngs::OsRng);
+    
+    // 获取测试代币
+    faucet_client
+        .fund(account.address(), 100_000_000)
+        .await
+        .unwrap();
+    
+    // 调用合约
+    let txn_builder = rest_client.transaction_builder();
+    let txn = txn_builder
+        .build_transfer(recipient_address, 1000, account.sequence_number())
+        .await
+        .unwrap();
+    
+    // 签名并提交
+    let signed_txn = account.sign_with_transaction_builder(txn);
+    let result = rest_client
+        .submit_and_wait(&signed_txn)
+        .await
+        .unwrap();
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+## Move 项目工具链
+
+### Move 项目结构
+
+<FileTree>
+  <FileTree.Folder name="triplex" defaultOpen>
+    <FileTree.File name="Move.toml" />
+    <FileTree.Folder name="sources" defaultOpen>
+      <FileTree.File name="core.move" />
+      <FileTree.File name="market.move" />
+      <FileTree.File name="synthetic.move" />
+    </FileTree.Folder>
+    <FileTree.Folder name="tests">
+      <FileTree.File name="core_tests.move" />
+      <FileTree.File name="market_tests.move" />
+    </FileTree.Folder>
+    <FileTree.Folder name="scripts">
+      <FileTree.File name="deploy.ts" />
+      <FileTree.File name="initialize.move" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+### Move.toml 配置
+
+```toml
+[package]
+name = "Triplex"
+version = "1.0.0"
+authors = ["Triplex Team"]
+license = "Apache-2.0"
+
+[addresses]
+triplex = "0xcafe"
+std = "0x1"
+aptos_std = "0x1"
+aptos_framework = "0x1"
+
+[dependencies]
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework", rev = "main" }
+```
+
+### Move Analyzer
+
+```bash
+# 安装 Move Analyzer
+cargo install --git https://github.com/move-language/move move-analyzer
+
+# 在 VSCode 设置
+{
+  "move-analyzer.server.path": "/path/to/move-analyzer",
+  "move-analyzer.trace.server": "messages",
+  "move-analyzer.diagnostics": true
+}
+```
+
+## 调试与监控
+
+### 调试工具
+
+<Cards>
+  <Cards.Card title="Move Debugger" href="#move-debugger">
+    断点调试、状态检查、调用追踪
+  </Cards.Card>
+  <Cards.Card title="Gas 分析器" href="#gas-分析器">
+    成本估算、优化建议、比较分析
+  </Cards.Card>
+  <Cards.Card title="本地模拟器" href="#本地模拟器">
+    链下模拟、状态重放、快速迭代
+  </Cards.Card>
+  <Cards.Card title="交易跟踪" href="#交易跟踪">
+    事件监听、交易记录、异常分析
+  </Cards.Card>
+</Cards>
+
+### 交易监控
+
+```typescript
+// 监控交易示例
+import { AptosClient, Types } from "aptos";
+
+const client = new AptosClient("https://fullnode.mainnet.aptoslabs.com/v1");
+
+// 监听特定模块的事件
+async function monitorEvents() {
+  const eventHandler = await client.getEventStream(
+    "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>",
+    "withdraw_events",
+    { start: 0 }
+  );
+
+  for await (const event of eventHandler) {
+    console.log("检测到提款事件:", event);
+    // 处理事件数据
+    if (Number(event.data.amount) > 1000000000) {
+      console.log("大额交易提醒！");
+      // 触发告警逻辑
+    }
+  }
+}
+
+// 监控账户余额变化
+async function monitorAccountBalance(address: string) {
+  let lastBalance = "0";
+  
+  while (true) {
+    try {
+      const resources = await client.getAccountResources(address);
+      const coinResource = resources.find(
+        (r) => r.type === "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>"
+      );
+      
+      if (coinResource) {
+        const currentBalance = coinResource.data.coin.value;
+        if (currentBalance !== lastBalance) {
+          console.log(`余额变更: ${lastBalance} -> ${currentBalance}`);
+          lastBalance = currentBalance;
+        }
+      }
+    } catch (error) {
+      console.error("监控出错:", error);
+    }
+    
+    // 每10秒检查一次
+    await new Promise(resolve => setTimeout(resolve, 10000));
+  }
+}
+
+monitorEvents().catch(console.error);
+monitorAccountBalance("0xcafe").catch(console.error);
+```
+
+## 性能分析与优化
+
+### Move 代码优化
+
+<Tabs items={['存储优化', '计算优化', '并行执行']}>
+  <Tabs.Tab>
+    <Steps>
+      1. **精简资源设计**
+         - 避免过大资源结构
+         - 分拆职责明确的小型资源
+         - 使用Table减少全局状态
+      
+      2. **懒加载模式**
+         - 按需加载资源
+         - 减少不必要读取
+         - 批处理更新操作
+      
+      3. **高效索引**
+         - 合理设计主键
+         - 避免遍历大型集合
+         - 使用Table嵌套实现索引
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    ```move
+    // 优化前
+    public fun process_large_vector(v: &mut vector<u64>) {
+        let i = 0;
+        let len = vector::length(v);
+        while (i < len) {
+            let val = vector::borrow_mut(v, i);
+            *val = *val * 2;
+            i = i + 1;
+        }
+    }
+    
+    // 优化后
+    public fun process_large_vector(v: &mut vector<u64>) {
+        let i = 0;
+        let len = vector::length(v);
+        
+        // 避免重复调用vector::borrow_mut
+        // 减少循环中的借用操作
+        while (i < len) {
+            let val = vector::borrow_mut(v, i);
+            *val = *val * 2;
+            i = i + 1;
+        }
+        
+        // 或者使用向量推导（如果支持）
+        // *vector::map(v, |val| val * 2);
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="资源分区" href="#资源分区">
+        细粒度资源设计支持并行访问
+      </Cards.Card>
+      <Cards.Card title="读写分离" href="#读写分离">
+        分离读写操作减少冲突
+      </Cards.Card>
+      <Cards.Card title="分片策略" href="#分片策略">
+        按地址前缀分片提高并行度
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+### 性能基准测试
+
+```bash
+# 创建基准测试
+aptos move create-benchmark --function 0xcafe::synthetic::mint
+
+# 运行基准测试
+aptos move run-benchmark --iterations 1000 --timeout-ms 30000
+
+# 分析结果
+aptos move analyze-benchmark --output benchmark_results.json
+```
+
+<Callout type="info">
+  Triplex 工具系统为开发者提供了全面的工具链支持，从环境配置、开发、测试到部署和监控，确保高效的 Move 合约开发工作流程。系统专为 Aptos 区块链优化，提供特定的调试和性能分析工具，帮助开发者创建高性能、安全的去中心化应用。
+</Callout> 

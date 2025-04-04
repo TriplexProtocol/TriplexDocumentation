@@ -1,0 +1,101 @@
+# Delegated Trading
+
+Delegated trading is a powerful feature that allows account holders to authorize other addresses to execute trading operations on their behalf. This is particularly useful for team account management, automated trading systems, and third-party integrations.
+
+## What is Delegated Trading?
+
+Delegated trading allows you to specify trusted addresses (delegates) and authorize them to perform specific operations on behalf of your account without sharing your private key. This creates a layer of secure access control, enabling you to manage your trading flexibly while maintaining ultimate control over your account.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+Delegated trading is different from standard wallet authorization. It is a special relationship within the Triplex platform that allows for more granular permission control and restrictions.
+</Callout>
+
+## Use Cases for Delegated Trading
+
+Delegated trading is particularly suitable for the following scenarios:
+
+- **Team Account Management**: Multiple team members can trade on one account without sharing the main wallet's private key.
+- **Automated Trading Systems**: Allow trading bots or algorithms to execute trades on your behalf without continuous manual approval.
+- **Fund Management**: Authorize professional traders or fund managers to trade on your behalf.
+- **Cold Wallet Security**: Keep your main wallet in cold storage while using a hot wallet as a delegate for daily trading.
+
+## How to Start Using Delegation
+
+### Adding a Delegate
+
+To add a new delegate:
+
+1. Navigate to the "Delegation Management" section in your Triplex Exchange account settings.
+2. Click "Add Delegate" and enter the wallet address you wish to authorize.
+3. Set the delegate's permissions and restrictions (if applicable).
+4. Confirm and sign the authorization transaction.
+
+<Callout type="warning">
+Carefully verify the delegate address you add. Once authorized, the delegate will be able to access your account within the specified limits.
+</Callout>
+
+### Delegate Permission Levels
+
+The Triplex delegation system offers several permission levels that you can assign as needed:
+
+- **Full Trading Permission**: Allows the delegate to open, modify, and close positions.
+- **Read-Only Permission**: Allows the delegate to view account information but not execute trades.
+- **Modify-Only Permission**: Allows the delegate to modify existing positions but not open new ones.
+- **Close-Only Permission**: Allows the delegate to close positions to prevent liquidation.
+
+### Setting Trading Limits
+
+To enhance security, you can set specific limits for delegates:
+
+- **Maximum Position Size**: Limit the size of positions the delegate can open.
+- **Market Restrictions**: Restrict the specific markets the delegate can trade.
+- **Maximum Leverage**: Set the maximum leverage level the delegate can use.
+- **Time Restrictions**: Set an expiration time for the delegation authorization.
+
+## Managing Delegates
+
+### Viewing Delegate Activity
+
+You can monitor delegate activity in your account dashboard:
+
+1. Navigate to the "Delegate Activity" tab.
+2. View the complete history of all delegated trades, including timestamps, trade types, and associated delegates.
+3. Filter activities to find specific delegates or trade types.
+
+### Modifying or Revoking Delegation
+
+If you need to change delegation settings or revoke delegation entirely:
+
+1. Go to the "Delegation Management" section.
+2. Select the delegate you wish to modify.
+3. Update permission settings or click "Revoke Delegation" to remove their access entirely.
+4. Confirm your changes.
+
+<Callout type="error">
+Revoking delegation is immediate. Once confirmed, the delegate will no longer be able to execute any trading operations. Ensure you have a proper management plan in place before revoking access to critical delegates if your account has active positions.
+</Callout>
+
+## Accessing Accounts as a Delegate
+
+If you are authorized to access someone else's account as a delegate:
+
+1. Connect your wallet to Triplex Exchange.
+2. Find the "Delegated Accounts" section under the wallet selector.
+3. View the list of accounts you have access to.
+4. Select an account to start trading on behalf of that account.
+
+When trading and performing operations, the interface will clearly indicate that you are acting as a delegate and display any restrictions related to your permission level.
+
+## Best Practices for Delegated Trading Security
+
+To ensure the security of delegated trading, consider the following recommendations:
+
+- **Verify Delegates**: Only add addresses you fully trust as delegates.
+- **Use Specific Limits**: Apply specific trading limits rather than granting unrestricted access.
+- **Regularly Review**: Regularly review delegate activities and permissions.
+- **Test with Small Limits**: Start with small trading limits when first setting up a delegate, then gradually increase as needed.
+- **Revoke Unused Delegations**: Timely revoke permissions if a delegation relationship is no longer needed.
+
+By understanding and applying these delegated trading features, you can create a more secure and flexible trading workflow while maintaining ultimate control over your account. 

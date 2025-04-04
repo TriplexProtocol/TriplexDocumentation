@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tpxUSD SVG图标集合</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    h1 {
+      color: #4F46E5;
+      margin-bottom: 30px;
+    }
+
+    .icons-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    
+    .icon-item:hover {
+      transform: scale(1.05);
+    }
+
+    .icon-svg {
+      width: 120px;
+      height: 120px;
+    }
+
+    .icon-label {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #4F46E5;
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #4F46E5;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-decoration: none;
+    }
+
+    .download-btn:hover {
+      background-color: #4338CA;
+    }
+    
+    @media (max-width: 768px) {
+      .icons-container {
+        gap: 20px;
+      }
+      
+      .icon-svg {
+        width: 90px;
+        height: 90px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>tpxUSD SVG图标集合</h1>
+    
+    <div class="icons-container">
+      <!-- 图标1: 经典tpxUSD -->
+      <div class="icon-item">
+        <object class="icon-svg" data="tpxUSD-classic.svg" type="image/svg+xml"></object>
+        <div class="icon-label">经典tpxUSD</div>
+      </div>
+
+      <!-- 图标2: 方形tpxUSD -->
+      <div class="icon-item">
+        <object class="icon-svg" data="tpxUSD-square.svg" type="image/svg+xml"></object>
+        <div class="icon-label">方形tpxUSD</div>
+      </div>
+
+      <!-- 图标3: 暗黑tpxUSD -->
+      <div class="icon-item">
+        <object class="icon-svg" data="tpxUSD-dark.svg" type="image/svg+xml"></object>
+        <div class="icon-label">暗黑tpxUSD</div>
+      </div>
+
+      <!-- 图标4: 六边形tpxUSD -->
+      <div class="icon-item">
+        <object class="icon-svg" data="tpxUSD-hexagon.svg" type="image/svg+xml"></object>
+        <div class="icon-label">六边形tpxUSD</div>
+      </div>
+
+      <!-- 图标5: 霓虹tpxUSD -->
+      <div class="icon-item">
+        <object class="icon-svg" data="tpxUSD-neon.svg" type="image/svg+xml"></object>
+        <div class="icon-label">霓虹tpxUSD</div>
+      </div>
+
+      <!-- 图标6: 金属tpxUSD -->
+      <div class="icon-item">
+        <object class="icon-svg" data="tpxUSD-metal.svg" type="image/svg+xml"></object>
+        <div class="icon-label">金属tpxUSD</div>
+      </div>
+
+      <!-- 图标7: 扁平tpxUSD -->
+      <div class="icon-item">
+        <object class="icon-svg" data="tpxUSD-flat.svg" type="image/svg+xml"></object>
+        <div class="icon-label">扁平tpxUSD</div>
+      </div>
+
+      <!-- 图标8: 绿色tpxUSD -->
+      <div class="icon-item">
+        <object class="icon-svg" data="tpxUSD-green.svg" type="image/svg+xml"></object>
+        <div class="icon-label">绿色tpxUSD</div>
+      </div>
+
+      <!-- 图标9: 3D风格tpxUSD -->
+      <div class="icon-item">
+        <object class="icon-svg" data="tpxUSD-3d.svg" type="image/svg+xml"></object>
+        <div class="icon-label">3D风格tpxUSD</div>
+      </div>
+
+      <!-- 图标10: 彩虹tpxUSD -->
+      <div class="icon-item">
+        <object class="icon-svg" data="tpxUSD-rainbow.svg" type="image/svg+xml"></object>
+        <div class="icon-label">彩虹tpxUSD</div>
+      </div>
+    </div>
+
+    <a href="tpxUSD.zip" class="download-btn" download onclick="alert('SVG图标可以右键另存为下载单个图标。')">打包下载全部SVG</a>
+  </div>
+</body>
+</html> 

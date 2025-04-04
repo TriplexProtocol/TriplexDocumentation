@@ -1,0 +1,125 @@
+# Conditional Orders
+
+Conditional orders are powerful trading tools that allow you to set specific conditions under which trades are automatically executed. These order types help traders automate their strategies, manage risk, and capture opportunities without needing to constantly monitor the market.
+
+## What are Conditional Orders?
+
+Conditional orders are pre-set instructions that specify a trade to be executed when certain market conditions are met. Unlike market orders that execute immediately, conditional orders remain dormant until the trigger conditions are satisfied.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+Conditional orders are particularly useful in volatile markets, allowing traders to pre-set entry and exit strategies without needing to monitor price movements in real-time.
+</Callout>
+
+## Types of Conditional Orders Supported by Triplex Exchange
+
+### Limit Orders
+
+Limit orders allow you to set a specific price at which you want to buy or sell an asset:
+
+- **Buy Limit Order**: Executes when the market price is at or below your specified price. This ensures you do not pay more than the set price.
+- **Sell Limit Order**: Executes when the market price is at or above your specified price. This ensures you do not sell for less than the set price.
+
+The main advantage of limit orders is price assurance—they will only execute at your specified price or better. However, if the market does not reach your limit, the order may not execute.
+
+### Stop Orders
+
+Stop orders are designed to limit potential losses by automatically closing positions when the market moves unfavorably:
+
+- **Stop Buy Order**: Activates when the price rises to a specific level, typically used to close short positions or open long positions.
+- **Stop Sell Order**: Activates when the price falls to a specific level, typically used to close long positions or open short positions.
+
+<Callout type="warning">
+Stop orders convert to market orders when triggered, meaning the actual execution price may differ from your trigger price, especially in volatile markets.
+</Callout>
+
+### Trailing Stop Orders
+
+Trailing stop orders are more dynamic risk management tools that allow the stop level to adjust as the price moves favorably:
+
+- **Long Trailing Stop**: Sets a stop price that rises as the market price rises, maintaining a fixed amount or percentage gap. If the price falls, the stop price remains at its last highest level.
+- **Short Trailing Stop**: Sets a stop price that falls as the market price falls, maintaining a fixed amount or percentage gap. If the price rises, the stop price remains at its last lowest level.
+
+Trailing stops enable traders to protect profits while allowing winning trades to run, which is not possible with pure stop orders.
+
+### Take-Profit Stop Orders (OCO)
+
+Take-profit stop orders, also known as one-cancels-the-other (OCO) orders, combine a limit order with a stop order:
+
+- When one condition is triggered and executed, the other condition is automatically canceled.
+- This allows you to set both a profit target and a stop-loss level simultaneously.
+- Ideal for a "set-and-forget" trading approach, as your position is managed regardless of market direction.
+
+## Setting Conditional Orders
+
+Steps to create conditional orders on Triplex Exchange:
+
+1. Select the market you want to trade.
+2. Click the "Conditional Orders" tab.
+3. Choose the order type (limit, stop, trailing stop, or OCO).
+4. Specify the trigger price or condition.
+5. Set the order size and leverage (if applicable).
+6. Confirm and submit your order.
+
+<Callout type="info">
+You can set conditional orders directly from the open position interface or from the details page of an existing position.
+</Callout>
+
+## Example Scenarios for Conditional Orders
+
+### Scenario 1: Entering with a Limit Order
+
+Imagine you want to buy ETH when it drops to 1,800 USDC, but the current price is 2,000 USDC:
+
+1. Set a buy limit order with a trigger price of 1,800 USDC.
+2. Specify the amount you want to purchase and leverage.
+3. Your order will automatically execute when the ETH price reaches or falls below 1,800 USDC.
+
+### Scenario 2: Using a Stop Order to Limit Losses
+
+You hold a long ETH position with an entry price of 2,000 USDC and want to limit potential losses:
+
+1. Set a stop sell order with a trigger price of 1,900 USDC (5% loss).
+2. If the ETH price drops to 1,900 USDC or below, your position will automatically close to prevent further losses.
+
+### Scenario 3: Using OCO to Lock in Profits While Managing Risk
+
+You opened a long ETH position at 2,000 USDC and want to set a profit target and stop-loss:
+
+1. Create an OCO order with a profit target of 2,200 USDC and a stop-loss of 1,900 USDC.
+2. If ETH reaches 2,200 USDC, your position will automatically close for a profit.
+3. Conversely, if the price drops to 1,900 USDC, your position will close to limit losses.
+4. Once one condition is triggered, the other is automatically canceled.
+
+## Advanced Tips for Conditional Orders
+
+### Creating Complex Strategies with Multiple Conditional Orders
+
+You can combine multiple conditional orders to create more complex trading strategies:
+
+- **Staggered Entry**: Use multiple limit orders to buy in batches at different price levels, achieving price averaging.
+- **Laddered Take-Profit**: Set multiple gradually increasing profit targets to close positions incrementally as the price rises, locking in profits.
+- **Pyramid Risk Management**: Combine stop orders and trailing stop orders to create a layered risk management system.
+
+### Avoiding Common Pitfalls
+
+Consider the following factors when using conditional orders:
+
+- **Liquidity Considerations**: In low-liquidity markets, large conditional orders may result in significant slippage.
+- **Extreme Volatility**: During extreme volatility, stops may execute at worse prices than expected.
+- **Order Interactions**: Be aware of potential interactions between multiple conditional orders on the same market.
+
+<Callout type="warning">
+Remember that conditional orders may not execute at the exact trigger price in high-volume or volatile market conditions. Always consider potential slippage, especially when setting conditional orders at critical levels.
+</Callout>
+
+## Managing Active Conditional Orders
+
+You can view and manage all active conditional orders in the "Open Orders" section of Triplex Exchange:
+
+- **Modify Orders**: Adjust parameters of untriggered conditional orders, such as trigger price or order size.
+- **Cancel Orders**: Cancel any unexecuted conditional orders at any time.
+- **Monitor Status**: View all your pending conditional orders and their current market status.
+
+Conditional orders are powerful tools for automating trading strategies and managing risk. By mastering the different types of conditional orders and how to apply them effectively, you can enhance trading discipline, reduce emotion-driven decisions, and capture trading opportunities without needing to constantly monitor the market. 

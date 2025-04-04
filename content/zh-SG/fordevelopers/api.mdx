@@ -1,0 +1,170 @@
+# API 参考文档
+
+## REST API
+
+基础URL: `https://api.triplex.io`
+
+### 认证
+
+所有API请求需要在header中包含API密钥：
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+### 市场数据
+
+#### 获取所有市场
+
+```http
+GET /v1/markets
+```
+
+响应:
+```json
+{
+    "markets": [
+        {
+            "symbol": "ETH-USD",
+            "price": "2000.00",
+            "24h_volume": "1000000.00",
+            "open_interest": "5000.00",
+            "funding_rate": "0.0001",
+            "next_funding_time": "2024-03-21T00:00:00Z"
+        }
+    ]
+}
+```
+
+#### 获取单个市场
+
+```http
+GET /v1/markets/{symbol}
+```
+
+### 交易接口
+
+#### 创建订单
+
+```http
+POST /v1/orders
+```
+
+请求体:
+```json
+{
+    "symbol": "ETH-USD",
+    "side": "buy",
+    "type": "limit",
+    "price": "2000.00",
+    "size": "1.0",
+    "leverage": "10"
+}
+```
+
+#### 查询订单
+
+```http
+GET /v1/orders/{order_id}
+```
+
+### 账户接口
+
+#### 获取账户信息
+
+```http
+GET /v1/account
+```
+
+#### 获取持仓
+
+```http
+GET /v1/positions
+```
+
+## WebSocket API
+
+WebSocket 端点: `wss://ws.triplex.io`
+
+### 订阅格式
+
+```json
+{
+    "op": "subscribe",
+    "channel": "market",
+    "symbols": ["ETH-USD"]
+}
+```
+
+### 市场数据订阅
+
+```javascript
+// 订阅行情
+ws.send(JSON.stringify({
+    op: 'subscribe',
+    channel: 'market',
+    symbols: ['ETH-USD']
+}));
+
+// 接收数据
+ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    console.log('Market update:', data);
+};
+```
+
+### 订单更新订阅
+
+```javascript
+ws.send(JSON.stringify({
+    op: 'subscribe',
+    channel: 'orders',
+    symbols: ['ETH-USD']
+}));
+```
+
+## 错误代码
+
+| 代码 | 描述 |
+|------|------|
+| 1001 | 无效的API密钥 |
+| 1002 | 请求频率超限 |
+| 2001 | 订单创建失败 |
+| 2002 | 保证金不足 |
+| 3001 | 市场暂停交易 |
+
+## 速率限制
+
+- 公共接口: 10次/秒
+- 私有接口: 100次/分钟
+- WebSocket连接: 5个/IP
+
+## SDK 示例
+
+```typescript
+import { TriplexAPI } from '@triplex/api';
+
+const api = new TriplexAPI({
+    apiKey: 'YOUR_API_KEY',
+    secret: 'YOUR_SECRET'
+});
+
+// 获取市场数据
+const markets = await api.getMarkets();
+
+// 创建订单
+const order = await api.createOrder({
+    symbol: 'ETH-USD',
+    side: 'buy',
+    type: 'limit',
+    price: '2000.00',
+    size: '1.0'
+});
+
+// WebSocket订阅
+const ws = api.createWebSocket();
+ws.subscribe('market', ['ETH-USD']);
+ws.onMarketUpdate((data) => {
+    console.log('Market update:', data);
+});
+``` 

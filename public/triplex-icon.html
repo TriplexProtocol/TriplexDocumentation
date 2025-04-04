@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Triplex图标集合</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    h1 {
+      color: #4F46E5;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #2563EB;
+      margin-top: 50px;
+      margin-bottom: 20px;
+    }
+
+    .icons-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .icon-label {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #4F46E5;
+    }
+
+    /* 基础图标样式 */
+    .icon-base {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transition: transform 0.3s ease;
+      margin: 0 auto;
+    }
+    
+    .icon-base:hover {
+      transform: scale(1.05);
+    }
+
+    /* 原始十字连接图标样式 */
+    .triplex-connector {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transition: transform 0.3s ease;
+      margin: 0 auto;
+    }
+    
+    .triplex-connector:hover {
+      transform: scale(1.05);
+    }
+    
+    .triplex-circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      position: relative;
+      background: white;
+      border: 2px solid #4F46E5;
+      box-shadow: 0 4px 8px rgba(79, 70, 229, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%);
+    }
+    
+    .triplex-cross {
+      position: absolute;
+      width: 80%;
+      height: 80%;
+    }
+    
+    .triplex-horizontal {
+      position: absolute;
+      width: 60%;
+      height: 15%;
+      background-color: white;
+      left: 20%;
+      top: 42.5%;
+      border-radius: 4px;
+    }
+    
+    .triplex-vertical {
+      position: absolute;
+      width: 15%;
+      height: 60%;
+      background-color: white;
+      left: 42.5%;
+      top: 20%;
+      border-radius: 4px;
+    }
+
+    /* USD符号样式 */
+    .usd-symbol {
+      position: absolute;
+      width: 60%;
+      height: 70%;
+      top: 15%;
+      left: 20%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .tpx-prefix {
+      position: absolute;
+      width: 100%;
+      height: 25%;
+      top: -5%;
+      left: 0;
+      display: flex;
+      justify-content: flex-start;
+    }
+    
+    .tpx-text {
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      font-family: 'Arial', sans-serif;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: left center;
+      transform: scale(0.9);
+    }
+    
+    .dollar-sign {
+      position: absolute;
+      width: 30px;
+      height: 50px;
+      top: 50%;
+      left: 52%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .dollar-vertical {
+      position: absolute;
+      width: 4px;
+      height: 85%;
+      background-color: white;
+      left: 50%;
+      top: 7.5%;
+      transform: translateX(-50%);
+      border-radius: 4px;
+    }
+    
+    .dollar-curve-top {
+      position: absolute;
+      width: 70%;
+      height: 35%;
+      border: 4px solid white;
+      border-left: none;
+      border-bottom: none;
+      border-radius: 0 10px 0 0;
+      top: 5%;
+      left: 15%;
+    }
+    
+    .dollar-curve-bottom {
+      position: absolute;
+      width: 70%;
+      height: 35%;
+      border: 4px solid white;
+      border-right: none;
+      border-top: none;
+      border-radius: 0 0 0 10px;
+      bottom: 5%;
+      left: 15%;
+    }
+    
+    .ripple-effect {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      animation: ripple 2s infinite ease-out;
+    }
+    
+    .ripple-1 {
+      width: 96%;
+      height: 96%;
+      animation-delay: 0s;
+    }
+    
+    .ripple-2 {
+      width: 86%;
+      height: 86%;
+      animation-delay: 0.5s;
+    }
+    
+    .ripple-3 {
+      width: 76%;
+      height: 76%;
+      animation-delay: 1s;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0.8);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.1);
+        opacity: 0;
+      }
+    }
+
+    .usd-line {
+      position: absolute;
+      width: 100%;
+      height: 14%;
+      background-color: white;
+      border-radius: 4px;
+    }
+
+    .usd-top-line {
+      top: 0;
+      width: 80%;
+      left: 10%;
+    }
+
+    .usd-middle-line {
+      top: 43%;
+      width: 90%;
+      left: 5%;
+    }
+
+    .usd-bottom-line {
+      bottom: 0;
+      width: 80%;
+      left: 10%;
+    }
+
+    .usd-curve {
+      position: absolute;
+      width: 15%;
+      height: 30%;
+      background-color: white;
+      border-radius: 4px;
+    }
+
+    .usd-left-top {
+      top: 10%;
+      left: 0;
+    }
+
+    .usd-right-top {
+      top: 10%;
+      right: 0;
+      height: 40%;
+    }
+
+    .usd-left-bottom {
+      bottom: 10%;
+      left: 0;
+      height: 40%;
+    }
+
+    .usd-right-bottom {
+      bottom: 10%;
+      right: 0;
+    }
+  
+    .triplex-dots {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  
+    .triplex-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+    }
+
+    /* 新的六边形箭头图标样式 */
+    .hexagon-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .hexagon-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .hexagon-shape {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hexagon-body {
+      position: absolute;
+      top: 5%;
+      left: 5%;
+      width: 90%;
+      height: 90%;
+      background-color: #fff;
+      clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+      box-shadow: 0 4px 8px rgba(79, 70, 229, 0.2);
+    }
+
+    .hexagon-arrow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 50%;
+    }
+
+    .arrow-line {
+      position: absolute;
+      width: 100%;
+      height: 15%;
+      background-color: #71c2ff;
+      top: 42.5%;
+      border-radius: 4px;
+    }
+
+    .arrow-head {
+      position: absolute;
+      width: 30%;
+      height: 30%;
+      right: -5%;
+      top: 35%;
+    }
+
+    .arrow-head-top {
+      position: absolute;
+      width: 100%;
+      height: 15px;
+      background-color: #71c2ff;
+      transform: rotate(-30deg);
+      transform-origin: right center;
+      border-radius: 3px;
+    }
+
+    .arrow-head-bottom {
+      position: absolute;
+      width: 100%;
+      height: 15px;
+      background-color: #71c2ff;
+      transform: rotate(30deg);
+      transform-origin: right center;
+      border-radius: 3px;
+    }
+
+    .arrow-junction {
+      position: absolute;
+      width: 30%;
+      height: 100%;
+      background-color: #71c2ff;
+      top: 0;
+      left: 35%;
+      border-radius: 4px;
+    }
+
+    .hexagon-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+      background: linear-gradient(135deg, #4F46E5 0%, #71c2ff 100%);
+      z-index: -1;
+      transform: scale(1.05);
+    }
+
+    /* 方形图标样式 */
+    .square-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .square-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .square-container {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .square-content {
+      width: 70%;
+      height: 70%;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      position: relative;
+    }
+
+    /* 菱形图标样式 */
+    .diamond-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .diamond-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .diamond-container {
+      width: 100%;
+      height: 100%;
+      transform: rotate(45deg);
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+    }
+
+    .diamond-body {
+      width: 70%;
+      height: 70%;
+      background: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%);
+      position: absolute;
+      top: 15%;
+      left: 15%;
+      box-shadow: 0 4px 8px rgba(236, 72, 153, 0.3);
+    }
+
+    .diamond-content {
+      width: 80%;
+      height: 80%;
+      background: rgba(255, 255, 255, 0.9);
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 三角形图标样式 */
+    .triangle-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .triangle-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .triangle-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .triangle-body {
+      width: 0;
+      height: 0;
+      border-left: 60px solid transparent;
+      border-right: 60px solid transparent;
+      border-bottom: 104px solid;
+      border-bottom-color: #F59E0B;
+      position: absolute;
+      top: 8px;
+      left: 0;
+      filter: drop-shadow(0 4px 4px rgba(245, 158, 11, 0.3));
+    }
+
+    .triangle-inner {
+      width: 0;
+      height: 0;
+      border-left: 42px solid transparent;
+      border-right: 42px solid transparent;
+      border-bottom: 72px solid white;
+      position: absolute;
+      top: 24px;
+      left: 18px;
+    }
+
+    /* 圆环图标样式 */
+    .ring-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .ring-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .ring-container {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #F97316 0%, #FBBF24 100%);
+      box-shadow: 0 4px 8px rgba(249, 115, 22, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ring-body {
+      width: 70%;
+      height: 70%;
+      border-radius: 50%;
+      background: white;
+      position: relative;
+    }
+
+    .ring-center {
+      width: 40%;
+      height: 40%;
+      border-radius: 50%;
+      background: #F97316;
+      position: absolute;
+      top: 30%;
+      left: 30%;
+    }
+
+    /* 波浪图标样式 */
+    .wave-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transition: transform 0.3s ease;
+      overflow: hidden;
+      border-radius: 15px;
+    }
+
+    .wave-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .wave-container {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0EA5E9 0%, #38BDF8 100%);
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(14, 165, 233, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wave {
+      position: absolute;
+      width: 200%;
+      height: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 40%;
+      animation: wave 4s linear infinite;
+    }
+
+    .wave-1 {
+      top: 60%;
+      left: -50%;
+      animation-delay: 0s;
+    }
+
+    .wave-2 {
+      top: 50%;
+      left: -50%;
+      animation-delay: 1s;
+      opacity: 0.6;
+    }
+
+    @keyframes wave {
+      0% {
+        transform: translateX(0) rotate(0);
+      }
+      100% {
+        transform: translateX(50%) rotate(360deg);
+      }
+    }
+
+    /* 云朵图标样式 */
+    .cloud-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .cloud-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .cloud-container {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #60A5FA 0%, #93C5FD 100%);
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(96, 165, 250, 0.3);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cloud-body {
+      width: 80px;
+      height: 35px;
+      background: white;
+      border-radius: 30px;
+      position: relative;
+      top: 5px;
+    }
+
+    .cloud-body::before,
+    .cloud-body::after {
+      content: '';
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .cloud-body::before {
+      width: 35px;
+      height: 35px;
+      top: -20px;
+      left: 12px;
+    }
+
+    .cloud-body::after {
+      width: 25px;
+      height: 25px;
+      top: -10px;
+      left: 42px;
+    }
+
+    /* 锁图标样式 */
+    .lock-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .lock-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .lock-container {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #6366F1 0%, #A5B4FC 100%);
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lock-body {
+      width: 50px;
+      height: 45px;
+      background: white;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .lock-shackle {
+      width: 30px;
+      height: 30px;
+      border: 7px solid white;
+      border-bottom: none;
+      border-radius: 30px 30px 0 0;
+      position: absolute;
+      top: -25px;
+      left: 10px;
+    }
+
+    .lock-keyhole {
+      width: 10px;
+      height: 10px;
+      background: #6366F1;
+      border-radius: 50%;
+      position: absolute;
+      top: 18px;
+      left: 20px;
+    }
+
+    /* 齿轮图标样式 */
+    .gear-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .gear-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .gear-container {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #475569 0%, #94A3B8 100%);
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(71, 85, 105, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gear-body {
+      width: 60px;
+      height: 60px;
+      background: white;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .gear-tooth {
+      width: 15px;
+      height: 15px;
+      background: white;
+      position: absolute;
+    }
+
+    .gear-tooth:nth-child(1) {
+      top: -7.5px;
+      left: calc(50% - 7.5px);
+    }
+
+    .gear-tooth:nth-child(2) {
+      top: calc(50% - 7.5px);
+      right: -7.5px;
+    }
+
+    .gear-tooth:nth-child(3) {
+      bottom: -7.5px;
+      left: calc(50% - 7.5px);
+    }
+
+    .gear-tooth:nth-child(4) {
+      top: calc(50% - 7.5px);
+      left: -7.5px;
+    }
+
+    .gear-center {
+      width: 20px;
+      height: 20px;
+      background: #475569;
+      border-radius: 50%;
+      position: absolute;
+      top: calc(50% - 10px);
+      left: calc(50% - 10px);
+    }
+
+    /* 气泡图标样式 */
+    .bubble-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .bubble-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .bubble-container {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #14B8A6 0%, #5EEAD4 100%);
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(20, 184, 166, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .bubble-main {
+      width: 50px;
+      height: 50px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 25px;
+      left: 30px;
+    }
+
+    .bubble-small {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .bubble-1 {
+      width: 15px;
+      height: 15px;
+      top: 60px;
+      right: 45px;
+    }
+
+    .bubble-2 {
+      width: 20px;
+      height: 20px;
+      bottom: 30px;
+      right: 35px;
+    }
+
+    .bubble-3 {
+      width: 10px;
+      height: 10px;
+      bottom: 25px;
+      left: 45px;
+    }
+
+    @media (max-width: 768px) {
+      .icons-container {
+        gap: 20px;
+      }
+      
+      .icon-base, .triplex-connector, .hexagon-icon,
+      .square-icon, .diamond-icon, .triangle-icon,
+      .ring-icon, .wave-icon, .cloud-icon, 
+      .lock-icon, .gear-icon, .bubble-icon {
+        width: 90px;
+        height: 90px;
+      }
+      
+      .triplex-dot {
+        width: 6px;
+        height: 6px;
+      }
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #4F46E5;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-decoration: none;
+    }
+
+    .download-btn:hover {
+      background-color: #4338CA;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>tpxUSD币种图标集合</h1>
+    
+    <div class="icons-container">
+      <!-- 图标1: 经典tpxUSD币种图标 -->
+      <div class="icon-item">
+        <div class="triplex-connector">
+          <div class="triplex-circle">
+            <div class="usd-symbol">
+              <div class="ripple-effect ripple-1"></div>
+              <div class="ripple-effect ripple-2"></div>
+              <div class="ripple-effect ripple-3"></div>
+              <div class="tpx-prefix">
+                <div class="tpx-text">tpx</div>
+              </div>
+              <div class="dollar-sign">
+                <div class="dollar-vertical"></div>
+                <div class="dollar-curve-top"></div>
+                <div class="dollar-curve-bottom"></div>
+              </div>
+            </div>
+            <div class="triplex-dots">
+              <div class="triplex-dot" style="top: 30%; left: 10%;"></div>
+              <div class="triplex-dot" style="top: 10%; left: 30%;"></div>
+              <div class="triplex-dot" style="top: 30%; right: 10%;"></div>
+              <div class="triplex-dot" style="top: 10%; right: 30%;"></div>
+              <div class="triplex-dot" style="bottom: 10%; left: 30%;"></div>
+              <div class="triplex-dot" style="bottom: 30%; left: 10%;"></div>
+              <div class="triplex-dot" style="bottom: 10%; right: 30%;"></div>
+              <div class="triplex-dot" style="bottom: 30%; right: 10%;"></div>
+              <div class="triplex-dot" style="left: 0; top: 50%; transform: translateY(-50%);"></div>
+              <div class="triplex-dot" style="right: 0; top: 50%; transform: translateY(-50%);"></div>
+              <div class="triplex-dot" style="bottom: 0; left: 50%; transform: translateX(-50%);"></div>
+              <div class="triplex-dot" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="icon-label">经典tpxUSD</div>
+      </div>
+
+      <!-- 图标2: 方形tpxUSD币种图标 -->
+      <div class="icon-item">
+        <div class="triplex-connector" style="border-radius: 12px; overflow: hidden;">
+          <div class="triplex-circle" style="background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%); border-radius: 12px;">
+            <div class="usd-symbol">
+              <div class="ripple-effect ripple-1" style="border-radius: 10px;"></div>
+              <div class="ripple-effect ripple-2" style="border-radius: 10px;"></div>
+              <div class="ripple-effect ripple-3" style="border-radius: 10px;"></div>
+              <div class="tpx-prefix">
+                <div class="tpx-text">tpx</div>
+              </div>
+              <div class="dollar-sign">
+                <div class="dollar-vertical"></div>
+                <div class="dollar-curve-top"></div>
+                <div class="dollar-curve-bottom"></div>
+              </div>
+            </div>
+            <div class="triplex-dots">
+              <div class="triplex-dot" style="top: 20%; left: 20%;"></div>
+              <div class="triplex-dot" style="top: 20%; right: 20%;"></div>
+              <div class="triplex-dot" style="bottom: 20%; left: 20%;"></div>
+              <div class="triplex-dot" style="bottom: 20%; right: 20%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="icon-label">方形tpxUSD</div>
+      </div>
+
+      <!-- 图标3: 暗黑tpxUSD币种图标 -->
+      <div class="icon-item">
+        <div class="triplex-connector">
+          <div class="triplex-circle" style="background: linear-gradient(135deg, #111827 0%, #374151 100%);">
+            <div class="usd-symbol">
+              <div class="ripple-effect ripple-1" style="border-color: rgba(16, 185, 129, 0.8);"></div>
+              <div class="ripple-effect ripple-2" style="border-color: rgba(16, 185, 129, 0.8);"></div>
+              <div class="ripple-effect ripple-3" style="border-color: rgba(16, 185, 129, 0.8);"></div>
+              <div class="tpx-prefix">
+                <div class="tpx-text" style="color: #10B981;">tpx</div>
+              </div>
+              <div class="dollar-sign">
+                <div class="dollar-vertical" style="background-color: #10B981;"></div>
+                <div class="dollar-curve-top" style="border-color: #10B981;"></div>
+                <div class="dollar-curve-bottom" style="border-color: #10B981;"></div>
+              </div>
+            </div>
+            <div class="triplex-dots">
+              <div class="triplex-dot" style="top: 20%; left: 20%; background-color: #10B981;"></div>
+              <div class="triplex-dot" style="top: 20%; right: 20%; background-color: #10B981;"></div>
+              <div class="triplex-dot" style="bottom: 20%; left: 20%; background-color: #10B981;"></div>
+              <div class="triplex-dot" style="bottom: 20%; right: 20%; background-color: #10B981;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="icon-label">暗黑tpxUSD</div>
+      </div>
+
+      <!-- 图标4: 六边形tpxUSD币种图标 -->
+      <div class="icon-item">
+        <div class="triplex-connector" style="clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);">
+          <div class="triplex-circle" style="background: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 100%); clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);">
+            <div class="usd-symbol">
+              <div class="ripple-effect ripple-1" style="clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);"></div>
+              <div class="ripple-effect ripple-2" style="clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);"></div>
+              <div class="ripple-effect ripple-3" style="clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);"></div>
+              <div class="tpx-prefix">
+                <div class="tpx-text">tpx</div>
+              </div>
+              <div class="dollar-sign">
+                <div class="dollar-vertical"></div>
+                <div class="dollar-curve-top"></div>
+                <div class="dollar-curve-bottom"></div>
+              </div>
+            </div>
+            <div class="triplex-dots">
+              <div class="triplex-dot" style="top: 20%; left: 20%;"></div>
+              <div class="triplex-dot" style="top: 20%; right: 20%;"></div>
+              <div class="triplex-dot" style="bottom: 20%; left: 20%;"></div>
+              <div class="triplex-dot" style="bottom: 20%; right: 20%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="icon-label">六边形tpxUSD</div>
+      </div>
+
+      <!-- 图标5: 霓虹tpxUSD币种图标 -->
+      <div class="icon-item">
+        <div class="triplex-connector">
+          <div class="triplex-circle" style="background: linear-gradient(135deg, #7928CA 0%, #FF0080 100%); box-shadow: 0 0 15px rgba(255, 0, 128, 0.7);">
+            <div class="usd-symbol">
+              <div class="ripple-effect ripple-1" style="border-color: rgba(255, 255, 255, 0.8); box-shadow: 0 0 10px rgba(255, 0, 128, 0.5);"></div>
+              <div class="ripple-effect ripple-2" style="border-color: rgba(255, 255, 255, 0.8); box-shadow: 0 0 10px rgba(255, 0, 128, 0.5);"></div>
+              <div class="ripple-effect ripple-3" style="border-color: rgba(255, 255, 255, 0.8); box-shadow: 0 0 10px rgba(255, 0, 128, 0.5);"></div>
+              <div class="tpx-prefix">
+                <div class="tpx-text" style="text-shadow: 0 0 5px #FF0080;">tpx</div>
+              </div>
+              <div class="dollar-sign">
+                <div class="dollar-vertical" style="box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);"></div>
+                <div class="dollar-curve-top" style="box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);"></div>
+                <div class="dollar-curve-bottom" style="box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);"></div>
+              </div>
+            </div>
+            <div class="triplex-dots">
+              <div class="triplex-dot" style="top: 20%; left: 20%; box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);"></div>
+              <div class="triplex-dot" style="top: 20%; right: 20%; box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);"></div>
+              <div class="triplex-dot" style="bottom: 20%; left: 20%; box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);"></div>
+              <div class="triplex-dot" style="bottom: 20%; right: 20%; box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="icon-label">霓虹tpxUSD</div>
+      </div>
+
+      <!-- 图标6: 金属质感tpxUSD -->
+      <div class="icon-item">
+        <div class="triplex-connector">
+          <div class="triplex-circle" style="background: linear-gradient(135deg, #94A3B8 0%, #E2E8F0 100%); border: 2px solid #64748B;">
+            <div class="usd-symbol">
+              <div class="ripple-effect ripple-1" style="border-color: rgba(30, 41, 59, 0.4);"></div>
+              <div class="ripple-effect ripple-2" style="border-color: rgba(30, 41, 59, 0.4);"></div>
+              <div class="ripple-effect ripple-3" style="border-color: rgba(30, 41, 59, 0.4);"></div>
+              <div class="tpx-prefix">
+                <div class="tpx-text" style="color: #1E293B; text-shadow: 0 1px 0 rgba(255,255,255,0.4);">tpx</div>
+              </div>
+              <div class="dollar-sign">
+                <div class="dollar-vertical" style="background-color: #1E293B; box-shadow: 0 1px 0 rgba(255,255,255,0.4);"></div>
+                <div class="dollar-curve-top" style="border-color: #1E293B; box-shadow: 1px -1px 0 rgba(255,255,255,0.4);"></div>
+                <div class="dollar-curve-bottom" style="border-color: #1E293B; box-shadow: -1px 1px 0 rgba(255,255,255,0.4);"></div>
+              </div>
+            </div>
+            <div class="triplex-dots">
+              <div class="triplex-dot" style="top: 20%; left: 20%; background-color: #1E293B; box-shadow: 0 1px 0 rgba(255,255,255,0.4);"></div>
+              <div class="triplex-dot" style="top: 20%; right: 20%; background-color: #1E293B; box-shadow: 0 1px 0 rgba(255,255,255,0.4);"></div>
+              <div class="triplex-dot" style="bottom: 20%; left: 20%; background-color: #1E293B; box-shadow: 0 1px 0 rgba(255,255,255,0.4);"></div>
+              <div class="triplex-dot" style="bottom: 20%; right: 20%; background-color: #1E293B; box-shadow: 0 1px 0 rgba(255,255,255,0.4);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="icon-label">金属tpxUSD</div>
+      </div>
+
+      <!-- 图标7: 扁平设计tpxUSD -->
+      <div class="icon-item">
+        <div class="triplex-connector" style="border-radius: 12px; overflow: hidden;">
+          <div class="triplex-circle" style="background: #3B82F6; border-radius: 12px; box-shadow: none;">
+            <div class="usd-symbol">
+              <div class="ripple-effect ripple-1" style="border-radius: 10px; border-width: 3px;"></div>
+              <div class="ripple-effect ripple-2" style="border-radius: 10px; border-width: 3px;"></div>
+              <div class="ripple-effect ripple-3" style="border-radius: 10px; border-width: 3px;"></div>
+              <div class="tpx-prefix">
+                <div class="tpx-text" style="font-size: 18px;">tpx</div>
+              </div>
+              <div class="dollar-sign" style="transform: translate(-50%, -50%) scale(1.2);">
+                <div class="dollar-vertical" style="width: 6px; border-radius: 3px;"></div>
+                <div class="dollar-curve-top" style="border-width: 6px;"></div>
+                <div class="dollar-curve-bottom" style="border-width: 6px;"></div>
+              </div>
+            </div>
+            <div class="triplex-dots">
+              <div class="triplex-dot" style="top: 20%; left: 20%; width: 10px; height: 10px;"></div>
+              <div class="triplex-dot" style="top: 20%; right: 20%; width: 10px; height: 10px;"></div>
+              <div class="triplex-dot" style="bottom: 20%; left: 20%; width: 10px; height: 10px;"></div>
+              <div class="triplex-dot" style="bottom: 20%; right: 20%; width: 10px; height: 10px;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="icon-label">扁平tpxUSD</div>
+      </div>
+
+      <!-- 图标8: 清新绿色tpxUSD -->
+      <div class="icon-item">
+        <div class="triplex-connector">
+          <div class="triplex-circle" style="background: linear-gradient(135deg, #059669 0%, #10B981 100%);">
+            <div class="usd-symbol">
+              <div class="ripple-effect ripple-1" style="border-color: rgba(255, 255, 255, 0.6);"></div>
+              <div class="ripple-effect ripple-2" style="border-color: rgba(255, 255, 255, 0.6);"></div>
+              <div class="ripple-effect ripple-3" style="border-color: rgba(255, 255, 255, 0.6);"></div>
+              <div class="tpx-prefix">
+                <div class="tpx-text" style="font-size: 16px;">tpx</div>
+              </div>
+              <div class="dollar-sign" style="transform: translate(-50%, -40%);">
+                <div class="dollar-vertical" style="height: 70%;"></div>
+                <div class="dollar-curve-top" style="width: 80%; height: 40%; top: 0%;"></div>
+                <div class="dollar-curve-bottom" style="width: 80%; height: 40%; bottom: 0%;"></div>
+              </div>
+            </div>
+            <div class="triplex-dots">
+              <div class="triplex-dot" style="top: 15%; left: 15%;"></div>
+              <div class="triplex-dot" style="top: 15%; right: 15%;"></div>
+              <div class="triplex-dot" style="bottom: 15%; left: 15%;"></div>
+              <div class="triplex-dot" style="bottom: 15%; right: 15%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="icon-label">绿色tpxUSD</div>
+      </div>
+
+      <!-- 图标9: 3D效果tpxUSD -->
+      <div class="icon-item">
+        <div class="triplex-connector">
+          <div class="triplex-circle" style="background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%); box-shadow: -5px -5px 15px rgba(255,255,255,0.1), 5px 5px 15px rgba(0,0,0,0.3);">
+            <div class="usd-symbol">
+              <div class="ripple-effect ripple-1" style="border-color: rgba(255, 255, 255, 0.4);"></div>
+              <div class="ripple-effect ripple-2" style="border-color: rgba(255, 255, 255, 0.4);"></div>
+              <div class="ripple-effect ripple-3" style="border-color: rgba(255, 255, 255, 0.4);"></div>
+              <div class="tpx-prefix">
+                <div class="tpx-text" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">tpx</div>
+              </div>
+              <div class="dollar-sign">
+                <div class="dollar-vertical" style="box-shadow: 1px 1px 2px rgba(0,0,0,0.3);"></div>
+                <div class="dollar-curve-top" style="box-shadow: 1px 1px 2px rgba(0,0,0,0.3);"></div>
+                <div class="dollar-curve-bottom" style="box-shadow: 1px 1px 2px rgba(0,0,0,0.3);"></div>
+              </div>
+            </div>
+            <div class="triplex-dots">
+              <div class="triplex-dot" style="top: 20%; left: 20%; box-shadow: 1px 1px 2px rgba(0,0,0,0.3);"></div>
+              <div class="triplex-dot" style="top: 20%; right: 20%; box-shadow: 1px 1px 2px rgba(0,0,0,0.3);"></div>
+              <div class="triplex-dot" style="bottom: 20%; left: 20%; box-shadow: 1px 1px 2px rgba(0,0,0,0.3);"></div>
+              <div class="triplex-dot" style="bottom: 20%; right: 20%; box-shadow: 1px 1px 2px rgba(0,0,0,0.3);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="icon-label">3D风格tpxUSD</div>
+      </div>
+
+      <!-- 图标10: 渐变彩虹tpxUSD -->
+      <div class="icon-item">
+        <div class="triplex-connector">
+          <div class="triplex-circle" style="background: linear-gradient(135deg, #F97316 0%, #F43F5E 50%, #8B5CF6 100%);">
+            <div class="usd-symbol">
+              <div class="ripple-effect ripple-1" style="border: 2px solid; border-image: linear-gradient(to right, #F97316, #F43F5E, #8B5CF6) 1;"></div>
+              <div class="ripple-effect ripple-2" style="border: 2px solid; border-image: linear-gradient(to right, #F43F5E, #8B5CF6, #F97316) 1;"></div>
+              <div class="ripple-effect ripple-3" style="border: 2px solid; border-image: linear-gradient(to right, #8B5CF6, #F97316, #F43F5E) 1;"></div>
+              <div class="tpx-prefix">
+                <div class="tpx-text" style="color: white; background: linear-gradient(to right, #F97316, #F43F5E, #8B5CF6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;">tpx</div>
+              </div>
+              <div class="dollar-sign">
+                <div class="dollar-vertical" style="background: linear-gradient(to bottom, #F97316, #F43F5E, #8B5CF6);"></div>
+                <div class="dollar-curve-top" style="border-image: linear-gradient(to right, #F97316, #F43F5E) 1;"></div>
+                <div class="dollar-curve-bottom" style="border-image: linear-gradient(to right, #F43F5E, #8B5CF6) 1;"></div>
+              </div>
+            </div>
+            <div class="triplex-dots">
+              <div class="triplex-dot" style="top: 20%; left: 20%; background: #F97316;"></div>
+              <div class="triplex-dot" style="top: 20%; right: 20%; background: #F43F5E;"></div>
+              <div class="triplex-dot" style="bottom: 20%; left: 20%; background: #8B5CF6;"></div>
+              <div class="triplex-dot" style="bottom: 20%; right: 20%; background: #F97316;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="icon-label">彩虹tpxUSD</div>
+      </div>
+    </div>
+
+    <a href="#" class="download-btn" onClick="alert('图标代码已复制！您可以直接在项目中使用这些HTML和CSS代码。')">下载图标</a>
+  </div>
+</body>
+</html> 

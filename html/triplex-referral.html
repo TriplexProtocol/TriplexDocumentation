@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邀请返佣 - Triplex</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #4285f4;
+            --background-color: #111827;
+            --card-color: #1f2937;
+            --text-color: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+        
+        .page-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .referral-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .stat-title {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-change {
+            color: var(--success-color);
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .referral-section {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+        }
+        
+        .referral-link {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .link-input {
+            flex: 1;
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+        
+        .copy-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .copy-button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .share-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .share-button:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .referral-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .referral-table th,
+        .referral-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .referral-table th {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .level-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            background-color: rgba(26, 115, 232, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .rules-list li {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+        
+        .rules-list li::before {
+            content: "•";
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .referral-link {
+                flex-direction: column;
+            }
+            
+            .share-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .share-button {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .user-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .user-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .user-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .user-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">T</div>
+                <span>Triplex</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="triplex-dashboard.html">仪表盘</a>
+                <a href="triplex-borrow.html">借贷</a>
+                <a href="triplex-collateral-management.html">抵押管理</a>
+                <a href="triplex-synthetic-assets.html">合成资产</a>
+                <a href="triplex-liquidity-mining.html">流动性挖矿</a>
+                <a href="triplex-governance.html">治理</a>
+                <a href="triplex-analytics.html">数据分析</a>
+                <a href="triplex-help-center.html">帮助中心</a>
+            </div>
+            <div class="user-links">
+                <a href="triplex-user-profile.html">个人中心</a>
+                <a href="triplex-notifications.html">通知</a>
+                <a href="triplex-rewards-center.html">奖励中心</a>
+                <a href="triplex-referral.html" class="active">推荐计划</a>
+                <button class="wallet-button" onclick="alert('连接钱包功能将在实际部署中启用')">连接钱包</button>
+            </div>
+        </header>
+        
+        <div class="referral-stats">
+            <div class="stat-card">
+                <div class="stat-title">累计邀请人数</div>
+                <div class="stat-value">128</div>
+                <div class="stat-change">本月 +12</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-title">累计返佣收益</div>
+                <div class="stat-value">5,678.90 TPX</div>
+                <div class="stat-change">≈ $56,789.01</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-title">本月预计返佣</div>
+                <div class="stat-value">234.56 TPX</div>
+                <div class="stat-change">≈ $2,345.67</div>
+            </div>
+        </div>
+        
+        <div class="referral-section">
+            <h2 class="section-title">邀请链接</h2>
+            <div class="referral-link">
+                <input type="text" class="link-input" value="https://triplex.finance/ref/YOUR_CODE" readonly>
+                <button class="copy-button" onclick="alert('复制功能将在实际部署中启用')">复制</button>
+            </div>
+            
+            <div class="share-buttons">
+                <button class="share-button" onclick="alert('分享功能将在实际部署中启用')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                    </svg>
+                    Twitter
+                </button>
+                
+                <button class="share-button" onclick="alert('分享功能将在实际部署中启用')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                    Facebook
+                </button>
+                
+                <button class="share-button" onclick="alert('分享功能将在实际部署中启用')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    邮件
+                </button>
+            </div>
+        </div>
+        
+        <div class="referral-section">
+            <h2 class="section-title">返佣规则</h2>
+            <ul class="rules-list">
+                <li>邀请新用户注册并完成KYC认证，可获得10 TPX奖励</li>
+                <li>被邀请用户首次质押资产，可获得质押金额1%的TPX奖励</li>
+                <li>被邀请用户参与流动性挖矿，可永久享受其挖矿收益的5%作为返佣</li>
+                <li>被邀请用户进行合成资产交易，可获得交易手续费的10%作为返佣</li>
+                <li>邀请人数达到一定规模可提升等级，享受更高比例的返佣奖励</li>
+            </ul>
+        </div>
+        
+        <div class="referral-section">
+            <h2 class="section-title">邀请记录</h2>
+            <table class="referral-table">
+                <thead>
+                    <tr>
+                        <th>用户地址</th>
+                        <th>注册时间</th>
+                        <th>累计交易量</th>
+                        <th>返佣金额</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0x1234...5678</td>
+                        <td>2024-04-01</td>
+                        <td>$12,345.67</td>
+                        <td>123.45 TPX</td>
+                        <td><span class="level-badge">活跃</span></td>
+                    </tr>
+                    <tr>
+                        <td>0x8765...4321</td>
+                        <td>2024-03-28</td>
+                        <td>$5,432.10</td>
+                        <td>54.32 TPX</td>
+                        <td><span class="level-badge">活跃</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 在实际应用中，这里会添加与后端API交互的代码
+            // 例如处理复制链接、分享功能等
+        });
+    </script>
+</body>
+</html> 

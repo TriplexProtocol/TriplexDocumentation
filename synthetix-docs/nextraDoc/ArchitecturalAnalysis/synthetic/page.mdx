@@ -1,0 +1,289 @@
+import { Callout, Cards, FileTree, Steps, Tabs } from 'nextra/components'
+
+# Synthetix V3 合成资产系统
+
+<Callout type="info">
+  Synthetix V3 的合成资产系统实现了创新的多抵押品铸造机制，支持灵活的资产管理和风险控制策略。系统通过智能合约实现链上资产的价值映射，为用户提供多样化的金融产品。
+</Callout>
+
+## 系统架构
+
+### 核心组件
+
+<Cards>
+  <Cards.Card title="资产核心" href="#核心组件">
+    基础接口、资产标准、交互协议
+  </Cards.Card>
+  <Cards.Card title="铸造模块" href="#铸造机制">
+    多抵押铸造、赎回机制、费用系统
+  </Cards.Card>
+  <Cards.Card title="抵押管理" href="#抵押品管理">
+    资产估值、风险控制、清算机制
+  </Cards.Card>
+  <Cards.Card title="市场接口" href="#市场机制">
+    交易支持、价格发现、流动性管理
+  </Cards.Card>
+</Cards>
+
+### 系统结构
+
+<FileTree>
+  <FileTree.Folder name="Synthetic System" defaultOpen>
+    <FileTree.Folder name="Core" defaultOpen>
+      <FileTree.File name="SynthCore.sol" />
+      <FileTree.File name="AssetModule.sol" />
+      <FileTree.File name="PriceAggregator.sol" />
+    </FileTree.Folder>
+    <FileTree.Folder name="Minting">
+      <FileTree.File name="MintingModule.sol" />
+      <FileTree.File name="CollateralManager.sol" />
+      <FileTree.File name="FeeSystem.sol" />
+    </FileTree.Folder>
+    <FileTree.Folder name="Markets">
+      <FileTree.File name="TradingModule.sol" />
+      <FileTree.File name="LiquidityPool.sol" />
+      <FileTree.File name="MarketState.sol" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+## 合成资产类型
+
+### 基础资产
+
+<Tabs items={['稳定币', '加密资产', '传统资产']}>
+  <Tabs.Tab>
+    ```solidity
+    interface IStableSynth {
+        function mint(
+            uint256 accountId,
+            uint256 amount,
+            bytes32 collateralType
+        ) external returns (uint256);
+        
+        function burn(
+            uint256 accountId,
+            uint256 amount
+        ) external returns (uint256);
+        
+        function getCollateralRatio(bytes32 collateralType) 
+            external 
+            view 
+            returns (uint256);
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="比特币" href="#基础资产">
+        sBTC、价格追踪、交易对支持
+      </Cards.Card>
+      <Cards.Card title="以太坊" href="#基础资产">
+        sETH、抵押品支持、衍生品基础
+      </Cards.Card>
+      <Cards.Card title="其他" href="#基础资产">
+        主流代币、跨链资产、新兴资产
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **股票合成资产**
+         - 股票指数
+         - 个股代币
+         - ETF映射
+      
+      2. **商品合成资产**
+         - 贵金属
+         - 能源产品
+         - 农产品
+    </Steps>
+  </Tabs.Tab>
+</Tabs>
+
+## 铸造机制
+
+### 铸造流程
+
+<Steps>
+  1. **抵押品存入**
+     - 选择抵押品类型
+     - 确定存入数量
+     - 验证抵押率
+  
+  2. **铸造计算**
+     - 获取价格数据
+     - 计算可铸造量
+     - 应用铸造费用
+  
+  3. **资产铸造**
+     - 锁定抵押品
+     - 生成合成资产
+     - 更新账户状态
+</Steps>
+
+### 多抵押品策略
+
+<Cards>
+  <Cards.Card title="标准铸造" href="#多抵押品策略">
+    固定抵押率、单一抵押品、明确风险
+  </Cards.Card>
+  <Cards.Card title="混合抵押" href="#多抵押品策略">
+    多资产组合、风险权重、资本优化
+  </Cards.Card>
+  <Cards.Card title="动态调整" href="#多抵押品策略">
+    市场响应、波动性考虑、自动调节
+  </Cards.Card>
+  <Cards.Card title="优化策略" href="#多抵押品策略">
+    收益最大化、风险最小化、资本效率
+  </Cards.Card>
+</Cards>
+
+## 抵押品管理
+
+### 支持资产
+
+<Tabs items={['核心资产', '稳定币', '收益资产']}>
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="ETH" href="#支持资产">
+        原生代币、高流动性、基础抵押品
+      </Cards.Card>
+      <Cards.Card title="wBTC" href="#支持资产">
+        比特币映射、价值储存、跨链资产
+      </Cards.Card>
+      <Cards.Card title="质押资产" href="#支持资产">
+        stETH、rETH、流动性质押
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **中心化稳定币**
+         - USDC
+         - USDT
+         - BUSD
+      
+      2. **去中心化稳定币**
+         - DAI
+         - LUSD
+         - sUSD
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="LP代币" href="#支持资产">
+        AMM流动性、收益分享、组合风险
+      </Cards.Card>
+      <Cards.Card title="收益代币" href="#支持资产">
+        yvTokens、aTokens、复合收益
+      </Cards.Card>
+      <Cards.Card title="质押代币" href="#支持资产">
+        SNX质押、治理代币、协议激励
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+### 风险管理
+
+<Callout type="warning">
+  抵押品管理系统实施全面的风险控制措施，包括动态抵押率、清算机制和紧急处理流程，确保系统的安全性和稳定性。
+</Callout>
+
+#### 风险控制
+
+<Cards>
+  <Cards.Card title="抵押率管理" href="#风险控制">
+    最低要求、动态调整、市场响应
+  </Cards.Card>
+  <Cards.Card title="清算机制" href="#风险控制">
+    触发条件、执行流程、奖励分配
+  </Cards.Card>
+  <Cards.Card title="价格监控" href="#风险控制">
+    预言机集成、偏差检测、紧急暂停
+  </Cards.Card>
+  <Cards.Card title="风险预警" href="#风险控制">
+    健康度监控、自动通知、干预措施
+  </Cards.Card>
+</Cards>
+
+## 市场机制
+
+### 交易支持
+
+<Steps>
+  1. **现货交易**
+     - 即时兑换
+     - 价格发现
+     - 流动性提供
+  
+  2. **衍生品基础**
+     - 永续合约
+     - 期权合约
+     - 结构化产品
+  
+  3. **收益机制**
+     - 交易费用
+     - 铸造费用
+     - 清算奖励
+</Steps>
+
+### 价格机制
+
+<Tabs items={['价格发现', '预言机集成', '风险控制']}>
+  <Tabs.Tab>
+    ```solidity
+    interface IPriceAggregator {
+        function getPrice(bytes32 assetId) 
+            external 
+            view 
+            returns (uint256 price, uint256 timestamp);
+        
+        function validatePrice(
+            bytes32 assetId,
+            uint256 price,
+            uint256 timestamp
+        ) external view returns (bool);
+        
+        event PriceUpdated(
+            bytes32 indexed assetId,
+            uint256 price,
+            uint256 timestamp
+        );
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="数据源">
+        Chainlink、API3、自建预言机
+      </Cards.Card>
+      <Cards.Card title="聚合机制">
+        中位数、加权平均、异常剔除
+      </Cards.Card>
+      <Cards.Card title="更新策略">
+        定时更新、触发更新、紧急更新
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **价格保护**
+         - 偏差检测
+         - 延迟机制
+         - 阈值限制
+      
+      2. **应急措施**
+         - 价格冻结
+         - 交易暂停
+         - 系统降级
+    </Steps>
+  </Tabs.Tab>
+</Tabs>

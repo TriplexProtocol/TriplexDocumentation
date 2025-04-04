@@ -1,0 +1,348 @@
+import { Callout, Cards, FileTree, Steps, Tabs } from 'nextra/components'
+
+# Synthetix V3 工具系统
+
+<Callout type="info">
+  Synthetix V3 提供了完整的开发工具链和工作流程支持，包括开发环境设置、IDE 集成、测试框架和部署工具，以确保高效的开发和运维过程。
+</Callout>
+
+## 开发环境
+
+### 基础工具链
+
+<Cards>
+  <Cards.Card title="编程语言">
+    Solidity、Move、TypeScript
+  </Cards.Card>
+  <Cards.Card title="开发框架">
+    Hardhat、Foundry、Sui Move
+  </Cards.Card>
+  <Cards.Card title="测试工具">
+    单元测试、集成测试、模拟测试
+  </Cards.Card>
+  <Cards.Card title="部署工具">
+    合约部署、多链部署、版本管理
+  </Cards.Card>
+</Cards>
+
+### 环境配置
+
+<Tabs items={['Solidity 环境', 'Move 环境', 'TypeScript 环境']}>
+  <Tabs.Tab>
+    <Steps>
+      1. **Node.js 安装**
+         - 使用 nvm 管理版本
+         - 安装 Node.js LTS
+         - 配置 npm 源
+      
+      2. **开发框架**
+         - 安装 Hardhat
+         - 配置 Foundry
+         - 设置编译器
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    ```bash
+    # 安装 Rust
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    
+    # 安装 Sui CLI
+    cargo install --locked --git https://github.com/MystenLabs/sui.git sui
+    
+    # 安装语言分析器
+    cargo install --git https://github.com/move-language/move move-analyzer
+    
+    # 创建项目
+    sui move new project_name
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="依赖管理">
+        yarn/npm、版本控制、类型定义
+      </Cards.Card>
+      <Cards.Card title="开发工具">
+        TypeScript、ESLint、Prettier
+      </Cards.Card>
+      <Cards.Card title="测试框架">
+        Jest、Mocha、测试覆盖
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## IDE 集成
+
+### 开发工具
+
+<Cards>
+  <Cards.Card title="VSCode">
+    智能提示、语法高亮、调试支持
+  </Cards.Card>
+  <Cards.Card title="Windsurf">
+    专业开发、扩展支持、自定义配置
+  </Cards.Card>
+  <Cards.Card title="WebStorm">
+    JavaScript 支持、调试工具、版本控制
+  </Cards.Card>
+  <Cards.Card title="Remix">
+    在线开发、快速测试、合约交互
+  </Cards.Card>
+</Cards>
+
+### 扩展配置
+
+<Tabs items={['Solidity', 'Move', 'TypeScript']}>
+  <Tabs.Tab>
+    <FileTree>
+      <FileTree.Folder name="VSCode Extensions" defaultOpen>
+        <FileTree.File name="solidity.solidity" />
+        <FileTree.File name="juanblanco.solidity" />
+        <FileTree.File name="tintinweb.solidity-visual-auditor" />
+      </FileTree.Folder>
+    </FileTree>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **Move 扩展**
+         - Move Analyzer
+         - Sui Move Analyzer
+         - Move Syntax
+         - Move MSL Syntax
+      
+      2. **配置设置**
+         - 语言服务器路径
+         - 语法高亮
+         - 代码格式化
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="TypeScript">
+        类型支持、代码导航、重构工具
+      </Cards.Card>
+      <Cards.Card title="ESLint">
+        代码检查、规则配置、自动修复
+      </Cards.Card>
+      <Cards.Card title="Prettier">
+        代码格式化、风格统一、配置共享
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 测试框架
+
+### 测试类型
+
+<Cards>
+  <Cards.Card title="单元测试">
+    合约函数、业务逻辑、边界条件
+  </Cards.Card>
+  <Cards.Card title="集成测试">
+    模块交互、系统流程、状态验证
+  </Cards.Card>
+  <Cards.Card title="性能测试">
+    gas 优化、负载测试、压力测试
+  </Cards.Card>
+  <Cards.Card title="安全测试">
+    漏洞扫描、审计工具、模糊测试
+  </Cards.Card>
+</Cards>
+
+### 测试工具
+
+<Tabs items={['合约测试', 'API 测试', '自动化测试']}>
+  <Tabs.Tab>
+    ```solidity
+    // 测试合约示例
+    contract TestExample {
+        function testDeposit() public {
+            // 准备测试数据
+            uint256 amount = 100;
+            address user = address(1);
+            
+            // 执行测试
+            vm.prank(user);
+            vault.deposit(amount);
+            
+            // 验证结果
+            assertEq(
+                vault.balanceOf(user),
+                amount,
+                "Deposit failed"
+            );
+        }
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **接口测试**
+         - 请求验证
+         - 响应检查
+         - 状态确认
+      
+      2. **集成测试**
+         - 流程验证
+         - 数据一致性
+         - 异常处理
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="CI/CD">
+        自动构建、测试运行、部署流程
+      </Cards.Card>
+      <Cards.Card title="监控工具">
+        性能监控、错误追踪、日志分析
+      </Cards.Card>
+      <Cards.Card title="报告生成">
+        覆盖率报告、测试报告、分析报告
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 部署工具
+
+### 部署流程
+
+<Steps>
+  1. **环境准备**
+     - 网络选择
+     - 配置验证
+     - 密钥管理
+  
+  2. **合约部署**
+     - 编译验证
+     - 部署执行
+     - 地址记录
+  
+  3. **合约验证**
+     - 代码验证
+     - 功能测试
+     - 安全检查
+  
+  4. **监控维护**
+     - 状态监控
+     - 升级管理
+     - 问题处理
+</Steps>
+
+### 多链支持
+
+<Tabs items={['以太坊', 'Layer2', '其他公链']}>
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="主网部署">
+        gas 优化、安全验证、升级计划
+      </Cards.Card>
+      <Cards.Card title="测试网络">
+        功能测试、性能测试、集成测试
+      </Cards.Card>
+      <Cards.Card title="本地网络">
+        快速验证、调试支持、开发测试
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **Optimism**
+         - OVM 兼容性
+         - 跨层交互
+         - 状态同步
+      
+      2. **Arbitrum**
+         - Nitro 支持
+         - 交易验证
+         - 数据可用性
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="BSC">
+        合约适配、验证支持、监控工具
+      </Cards.Card>
+      <Cards.Card title="Polygon">
+        POS 桥接、快速确认、成本优化
+      </Cards.Card>
+      <Cards.Card title="Avalanche">
+        C-Chain 部署、跨链支持、性能优化
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 监控工具
+
+### 监控指标
+
+<Cards>
+  <Cards.Card title="链上数据">
+    交易状态、合约事件、gas 消耗
+  </Cards.Card>
+  <Cards.Card title="性能指标">
+    响应时间、吞吐量、资源使用
+  </Cards.Card>
+  <Cards.Card title="业务指标">
+    用户活动、交易量、错误率
+  </Cards.Card>
+  <Cards.Card title="安全指标">
+    异常行为、攻击检测、风险评估
+  </Cards.Card>
+</Cards>
+
+### 工具集成
+
+<Tabs items={['监控平台', '告警系统', '分析工具']}>
+  <Tabs.Tab>
+    <Steps>
+      1. **数据采集**
+         - 事件监听
+         - 指标收集
+         - 日志记录
+      
+      2. **数据处理**
+         - 实时分析
+         - 趋势计算
+         - 报告生成
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="告警规则">
+        阈值设置、条件触发、级别定义
+      </Cards.Card>
+      <Cards.Card title="通知渠道">
+        邮件通知、消息推送、语音提醒
+      </Cards.Card>
+      <Cards.Card title="响应流程">
+        问题确认、处理分配、状态追踪
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **数据分析**
+         - 模式识别
+         - 异常检测
+         - 性能分析
+      
+      2. **优化建议**
+         - 性能优化
+         - 成本降低
+         - 安全加强
+    </Steps>
+  </Tabs.Tab>
+</Tabs> 

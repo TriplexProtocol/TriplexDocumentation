@@ -1,0 +1,158 @@
+import { Callout, Cards, Steps } from 'nextra/components'
+
+# Synthetix V3 系统分析文档
+
+<Callout type="info">
+  本文档提供 Synthetix V3 系统分析的综合索引，将各个模块的详细分析文档组织在一起，方便整体了解系统架构和业务流程。
+</Callout>
+
+## 系统概述
+
+Synthetix V3 是一个去中心化的衍生品流动性协议，允许创建合成资产并在链上交易，通过创新的池化流动性机制和灵活的多抵押品系统提供无滑点交易体验。
+
+## 核心模块
+
+<Cards>
+  <Cards.Card title="Core 系统" href="/ArchitecturalAnalysis/core">
+    系统核心架构与基础设施
+  </Cards.Card>
+  <Cards.Card title="市场系统" href="/ArchitecturalAnalysis/markets">
+    永续合约与现货交易市场
+  </Cards.Card>
+  <Cards.Card title="Oracle 系统" href="/ArchitecturalAnalysis/oracle">
+    价格数据与喂价机制
+  </Cards.Card>
+  <Cards.Card title="合成资产系统" href="/ArchitecturalAnalysis/synthetic">
+    资产铸造与管理
+  </Cards.Card>
+  <Cards.Card title="跨链系统" href="/ArchitecturalAnalysis/cross-chain">
+    跨链互操作与资产桥接
+  </Cards.Card>
+  <Cards.Card title="治理系统" href="/ArchitecturalAnalysis/governance">
+    系统治理与参数控制
+  </Cards.Card>
+  <Cards.Card title="账户系统" href="/ArchitecturalAnalysis/accounts">
+    账户管理与权限控制
+  </Cards.Card>
+  <Cards.Card title="性能分析" href="/ArchitecturalAnalysis/performance">
+    系统性能与优化
+  </Cards.Card>
+  <Cards.Card title="安全分析" href="/ArchitecturalAnalysis/security">
+    安全机制与风险控制
+  </Cards.Card>
+</Cards>
+
+## 主要业务流程
+
+### 合成资产铸造流程
+
+<Steps>
+  1. **账户验证**
+     - 用户请求使用账户
+     - 账户系统验证权限
+  
+  2. **抵押品存入**
+     - 用户向流动性池存入抵押品
+     - 流动性池记录抵押品
+  
+  3. **价格查询**
+     - 系统从 Oracle 获取价格数据
+     - Oracle 返回最新价格
+  
+  4. **抵押率检查**
+     - 检查抵押品价值与铸造额度
+     - 确认抵押充足性
+  
+  5. **资产铸造**
+     - 创建合成资产
+     - 转移资产给用户
+     - 更新债务记录
+</Steps>
+
+### 交易执行流程
+
+<Steps>
+  1. **交易准备**
+     - 交易者进行账户授权
+     - 验证交易权限
+  
+  2. **订单提交**
+     - 提交交易订单
+     - 获取最新价格数据
+  
+  3. **订单验证**
+     - 验证交易条件
+     - 执行交易匹配
+  
+  4. **流动性提供**
+     - 请求交易流动性
+     - 确认流动性充足
+  
+  5. **交易完成**
+     - 确认交易执行
+     - 分配交易费用
+</Steps>
+
+### 治理决策流程
+
+<Steps>
+  1. **提案阶段**
+     - SNX 持有者提交提案
+     - 代表理事会初步审议
+  
+  2. **评估阶段**
+     - 理事会讨论和评估
+     - 根据提案类型决定流程
+  
+  3. **投票阶段**
+     - 重大变更：提交公投
+     - 常规变更：理事会表决
+  
+  4. **执行阶段**
+     - 批准并记录决策
+     - 应用参数变更
+     - 确认变更完成
+</Steps>
+
+## 模块依赖关系
+
+<Callout type="warning">
+  系统各模块之间存在复杂的依赖关系，在开发和升级时需要特别注意维护模块间的兼容性。
+</Callout>
+
+### 分层架构
+
+1. **基础层**
+   - 系统核心
+   - 账户系统
+   - Oracle 系统
+
+2. **功能层**
+   - 流动性池
+   - 合成资产系统
+
+3. **应用层**
+   - 市场系统
+
+4. **控制层**
+   - 治理系统
+
+## 未来扩展方向
+
+<Cards>
+  <Cards.Card title="深入技术实现" href="/ArchitecturalAnalysis/deep-dive-topics#technical">
+    - 智能合约架构与设计模式
+    - 安全措施与防攻击机制
+    - 性能优化策略
+  </Cards.Card>
+  <Cards.Card title="功能扩展" href="/ArchitecturalAnalysis/deep-dive-topics#features">
+    - 新型合成资产支持
+    - 跨链互操作性增强
+    - 治理机制优化
+  </Cards.Card>
+  <Cards.Card title="生态集成" href="/ArchitecturalAnalysis/deep-dive-topics#ecosystem">
+    - DeFi 协议集成
+    - 第三方服务对接
+    - 开发者工具完善
+  </Cards.Card>
+</Cards>

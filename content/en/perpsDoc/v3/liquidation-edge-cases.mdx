@@ -1,0 +1,144 @@
+# Liquidation Edge Cases
+
+Liquidation is an important safeguard mechanism in derivatives trading, but complex situations may arise in certain special cases. This article introduces potential liquidation edge cases in the Triplex system to help traders better understand and respond to these situations.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+Understanding liquidation edge cases is crucial for managing trading risks. Although these situations are rare, they can have a significant impact on your account.
+</Callout>
+
+## Jump Liquidation Due to Rapid Price Fluctuations
+
+Under extreme market conditions, asset prices may change dramatically in a short period, leading to some special liquidation situations:
+
+### Price Jump Liquidation
+
+When market prices suddenly fluctuate significantly, an account may skip the regular liquidation threshold and enter a more severe state:
+
+- **Normal Situation**: Account health gradually declines, triggering liquidation when it reaches 100% maintenance margin requirement
+- **Jump Situation**: Sudden price changes may cause account health to jump directly from a safe zone to a severely deficient state
+
+### Trader Response Strategies
+
+To prevent unexpected liquidation due to price jumps, traders can:
+
+1. **Set a Higher Safety Buffer**: Maintain margin above the minimum requirement
+2. **Use Stop-Loss Orders**: Automatically close positions when prices reach specific thresholds
+3. **Diversify Collateral**: Use various collaterals to reduce the impact of price fluctuations of a single asset
+
+## Collateral Value Assessment Delay
+
+In some cases, oracle data updates may be delayed, affecting the liquidation process:
+
+### Delayed Price Update Situation
+
+- Oracles may take time to verify and submit new prices
+- During high volatility, there may be time gaps between price updates
+- Different collaterals may have different price update frequencies
+
+<Callout type="info">
+Triplex uses Chainlink oracles to obtain real-time price data, but even the most advanced oracles may experience delays under extreme market conditions.
+</Callout>
+
+### Potential Impact
+
+Oracle delays may lead to:
+- Actual liquidation occurring later than theoretically expected
+- Price used during liquidation differing from actual market price
+- In extreme cases, causing the system to incur unnecessary debt
+
+## Liquidation in High Gas Fee Environments
+
+Blockchain network congestion and high gas fees may impact the liquidation process:
+
+### Challenges of Liquidation Under High Gas Fees
+
+- Liquidation transactions may be delayed due to high gas fees
+- Liquidators may prioritize more profitable liquidation opportunities
+- Small position liquidations may be delayed due to being uneconomical
+
+### System Safeguards
+
+To address these situations, Triplex has implemented several safeguards:
+
+1. **Dynamic Liquidation Rewards**: Adjust liquidation rewards based on market conditions and gas fees
+2. **Priority Liquidation Queue**: Ensure accounts with the lowest health are liquidated first
+3. **Backup Liquidation Mechanism**: Activate backup mechanisms when community liquidators are inactive
+
+## Partial Liquidation of Multi-Collateral Accounts
+
+In multi-collateral accounts, the liquidation process may be more complex:
+
+### Partial Liquidation Mechanism
+
+When account health falls below the maintenance margin requirement, the system will execute partial liquidation:
+
+1. First liquidate the most volatile collateral
+2. Only liquidate enough assets to restore account health to a safe level
+3. Retain remaining collateral in the account
+
+### Liquidation Order
+
+Triplex liquidates assets in multi-collateral accounts in the following order:
+
+1. Non-stablecoin cryptocurrencies (ETH, wETH, tpxBTC, etc.)
+2. Liquidity tokens (LP tokens, derivative tokens)
+3. Stablecoins (USDC, USDe, etc.)
+
+## System Debt and Socialized Losses
+
+Under extreme market conditions, liquidation may not fully cover account debt:
+
+### System Debt Generation
+
+When the realized asset value during liquidation is insufficient to cover the account's debt to the system, the shortfall becomes system debt:
+
+1. Significant price drops causing liquidation delays
+2. Collateral value has significantly decreased at the time of liquidation
+3. Lack of liquidity due to extreme volatility
+
+### Debt Handling Mechanism
+
+Triplex takes the following measures to handle system debt:
+
+1. **Debt Pool**: Use system fee income to compensate for debt
+2. **Insurance Fund**: Maintain dedicated funds to cover unexpected losses
+3. **Socialized Loss Sharing**: In extreme cases, losses may be shared among all users
+
+<Callout type="error">
+Socialized losses under extreme market conditions are a systemic risk faced by DeFi protocols. Although Triplex has designed multiple protection mechanisms, traders should be aware of this risk.
+</Callout>
+
+## Liquidation Games and MEV
+
+The public nature of blockchains may lead to MEV (Maximum Extractable Value) opportunities during liquidation:
+
+### Liquidation Games
+
+Liquidators may compete to execute the most profitable liquidations:
+
+1. Prioritize accounts with large positions or high-value collateral
+2. Increase gas prices to ensure transaction priority
+3. Use arbitrage opportunities to gain additional profits from liquidation
+
+### Triplex Mitigation Measures
+
+To reduce the impact of MEV on the system, Triplex has implemented the following measures:
+
+1. **Fair Liquidation Rewards**: Design reasonable reward structures
+2. **Chunked Liquidation**: Break down large liquidations into multiple smaller transactions
+3. **Liquidation Delay**: Introduce short delays under specific conditions to reduce front-running opportunities
+
+## Best Practices for Handling Liquidation Edge Cases
+
+As a trader, you can take the following measures to reduce the risk of liquidation edge cases:
+
+1. **Maintain a Healthy Margin Buffer**: Keep account health well above the minimum requirement
+2. **Set Alerts**: Use Triplex platform's notification feature to monitor account health
+3. **Diversify Positions**: Avoid building overly large positions in a single market
+4. **Use Various Collaterals**: Combine stablecoin and non-stablecoin collaterals to balance risk
+5. **Regular Monitoring**: Check account status more frequently during market volatility
+6. **Understand Liquidation Mechanism**: Familiarize yourself with Triplex's liquidation rules and processes
+
+By understanding these liquidation edge cases and their response strategies, you can better manage trading risks and protect your assets on Triplex. 

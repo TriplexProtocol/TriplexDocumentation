@@ -1,0 +1,32 @@
+# Perps on Triplex Exchange
+
+## What are Perps?
+
+Perpetual swaps or Perps are a type of derivative contract that allows traders to speculate on the price of an underlying asset without owning it, similar to futures contracts. Unlike traditional futures, perpetual swaps have no expiration or settlement date, enabling traders to hold positions indefinitely. They achieve this through a mechanism called the _funding rate_, which periodically aligns the contract price with the underlying asset's market price. The funding rate is a small payment exchanged between traders who are long and those who are short, incentivizing balance in the market. This unique structure makes perpetual swaps highly liquid and versatile, ideal for hedging, leverage, or speculative trading.
+
+In decentralized finance (DeFi), perpetual swaps have grown in popularity due to their accessibility and composability with other blockchain applications. Platforms like Synthetix enable decentralized perpetual swaps by using a liquidity pool model, removing the need for traditional market makers. Traders can access a wide range of synthetic assets with minimal slippage, thanks to deep liquidity provided by stakers and a robust incentive system. This on-chain approach eliminates intermediaries, reduces counterparty risk, and ensures a transparent trading environment, making perpetual swaps a cornerstone of modern DeFi markets.
+
+## Cross-Margin Account for Enhanced Risk Management
+
+Cross-margin accounts are designed to help traders manage risk more effectively. This system increases liquidity and reduces the chances of forced liquidation by allowing collateral to cover losses across multiple positions. While cross-margin provides flexibility, it requires caution. High market volatility can lead to unrealized gains or losses exceeding the initial collateral, potentially liquidating the entire account.
+
+In Triplex, cross-margin is currently the default margin type. Isolated positions will be introduced in the future, offering even greater flexibility for traders to manage their risk.
+
+## Simplified Collateral Management in V3
+
+Triplex streamlines collateral management with a new wrapper mechanism. Instead of using sUSD directly as in earlier versions, traders can now deposit and withdraw USDC seamlessly on a 1:1 basis. This update simplifies onboarding and fund management, making it easier and more versatile for users to participate.
+
+## Funding Rates
+
+Funding rates play a crucial role in perpetual swaps. They ensure the contract price stays close to the underlying asset's value by creating a balance between long and short traders. On Synthetix Exchange, if the funding rate is negative, traders with short positions compensate those with long positions. Conversely, when the rate is positive, long traders pay short traders. For a deeper dive into funding rates and their implications, visit our comprehensive guide.
+
+## Jargon
+
+- **Unrealized Profit and Loss (UPNL):** Potential gains or losses if a trader closed their position(s).
+- **Realized Profit and Loss (PNL):** Gains or losses from closing position(s).
+- **Liquidation:** Forced closure of a position due to insufficient margin.
+- **Open Interest (OI):** Total value of ongoing perpetual contracts.
+- **Account Health (Margin Ratio):** Indicates the health of a trader's account.
+- **Initial Margin:** Percentage of a future position covered by cash or collateral.
+- **Maintenance Margin:** Minimum equity required to keep a position open.
+- **Account Equity:** Combination of account balance and UPNL. 

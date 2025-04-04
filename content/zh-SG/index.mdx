@@ -1,0 +1,116 @@
+---
+title: Triplex – 领先的去中心化流动性协议
+searchable: false
+---
+
+import { Callout, Steps, Tabs } from 'nextra/components'
+import { Features } from '@app/_components/features'
+
+# Triplex
+
+Triplex是新一代去中心化流动性协议，基于Aptos和多链技术构建，采用创新的模块化架构与智能资本配置系统。作为DeFi基础设施的突破性解决方案，Triplex有效解决了传统衍生品平台面临的流动性分散、资本效率低下和跨链互操作性等核心痛点。
+
+通过Triplex，机构和个人用户可以体验：
+- **极致资本效率**：独创的流动性聚合与分配机制，实现高达10倍的资本利用率提升
+- **多维度风险管理**：精细化的风险敞口控制，支持定制化策略部署
+- **无缝互操作体验**：跨链流动性整合，消除生态孤岛
+
+<div className="mt-16 mb-20 text-center">
+  [立即开始](/zh-SG/docs/getting-started) · [应用示例](/zh-SG/examples/basic) · [技术博客](/blog) · [架构深度解析](/zh-SG/architecturalanalysis) · [GitHub开源代码](https://github.com/triplexlabs/triplex)
+</div>
+
+<Features lang={props.params.lang} title={metadata.title} />
+
+## 核心技术架构
+
+Triplex采用先进的技术架构，提供简洁直观的开发者接口，同时保持强大的底层功能。
+
+<Tabs items={['账户集成', '市场数据', '交易执行']}>
+  <Tabs.Tab>
+    ```jsx
+    import { useAccount } from '@triplexjs/hooks'
+    
+    // 全面的账户数据访问
+    const { data } = useAccount()
+    
+    // 访问流动性、头寸、收益等
+    const { liquidity, positions, rewards } = data
+    ```
+    
+    Triplex账户系统支持多链身份统一管理，资产一览无余。
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```jsx
+    import { useMarket } from '@triplexjs/hooks'
+    
+    // 实时市场数据与深度分析
+    const { data, metrics } = useMarket('BTC-tpxUSD')
+    
+    // 高级市场指标
+    const { liquidity, volatility, fundingRate } = metrics
+    ```
+    
+    毫秒级市场数据更新，支持复杂指标计算与风险评估。
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```jsx
+    import { useTrading } from '@triplexjs/hooks'
+    
+    // 高级交易功能
+    const { openPosition, closePosition, adjustLeverage } = useTrading()
+    
+    // 执行策略交易
+    await openPosition({
+      market: 'ETH-tpxUSD',
+      size: 10,
+      leverage: 5,
+      direction: 'long'
+    })
+    ```
+    
+    一站式交易接口，支持复杂订单类型与策略执行。
+  </Tabs.Tab>
+</Tabs>
+
+## 技术生态系统
+
+Triplex V3构建了完整的DeFi基础设施生态，由四大核心组件协同运作，实现无与伦比的资本效率与风险管理能力：
+
+<Steps>
+### 智能保险库系统
+保险库作为流动性基础设施，采用分层风险架构，支持多资产组合策略，为用户提供定制化收益与风险配置。保险库通过智能合约实现自动化管理，确保资金安全的同时最大化收益。
+
+### 动态流动性池
+创新的流动性聚合技术，实现跨池资金高效调度。通过智能算法持续优化资本分配，根据市场需求和收益机会动态调整流动性，将碎片化资金转化为强大的市场深度。
+
+### 衍生品交易市场
+基于Triplex独创的风险对冲模型，支持高效率的永续合约、杠杆代币和合成资产交易。采用先进的价格发现机制和流动性路由技术，确保交易执行效率和低滑点。
+
+### 治理与激励机制
+全面的链上治理系统，结合通证经济模型，实现协议的去中心化发展。通过精心设计的激励机制，激励各方参与者为生态贡献，实现可持续增长。
+</Steps>
+
+Triplex生态持续扩展，目前已涵盖：
+
+- 高级永续合约交易系统
+- 创新型杠杆代币产品
+- 智能合成资产组合
+- 去中心化治理框架
+- 丰富的开发者集成工具
+
+<Callout type="info">
+  加入Triplex开发者社区，参与协议建设并获取早期生态激励！我们欢迎构建者共同探索去中心化金融的未来。
+</Callout>
+
+<div className="mt-16 mb-20 text-center">
+  [技术文档](/zh-SG/docs/getting-started) · [集成指南](/zh-SG/examples/basic) · [社区论坛](/blog) · [核心团队](/zh-SG/team)
+</div>
+
+<div className="mt-32 flex flex-wrap gap-3 items-center">
+  <img alt="stars" src="https://badgen.net/github/stars/triplexlabs/triplex" />
+  <img alt="license" src="https://badgen.net/npm/license/swr" />
+</div>
+
+<div className="mb-10 mt-4 text-gray-600 dark:text-gray-400 text-sm">
+  Triplex V3是由Triplex Labs Inc.打造的新一代去中心化流动性基础设施，于2024年在Aptos生态全面启动，并计划拓展至多链生态系统。
+</div>

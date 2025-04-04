@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triplex - 赎回合成资产</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #4285f4;
+            --background-color: #111827;
+            --card-color: #1f2937;
+            --text-color: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --chart-color-1: #3b82f6;
+            --chart-color-2: #10b981;
+            --chart-color-3: #f59e0b;
+            --chart-color-4: #ef4444;
+            --chart-color-5: #8b5cf6;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .user-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .user-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .user-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .user-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .wallet-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .wallet-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .menu-item {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .menu-item.active {
+            background-color: rgba(26, 115, 232, 0.2);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-secondary);
+        }
+        
+        .card {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .step-indicator {
+            display: flex;
+            margin: 30px 0;
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        
+        .step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background-color: var(--border-color);
+            z-index: 1;
+        }
+        
+        .step.completed:not(:last-child):after,
+        .step.active:not(:last-child):after {
+            background-color: var(--primary-color);
+        }
+        
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            background-color: var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step.active .step-circle {
+            background-color: var(--primary-color);
+        }
+        
+        .step.completed .step-circle {
+            background-color: var(--success-color);
+        }
+        
+        .step-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .step.active .step-label,
+        .step.completed .step-label {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 16px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .input-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-group .form-input {
+            flex-grow: 1;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        .input-addon {
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-left: none;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            color: var(--text-secondary);
+        }
+        
+        .info-container {
+            background-color: rgba(26, 115, 232, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .info-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .warning-container {
+            background-color: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning-color);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .warning-title {
+            font-weight: 600;
+            color: var(--warning-color);
+            margin-bottom: 10px;
+        }
+        
+        .asset-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .asset-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        
+        .asset-option:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .asset-option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(26, 115, 232, 0.1);
+        }
+        
+        .asset-icon {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: #000;
+            margin-right: 15px;
+        }
+        
+        .asset-info {
+            flex-grow: 1;
+        }
+        
+        .asset-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .asset-balance {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .asset-value {
+            font-weight: 600;
+            text-align: right;
+        }
+        
+        .radio-button {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            margin-left: 15px;
+            position: relative;
+        }
+        
+        .selected .radio-button {
+            border-color: var(--primary-color);
+        }
+        
+        .selected .radio-button:after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+        
+        .slider-container {
+            padding: 15px 0;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background-color: var(--border-color);
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        .slider-fill {
+            position: absolute;
+            height: 100%;
+            width: 65%;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .slider-handle {
+            position: absolute;
+            top: -7px;
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+        }
+        
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .transaction-summary {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .summary-label {
+            color: var(--text-secondary);
+        }
+        
+        .summary-value {
+            font-weight: 600;
+        }
+        
+        .total-amount {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border-color);
+        }
+        
+        .action-button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 25px;
+        }
+        
+        .action-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .action-button:disabled {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+        
+        .action-button.secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+        }
+        
+        .action-button.secondary:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .balance-display {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .balance-value {
+            font-weight: 500;
+        }
+        
+        .fee-badge {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+        
+        .price-info {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .confirmation-message {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .confirmation-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background-color: rgba(16, 185, 129, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: var(--success-color);
+        }
+        
+        .confirmation-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .confirmation-details {
+            margin: 30px auto;
+            max-width: 400px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: var(--text-secondary);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background-color: var(--border-color);
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 100%;
+            background-color: var(--success-color);
+            border-radius: 3px;
+            transform-origin: left;
+            animation: progress 1.5s ease-in-out;
+        }
+        
+        @keyframes progress {
+            0% {
+                transform: scaleX(0);
+            }
+            100% {
+                transform: scaleX(1);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">T</div>
+                <span>Triplex</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="triplex-dashboard.html">仪表盘</a>
+                <a href="triplex-borrow.html">借贷</a>
+                <a href="triplex-collateral-management.html">抵押管理</a>
+                <a href="triplex-synthetic-assets.html" class="active">合成资产</a>
+                <a href="triplex-liquidity-mining.html">流动性挖矿</a>
+                <a href="triplex-governance.html">治理</a>
+                <a href="triplex-analytics.html">数据分析</a>
+                <a href="triplex-help-center.html">帮助中心</a>
+            </div>
+            <div class="user-links">
+                <a href="triplex-user-profile.html">个人中心</a>
+                <a href="triplex-notifications.html">通知</a>
+                <a href="triplex-rewards-center.html">奖励中心</a>
+                <button class="wallet-button" onclick="alert('连接钱包功能将在实际部署中启用')">连接钱包</button>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="menu-item">抵押借贷</div>
+                <div class="menu-item active">合成资产</div>
+                <div class="menu-item">资产管理</div>
+                <div class="menu-item">清算监控</div>
+                <div class="menu-item">预言机数据</div>
+                <div class="menu-item">风险参数</div>
+            </div>
+            
+            <div class="content-area">
+                <div class="breadcrumb">
+                    <a href="#">合成资产</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <span>赎回</span>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">赎回合成资产</div>
+                    </div>
+                    
+                    <div class="step-indicator">
+                        <div class="step completed">
+                            <div class="step-circle">✓</div>
+                            <div class="step-label">选择资产</div>
+                        </div>
+                        <div class="step active">
+                            <div class="step-circle">2</div>
+                            <div class="step-label">输入数量</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-circle">3</div>
+                            <div class="step-label">确认交易</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-container">
+                        <div class="info-title">赎回说明</div>
+                        <p>赎回操作将销毁您的合成资产，并返还等值的trxUSD。赎回价格由Pyth预言机网络提供的最新市场价格决定。</p>
+                        <p>请注意，赎回过程将收取0.25%的赎回费，这笔费用将用于协议发展和流动性激励。</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-label">选择要赎回的资产</div>
+                        <div class="asset-selector">
+                            <div class="asset-option selected">
+                                <div class="asset-icon">₿</div>
+                                <div class="asset-info">
+                                    <div class="asset-name">tpxBTC</div>
+                                    <div class="asset-balance">余额: 2.5 tpxBTC</div>
+                                    <div class="price-info">当前价格: $35,842.12</div>
+                                </div>
+                                <div class="asset-value">$89,605.30</div>
+                                <div class="radio-button"></div>
+                            </div>
+                            
+                            <div class="asset-option">
+                                <div class="asset-icon">Ξ</div>
+                                <div class="asset-info">
+                                    <div class="asset-name">tpxETH</div>
+                                    <div class="asset-balance">余额: 5.8 tpxETH</div>
+                                    <div class="price-info">当前价格: $2,113.20</div>
+                                </div>
+                                <div class="asset-value">$12,256.56</div>
+                                <div class="radio-button"></div>
+                            </div>
+                            
+                            <div class="asset-option">
+                                <div class="asset-icon">G</div>
+                                <div class="asset-info">
+                                    <div class="asset-name">tpxGOLD</div>
+                                    <div class="asset-balance">余额: 3.0 oz tpxGOLD</div>
+                                    <div class="price-info">当前价格: $1,970.00 / oz</div>
+                                </div>
+                                <div class="asset-value">$5,910.00</div>
+                                <div class="radio-button"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-label">赎回数量</div>
+                        <div class="balance-display">
+                            <div>可用余额</div>
+                            <div class="balance-value">2.5 tpxBTC</div>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="form-input" placeholder="输入数量" value="1.625">
+                            <div class="input-addon">tpxBTC</div>
+                        </div>
+                        <div class="slider-container">
+                            <div class="slider">
+                                <div class="slider-fill"></div>
+                                <div class="slider-handle"></div>
+                            </div>
+                            <div class="slider-labels">
+                                <div>0%</div>
+                                <div>25%</div>
+                                <div>50%</div>
+                                <div>75%</div>
+                                <div>100%</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-label">您将收到</div>
+                        <div class="input-group">
+                            <input type="text" class="form-input" readonly value="58,196.45">
+                            <div class="input-addon">trxUSD</div>
+                        </div>
+                    </div>
+                    
+                    <div class="transaction-summary">
+                        <div class="summary-item">
+                            <div class="summary-label">赎回数量</div>
+                            <div class="summary-value">1.625 tpxBTC</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">赎回价格</div>
+                            <div class="summary-value">$35,842.12</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">赎回费用 <span class="fee-badge">0.25%</span></div>
+                            <div class="summary-value">145.49 trxUSD</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">预估Gas费用</div>
+                            <div class="summary-value">~0.0003 APT</div>
+                        </div>
+                        <div class="summary-item total-amount">
+                            <div class="summary-label">总计获得</div>
+                            <div class="summary-value">58,196.45 trxUSD</div>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-container">
+                        <div class="warning-title">赎回注意事项</div>
+                        <p>一旦赎回交易确认，您的合成资产将被销毁，这个操作不可逆转。赎回价格根据当前市场价格实时计算，可能会因价格波动而有所变化。</p>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="action-button secondary">返回</button>
+                        <button class="action-button">确认赎回</button>
+                    </div>
+                </div>
+                
+                <!-- 确认成功页面(默认隐藏) -->
+                <div class="card" style="display: none;">
+                    <div class="confirmation-message">
+                        <div class="confirmation-icon">✓</div>
+                        <div class="confirmation-title">赎回交易已提交</div>
+                        <p>您的赎回请求已成功提交至区块链，正在等待确认。</p>
+                        
+                        <div class="progress-bar-container">
+                            <div class="progress-bar"></div>
+                        </div>
+                        
+                        <div class="confirmation-details">
+                            <div class="detail-item">
+                                <div class="detail-label">赎回资产</div>
+                                <div>1.625 tpxBTC</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">获得数量</div>
+                                <div>58,196.45 trxUSD</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">交易哈希</div>
+                                <div style="font-family: monospace; font-size: 14px;">0x8ab...4f21</div>
+                            </div>
+                        </div>
+                        
+                        <div class="button-group" style="justify-content: center;">
+                            <button class="action-button">查看交易</button>
+                            <button class="action-button secondary">返回资产页面</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,68 @@
+# Margin and Collateral
+
+Margin types and collateral are key components of trading on the Triplex platform. Understanding these concepts is crucial for managing risk, optimizing capital efficiency, and enhancing trading performance.
+
+## Cross Margin: Optimizing Capital Efficiency
+
+Cross margin allows traders to use the total value of their account as collateral for multiple positions simultaneously. Unlike handling each trade separately, your entire portfolio acts as a unified source of collateral, significantly improving capital efficiency.
+
+This approach reduces the likelihood of forced liquidation of individual trades and minimizes margin requirements, as the profit from one position can offset the loss of another. However, traders should be cautious: if the total account balance falls below the required margin, the entire account is at risk of liquidation.
+
+In the future, isolated positions will be introduced, providing traders with more flexibility.
+
+## Margin Types
+
+### Cross Margin
+
+- Consolidates liabilities across multiple positions in the account
+- Balances margin across positions, reducing overall required margin
+- Helps prevent isolated trade liquidation by using profits from other positions as a buffer
+- Simplifies account management by consolidating all margin into a single balance
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+Traders should be aware that liquidation is no longer limited to individual positions but affects the entire account!
+</Callout>
+
+### Isolated Margin
+
+- Limits liabilities of each trade to its own initial margin
+- Restricts risk to specific positions, preventing it from affecting the rest of the account
+- Currently unavailable on Triplex Exchange v3 but planned for future updates. Isolated margin is only enabled for V2 traditional perpetual contracts.
+
+Cross margin, also known as "portfolio margin," offers traders several benefits, particularly in risk management, capital efficiency, and trading flexibility. Here are some key advantages:
+
+- **Enhanced Capital Efficiency**: Cross margin allows traders to use their entire account balance as collateral for open positions. This means the profit from one position can cover the loss of another, maximizing capital use without allocating specific funds for individual trades.
+
+- **Reduced Margin Calls**: By pooling collateral across all positions, traders can reduce the likelihood of receiving margin calls for specific positions, as excess margin from profitable positions can compensate for losing ones. This comprehensive approach provides a buffer against market volatility.
+
+- **Improved Risk Management**: Cross margin facilitates a more holistic view of risk exposure across all trades. Traders can hedge their positions more effectively and manage risk at the portfolio level rather than managing each trade in isolation.
+
+- **Simplified Account Management**: Managing a consolidated margin balance is simpler than monitoring separate margins for individual positions. This simplicity can save time and reduce administrative burden, allowing traders to focus more on strategy and less on account management.
+
+## What is the sUSD Alternative in Triplex?
+
+In v2, sUSD was the decentralized stablecoin used for trading. In v3, this process has been simplified. While v3 still uses synthetic USD for accounting, all deposits and withdrawals are handled through a wrapper. This means traders can now deposit and withdraw USDC at a 1:1 ratio, enabling seamless integration with other collateral types and simplifying fund management.
+
+## Collateral Types
+
+### USDe
+
+Ethena's synthetic dollar USDe provides a crypto-native, scalable currency solution by hedging Ethereum and Bitcoin collateral. USDe is fully asset-backed and can be freely used in both centralized finance (CeFi) and decentralized finance (DeFi).
+
+### tpxBTC
+
+Threshold's wrapped Bitcoin is tradable on EVM chains. While tpxBTC serves a similar purpose to other wrapped assets and stablecoins on Ethereum, Threshold decentralizes the management and custody of the underlying BTC. Oracles track the value of tpxBTC deposits when opening trades and calculating maintenance margin.
+
+### ETH/wETH
+
+wETH is the wrapped ERC20 version of ETH, and all ETH margin deposits are wrapped to allow them to be used as collateral. ETH is, of course, the native asset of the Ethereum network, with good liquidity and broad support on EVM chains. Oracles track the value of ETH deposits when opening trades and calculating maintenance margin.
+
+### USDC
+
+USDC is a fiat-backed stablecoin issued by Circle. It is pegged 1:1 to the US dollar and fully backed by reserves held in regulated financial institutions. USDC provides a highly liquid, reliable, and widely accepted stablecoin solution for users of decentralized and centralized financial applications.
+
+### stataUSDC
+
+stataUSDC is an interest-bearing version of USDC created by staking USDC into Aave's Base lending pool, generating yield while maintaining trading and collateral liquidity. 

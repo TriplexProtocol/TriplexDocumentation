@@ -1,0 +1,379 @@
+import { Callout, Cards, FileTree, Steps, Tabs, Card } from 'nextra/components'
+
+# Synthetix V3 核心系统
+
+<Callout type="info">
+  Synthetix V3 的核心系统是整个协议的基础，负责管理抵押品、质押、债务记账以及跨市场的流动性分配。系统采用模块化设计，确保各组件间的高效协作和灵活扩展。
+</Callout>
+
+## 系统架构
+
+### 核心组件
+
+<Cards>
+  <Card icon="🏦" title="保管库系统" href="/ArchitecturalAnalysis/core#保管库系统">
+    抵押品容器、债务分配、清算管理、奖励分发
+  </Card>
+  <Card icon="💰" title="资金池系统" href="/ArchitecturalAnalysis/core#资金池系统">
+    流动性聚合、市场分配、风险管理、参数治理
+  </Card>
+  <Card icon="📊" title="抵押管理" href="/ArchitecturalAnalysis/core#抵押管理系统">
+    头寸记账、债务发行、比率监控、奖励分配
+  </Card>
+  <Card icon="⚡" title="清算机制" href="/ArchitecturalAnalysis/core#清算机制">
+    头寸清算、保管库清算、奖励机制、波动保护
+  </Card>
+</Cards>
+
+### 技术实现
+
+<Tabs items={['路由代理', '模块设计', '状态管理']}>
+  <Tabs.Tab>
+    ```solidity
+    interface IRouter {
+        // 模块注册
+        function registerModule(
+            bytes32 moduleId,
+            address moduleAddress
+        ) external;
+        
+        // 模块调用
+        function executeModule(
+            bytes32 moduleId,
+            bytes calldata data
+        ) external returns (bytes memory);
+        
+        // 权限管理
+        function hasPermission(
+            address account,
+            bytes32 permission
+        ) external view returns (bool);
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <FileTree>
+      <FileTree.Folder name="Core Modules" defaultOpen>
+        <FileTree.File name="VaultModule.sol" />
+        <FileTree.File name="PoolModule.sol" />
+        <FileTree.File name="CollateralModule.sol" />
+        <FileTree.File name="IssueUSDModule.sol" />
+        <FileTree.File name="LiquidationModule.sol" />
+        <FileTree.File name="AssociateDebtModule.sol" />
+      </FileTree.Folder>
+    </FileTree>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Card icon="🔄" title="状态隔离" href="/ArchitecturalAnalysis/core#状态隔离">
+        模块独立、数据分离、升级兼容
+      </Card>
+      <Card icon="🔄" title="状态同步" href="/ArchitecturalAnalysis/core#状态同步">
+        事件通知、状态更新、一致性保证
+      </Card>
+      <Card icon="🔒" title="访问控制" href="/ArchitecturalAnalysis/core#访问控制">
+        权限管理、角色控制、操作限制
+      </Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 保管库系统
+
+### 功能特性
+
+<Cards>
+  <Card icon="💼" title="抵押品管理" href="/ArchitecturalAnalysis/core#抵押品管理">
+    存款追踪、提取控制、价值评估
+  </Card>
+  <Card icon="📈" title="债务分配" href="/ArchitecturalAnalysis/core#债务分配">
+    比例分配、动态调整、奖励计算
+  </Card>
+  <Card icon="⚖️" title="清算处理" href="/ArchitecturalAnalysis/core#清算处理">
+    触发条件、执行流程、奖励分发
+  </Card>
+  <Card icon="🎁" title="奖励系统" href="/ArchitecturalAnalysis/core#奖励系统">
+    质押奖励、清算奖励、费用分配
+  </Card>
+</Cards>
+
+### 实现细节
+
+<Tabs items={['存款管理', '债务记账', '清算流程']}>
+  <Tabs.Tab>
+    ```solidity
+    interface IVault {
+        // 存款操作
+        function deposit(
+            address account,
+            uint256 amount
+        ) external returns (uint256 shares);
+        
+        // 提取操作
+        function withdraw(
+            address account,
+            uint256 shares
+        ) external returns (uint256 amount);
+        
+        // 抵押品状态
+        function getCollateralRatio(
+            address account
+        ) external view returns (uint256);
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **债务记录**
+         - 发行追踪
+         - 比例计算
+         - 状态更新
+      
+      2. **分配机制**
+         - 权重计算
+         - 奖励分配
+         - 再平衡处理
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="触发机制" href="#触发机制">
+        阈值监控、价格触发、时间触发
+      </Cards.Card>
+      <Cards.Card title="执行流程" href="#执行流程">
+        头寸评估、清算执行、状态更新
+      </Cards.Card>
+      <Cards.Card title="奖励分发" href="#奖励分发">
+        奖励计算、分配执行、记录更新
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 资金池系统
+
+### 流动性管理
+
+<Tabs items={['池配置', '市场分配', '风险控制']}>
+  <Tabs.Tab>
+    <Steps>
+      1. **池创建**
+         - 参数设置
+         - 权限配置
+         - 初始化状态
+      
+      2. **池管理**
+         - 容量调整
+         - 权重更新
+         - 状态维护
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    ```solidity
+    interface IPool {
+        // 市场配置
+        struct MarketConfig {
+            uint256 weight;
+            uint256 maxDebt;
+            uint256 liquidationThreshold;
+        }
+        
+        // 分配流动性
+        function allocateToMarket(
+            uint256 marketId,
+            uint256 amount
+        ) external returns (bool);
+        
+        // 更新配置
+        function updateMarketConfig(
+            uint256 marketId,
+            MarketConfig calldata config
+        ) external;
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="风险评估" href="#风险评估">
+        市场监控、阈值设置、预警机制
+      </Cards.Card>
+      <Cards.Card title="限额控制" href="#限额控制">
+        市场限额、头寸限制、集中度控制
+      </Cards.Card>
+      <Cards.Card title="应急响应" href="#应急响应">
+        流动性调整、紧急暂停、恢复流程
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 抵押管理系统
+
+### 核心功能
+
+<Cards>
+  <Cards.Card title="抵押记录" href="#抵押记录">
+    存款追踪、价值评估、状态更新
+  </Cards.Card>
+  <Cards.Card title="债务管理" href="#债务管理">
+    发行控制、还款处理、利率计算
+  </Cards.Card>
+  <Cards.Card title="比率监控" href="#比率监控">
+    健康度检查、预警通知、自动调整
+  </Cards.Card>
+  <Cards.Card title="奖励分配" href="#奖励分配-1">
+    计算规则、分发机制、记录更新
+  </Cards.Card>
+</Cards>
+
+### 实现机制
+
+<Tabs items={['抵押操作', '债务处理', '奖励系统']}>
+  <Tabs.Tab>
+    ```solidity
+    interface ICollateralManager {
+        // 抵押品委托
+        function delegateCollateral(
+            address vault,
+            uint256 amount,
+            address pool
+        ) external returns (bool);
+        
+        // 抵押品赎回
+        function redeemCollateral(
+            address vault,
+            uint256 amount,
+            address recipient
+        ) external returns (bool);
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **债务发行**
+         - 额度检查
+         - 抵押验证
+         - 发行执行
+      
+      2. **债务清偿**
+         - 金额验证
+         - 还款处理
+         - 状态更新
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="奖励计算">
+        权重分配、时间加权、绩效考核
+      </Cards.Card>
+      <Cards.Card title="分发执行">
+        批量处理、gas优化、状态更新
+      </Cards.Card>
+      <Cards.Card title="记录维护">
+        快照记录、历史追踪、查询优化
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 交互流程
+
+<Steps>
+  1. **抵押品存入**
+     - 用户将抵押品存入特定保管库
+     - 系统记录存款金额和份额
+     - 更新用户抵押状态
+  
+  2. **流动性分配**
+     - 资金池根据配置分配抵押品
+     - 更新市场流动性状态
+     - 记录分配结果
+  
+  3. **市场操作**
+     - 市场使用分配的抵押品
+     - 生成合成资产或衍生品
+     - 追踪市场状态
+  
+  4. **债务管理**
+     - 记录和分配系统债务
+     - 按比例分配给参与者
+     - 更新债务状态
+  
+  5. **清算处理**
+     - 监控抵押率
+     - 触发清算条件时执行清算
+     - 分配清算奖励
+</Steps>
+
+## 系统监控
+
+### 监控指标
+
+<Cards>
+  <Cards.Card title="健康状态">
+    抵押率、债务水平、流动性深度
+  </Cards.Card>
+  <Cards.Card title="性能指标">
+    响应时间、gas消耗、吞吐容量
+  </Cards.Card>
+  <Cards.Card title="风险指标">
+    市场风险、信用风险、操作风险
+  </Cards.Card>
+  <Cards.Card title="业务指标">
+    交易量、用户活跃度、收益数据
+  </Cards.Card>
+</Cards>
+
+### 预警机制
+
+<Tabs items={['风险预警', '性能预警', '业务预警']}>
+  <Tabs.Tab>
+    <Steps>
+      1. **风险监测**
+         - 阈值监控
+         - 趋势分析
+         - 异常检测
+      
+      2. **预警响应**
+         - 通知推送
+         - 自动干预
+         - 人工处理
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="性能监控">
+        资源使用、响应延迟、容量预警
+      </Cards.Card>
+      <Cards.Card title="瓶颈分析">
+        热点识别、原因分析、优化建议
+      </Cards.Card>
+      <Cards.Card title="容量规划">
+        趋势预测、扩容建议、资源调配
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **指标监控**
+         - 业务量监测
+         - 用户行为分析
+         - 异常模式识别
+      
+      2. **干预措施**
+         - 参数调整
+         - 激励优化
+         - 市场干预
+    </Steps>
+  </Tabs.Tab>
+</Tabs>

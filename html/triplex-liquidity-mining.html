@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triplex - 流动性挖矿</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #4285f4;
+            --background-color: #111827;
+            --card-color: #1f2937;
+            --text-color: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .wallet-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .wallet-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .menu-item {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .menu-item.active {
+            background-color: rgba(26, 115, 232, 0.2);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .card {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .stat-title {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-desc {
+            font-size: 0.8em;
+            color: var(--text-secondary);
+        }
+        
+        .pool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .pool-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .pool-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .pool-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .pool-icon {
+            width: 48px;
+            height: 48px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #000;
+        }
+        
+        .pool-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .pool-subtitle {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+        
+        .pool-content {
+            padding: 20px;
+        }
+        
+        .pool-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .pool-stat {
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+        }
+        
+        .pool-stat-title {
+            font-size: 0.8em;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+        
+        .pool-stat-value {
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        
+        .pool-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .pool-button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .pool-button.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .pool-button.primary:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .pool-button.secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+        }
+        
+        .pool-button.secondary:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .tab:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        /* 添加资产类型筛选器样式 */
+        .asset-type-filter {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .asset-type-btn {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9em;
+        }
+        
+        .asset-type-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .asset-type-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .asset-type-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .pool-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pool-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 模态框样式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            padding: 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+        
+        .modal-close:hover {
+            color: var(--text-color);
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 1em;
+        }
+        
+        .input-with-max {
+            position: relative;
+        }
+        
+        .max-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .max-button:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .asset-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .asset-name {
+            font-weight: 500;
+        }
+        
+        .asset-balance {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+        
+        .info-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .info-label {
+            color: var(--text-secondary);
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-primary:disabled {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">T</div>
+                <span>Triplex</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="triplex-dashboard.html">仪表盘</a>
+                <a href="triplex-borrow.html">借贷</a>
+                <a href="triplex-collateral-management.html">抵押管理</a>
+                <a href="triplex-synthetic-assets.html">合成资产</a>
+                <a href="triplex-liquidity-mining.html" class="active">流动性挖矿</a>
+                <a href="triplex-governance.html">治理</a>
+                <a href="triplex-analytics.html">数据分析</a>
+                <a href="triplex-help-center.html">帮助中心</a>
+            </div>
+            <div class="user-links">
+                <a href="triplex-user-profile.html">个人中心</a>
+                <a href="triplex-notifications.html">通知</a>
+                <a href="triplex-rewards-center.html">奖励中心</a>
+                <button class="wallet-button" onclick="alert('连接钱包功能将在实际部署中启用')">连接钱包</button>
+            </div>
+        </header>
+        
+        <h1 class="page-title">流动性挖矿</h1>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="menu-item">抵押品管理</div>
+                <div class="menu-item">合成资产</div>
+                <div class="menu-item active">流动性挖矿</div>
+                <div class="menu-item">资产管理</div>
+                <div class="menu-item">清算监控</div>
+                <div class="menu-item">预言机数据</div>
+            </div>
+            
+            <div class="content-area">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">流动性挖矿</div>
+                            <div class="card-subtitle">为Triplex协议提供流动性，赚取TPX奖励</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-title">总锁仓价值(TVL)</div>
+                            <div class="stat-value">$8.72M</div>
+                            <div class="stat-desc">+12.4% 本周</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-title">周奖励</div>
+                            <div class="stat-value">105,000 TPX</div>
+                            <div class="stat-desc">≈ $210,000</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-title">您的锁仓</div>
+                            <div class="stat-value">$25,480</div>
+                            <div class="stat-desc">3个活跃池</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-title">待领取奖励</div>
+                            <div class="stat-value">842 TPX</div>
+                            <div class="stat-desc">≈ $1,684</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tabs">
+                        <div class="tab active">所有池</div>
+                        <div class="tab">您的参与</div>
+                        <div class="tab">奖励计划</div>
+                    </div>
+                    
+                    <!-- 添加资产类型筛选器 -->
+                    <div class="asset-type-filter">
+                        <button class="asset-type-btn active" data-type="all">全部</button>
+                        <button class="asset-type-btn" data-type="crypto">加密货币</button>
+                        <button class="asset-type-btn" data-type="stablecoin">稳定币</button>
+                        <button class="asset-type-btn" data-type="rwa">真实世界资产</button>
+                    </div>
+                    
+                    <div class="pool-grid">
+                        <div class="pool-card" data-pool-type="stablecoin">
+                            <div class="asset-type-tag">稳定币</div>
+                            <div class="pool-header">
+                                <div class="pool-icon">LP</div>
+                                <div>
+                                    <div class="pool-title">trxUSD-USDC</div>
+                                    <div class="pool-subtitle">稳定币流动性池</div>
+                                </div>
+                            </div>
+                            <div class="pool-content">
+                                <div class="pool-stats">
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">年化收益率(APR)</div>
+                                        <div class="pool-stat-value">28.5%</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">总锁仓量</div>
+                                        <div class="pool-stat-value">$3.45M</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">每周奖励</div>
+                                        <div class="pool-stat-value">45,000 TPX</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">您的份额</div>
+                                        <div class="pool-stat-value">0.8%</div>
+                                    </div>
+                                </div>
+                                <div class="pool-actions">
+                                    <button class="pool-button primary">存入</button>
+                                    <button class="pool-button secondary">提取</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pool-card" data-pool-type="crypto">
+                            <div class="asset-type-tag">加密货币</div>
+                            <div class="pool-header">
+                                <div class="pool-icon">LP</div>
+                                <div>
+                                    <div class="pool-title">trxUSD-APT</div>
+                                    <div class="pool-subtitle">交易对流动性池</div>
+                                </div>
+                            </div>
+                            <div class="pool-content">
+                                <div class="pool-stats">
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">年化收益率(APR)</div>
+                                        <div class="pool-stat-value">42.3%</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">总锁仓量</div>
+                                        <div class="pool-stat-value">$2.18M</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">每周奖励</div>
+                                        <div class="pool-stat-value">35,000 TPX</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">您的份额</div>
+                                        <div class="pool-stat-value">0.5%</div>
+                                    </div>
+                                </div>
+                                <div class="pool-actions">
+                                    <button class="pool-button primary">存入</button>
+                                    <button class="pool-button secondary">提取</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pool-card" data-pool-type="crypto">
+                            <div class="asset-type-tag">加密货币</div>
+                            <div class="pool-header">
+                                <div class="pool-icon">LP</div>
+                                <div>
+                                    <div class="pool-title">tpxBTC-trxUSD</div>
+                                    <div class="pool-subtitle">合成资产流动性池</div>
+                                </div>
+                            </div>
+                            <div class="pool-content">
+                                <div class="pool-stats">
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">年化收益率(APR)</div>
+                                        <div class="pool-stat-value">35.8%</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">总锁仓量</div>
+                                        <div class="pool-stat-value">$1.65M</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">每周奖励</div>
+                                        <div class="pool-stat-value">25,000 TPX</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">您的份额</div>
+                                        <div class="pool-stat-value">0.3%</div>
+                                    </div>
+                                </div>
+                                <div class="pool-actions">
+                                    <button class="pool-button primary">存入</button>
+                                    <button class="pool-button secondary">提取</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pool-card" data-pool-type="stablecoin">
+                            <div class="asset-type-tag">稳定币</div>
+                            <div class="pool-header">
+                                <div class="pool-icon">LP</div>
+                                <div>
+                                    <div class="pool-title">tpxUSD-USDT</div>
+                                    <div class="pool-subtitle">稳定币对流动性池</div>
+                                </div>
+                            </div>
+                            <div class="pool-content">
+                                <div class="pool-stats">
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">年化收益率(APR)</div>
+                                        <div class="pool-stat-value">32.6%</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">总锁仓量</div>
+                                        <div class="pool-stat-value">$1.42M</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">每周奖励</div>
+                                        <div class="pool-stat-value">22,000 TPX</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">您的份额</div>
+                                        <div class="pool-stat-value">0.2%</div>
+                                    </div>
+                                </div>
+                                <div class="pool-actions">
+                                    <button class="pool-button primary">存入</button>
+                                    <button class="pool-button secondary">提取</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 添加RWA资产流动性池 -->
+                        <div class="pool-card" data-pool-type="rwa">
+                            <div class="asset-type-tag">真实资产</div>
+                            <div class="pool-header">
+                                <div class="pool-icon">LP</div>
+                                <div>
+                                    <div class="pool-title">tpxGOLD-trxUSD</div>
+                                    <div class="pool-subtitle">黄金指数流动性池</div>
+                                </div>
+                            </div>
+                            <div class="pool-content">
+                                <div class="pool-stats">
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">年化收益率(APR)</div>
+                                        <div class="pool-stat-value">38.2%</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">总锁仓量</div>
+                                        <div class="pool-stat-value">$1.28M</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">每周奖励</div>
+                                        <div class="pool-stat-value">18,000 TPX</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">您的份额</div>
+                                        <div class="pool-stat-value">0.1%</div>
+                                    </div>
+                                </div>
+                                <div class="pool-actions">
+                                    <button class="pool-button primary">存入</button>
+                                    <button class="pool-button secondary">提取</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pool-card" data-pool-type="rwa">
+                            <div class="asset-type-tag">真实资产</div>
+                            <div class="pool-header">
+                                <div class="pool-icon">LP</div>
+                                <div>
+                                    <div class="pool-title">tpxOIL-USDT</div>
+                                    <div class="pool-subtitle">石油指数流动性池</div>
+                                </div>
+                            </div>
+                            <div class="pool-content">
+                                <div class="pool-stats">
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">年化收益率(APR)</div>
+                                        <div class="pool-stat-value">42.5%</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">总锁仓量</div>
+                                        <div class="pool-stat-value">$0.92M</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">每周奖励</div>
+                                        <div class="pool-stat-value">15,000 TPX</div>
+                                    </div>
+                                    <div class="pool-stat">
+                                        <div class="pool-stat-title">您的份额</div>
+                                        <div class="pool-stat-value">0%</div>
+                                    </div>
+                                </div>
+                                <div class="pool-actions">
+                                    <button class="pool-button primary">存入</button>
+                                    <button class="pool-button secondary">提取</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">如何参与流动性挖矿</div>
+                    </div>
+                    
+                    <ol style="padding-left: 20px; margin-top: 20px;">
+                        <li style="margin-bottom: 15px;">
+                            <strong>准备相应资产对</strong> - 确保您钱包中有配对资产，例如trxUSD和USDC
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <strong>创建流动性代币</strong> - 按照等值比例提供资产对到相应的流动性池
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <strong>质押LP代币</strong> - 将获得的LP代币质押到奖励池中
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <strong>收获TPX奖励</strong> - 根据您的质押比例，定期收获TPX代币奖励
+                        </li>
+                    </ol>
+                    
+                    <div style="background-color: rgba(26, 115, 232, 0.1); border-radius: 8px; padding: 15px; margin: 20px 0;">
+                        <div style="font-weight: 600; color: var(--primary-color); margin-bottom: 10px;">流动性挖矿奖励</div>
+                        <p>TPX是Triplex协议的治理代币，持有TPX可以参与协议的决策投票、享受协议收益分配，并可在二级市场交易。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 存入模态框 -->
+        <div class="modal-overlay" id="depositModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <div class="modal-title">存入流动性</div>
+                    <button class="modal-close" data-close-modal>&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="depositPoolInfo" class="info-box">
+                        <div class="info-item">
+                            <div class="info-label">流动性池</div>
+                            <div class="info-value" id="depositPoolName">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">APR</div>
+                            <div class="info-value" id="depositPoolAPR">-</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="asset-info" id="assetInfo1">
+                            <div class="asset-name" id="asset1Name">USDC</div>
+                            <div class="asset-balance">余额: <span id="asset1Balance">0.00</span></div>
+                        </div>
+                        <div class="input-with-max">
+                            <input type="number" class="form-control" id="asset1Amount" placeholder="0.00">
+                            <button class="max-button" data-asset="1">最大</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="asset-info">
+                            <div class="asset-name" id="asset2Name">tpxUSD</div>
+                            <div class="asset-balance">余额: <span id="asset2Balance">0.00</span></div>
+                        </div>
+                        <div class="input-with-max">
+                            <input type="number" class="form-control" id="asset2Amount" placeholder="0.00">
+                            <button class="max-button" data-asset="2">最大</button>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <div class="info-item">
+                            <div class="info-label">您将获得</div>
+                            <div class="info-value" id="lpTokenEstimate">0.00 LP代币</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">份额比例</div>
+                            <div class="info-value" id="sharePercentage">0.00%</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">预估每周奖励</div>
+                            <div class="info-value" id="weeklyReward">0.00 TPX</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-primary" id="confirmDeposit">确认存入</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 提取模态框 -->
+        <div class="modal-overlay" id="withdrawModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <div class="modal-title">提取流动性</div>
+                    <button class="modal-close" data-close-modal>&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="withdrawPoolInfo" class="info-box">
+                        <div class="info-item">
+                            <div class="info-label">流动性池</div>
+                            <div class="info-value" id="withdrawPoolName">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">您的LP代币</div>
+                            <div class="info-value" id="yourLpTokens">0.00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">提取金额</label>
+                        <div class="input-with-max">
+                            <input type="number" class="form-control" id="withdrawAmount" placeholder="0.00">
+                            <button class="max-button" data-withdraw-max>最大</button>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <div class="info-item">
+                            <div class="info-label">您将收到</div>
+                            <div class="info-value">
+                                <div id="receiveAsset1">0.00 USDC</div>
+                                <div id="receiveAsset2">0.00 tpxUSD</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">剩余份额</div>
+                            <div class="info-value" id="remainingShare">0.00%</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">未领取奖励</div>
+                            <div class="info-value" id="unclaimedRewards">0.00 TPX</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="claimRewardsCheckbox">
+                            <label for="claimRewardsCheckbox">同时领取奖励</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-primary" id="confirmWithdraw">确认提取</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加JavaScript代码 -->
+    <script>
+        // 模拟数据
+        const pools = [
+            {
+                name: "trxUSD-USDC",
+                type: "稳定币流动性池",
+                assetType: "stablecoin",
+                apr: "28.5%",
+                tvl: "$3.45M",
+                weeklyReward: "45,000 TPX",
+                yourShare: "0.8%",
+                asset1: { name: "trxUSD", balance: 1250.45 },
+                asset2: { name: "USDC", balance: 1852.32 },
+                yourLpTokens: 185.67
+            },
+            {
+                name: "trxUSD-APT",
+                type: "交易对流动性池",
+                assetType: "crypto",
+                apr: "42.3%",
+                tvl: "$2.18M",
+                weeklyReward: "35,000 TPX",
+                yourShare: "0.5%",
+                asset1: { name: "trxUSD", balance: 1250.45 },
+                asset2: { name: "APT", balance: 42.75 },
+                yourLpTokens: 128.45
+            },
+            {
+                name: "tpxBTC-trxUSD",
+                type: "合成资产流动性池",
+                assetType: "crypto",
+                apr: "35.8%",
+                tvl: "$1.65M",
+                weeklyReward: "25,000 TPX",
+                yourShare: "0.3%",
+                asset1: { name: "tpxBTC", balance: 0.25 },
+                asset2: { name: "trxUSD", balance: 1250.45 },
+                yourLpTokens: 78.21
+            },
+            {
+                name: "tpxUSD-USDT",
+                type: "稳定币对流动性池",
+                assetType: "stablecoin",
+                apr: "32.6%",
+                tvl: "$1.42M",
+                weeklyReward: "22,000 TPX",
+                yourShare: "0.2%",
+                asset1: { name: "tpxUSD", balance: 985.63 },
+                asset2: { name: "USDT", balance: 1025.82 },
+                yourLpTokens: 42.18
+            },
+            {
+                name: "tpxGOLD-trxUSD",
+                type: "黄金指数流动性池",
+                assetType: "rwa",
+                apr: "38.2%",
+                tvl: "$1.28M",
+                weeklyReward: "18,000 TPX",
+                yourShare: "0.1%",
+                asset1: { name: "tpxGOLD", balance: 12.35 },
+                asset2: { name: "trxUSD", balance: 1250.45 },
+                yourLpTokens: 25.62
+            },
+            {
+                name: "tpxOIL-USDT",
+                type: "石油指数流动性池",
+                assetType: "rwa",
+                apr: "42.5%",
+                tvl: "$0.92M",
+                weeklyReward: "15,000 TPX",
+                yourShare: "0%",
+                asset1: { name: "tpxOIL", balance: 0 },
+                asset2: { name: "USDT", balance: 1025.82 },
+                yourLpTokens: 0
+            }
+        ];
+        
+        let currentPool = null;
+        
+        // 监听存入按钮点击
+        document.querySelectorAll('.pool-button.primary').forEach((button, index) => {
+            button.addEventListener('click', () => {
+                // 获取当前可见的池子
+                const visiblePools = Array.from(document.querySelectorAll('.pool-card:not([style*="display: none"])'));
+                const visibleIndex = visiblePools.indexOf(button.closest('.pool-card'));
+                const pool = pools.find(p => p.name === visiblePools[visibleIndex].querySelector('.pool-title').textContent);
+                openDepositModal(pool || pools[index]);
+            });
+        });
+        
+        // 监听提取按钮点击
+        document.querySelectorAll('.pool-button.secondary').forEach((button, index) => {
+            button.addEventListener('click', () => {
+                // 获取当前可见的池子
+                const visiblePools = Array.from(document.querySelectorAll('.pool-card:not([style*="display: none"])'));
+                const visibleIndex = visiblePools.indexOf(button.closest('.pool-card'));
+                const pool = pools.find(p => p.name === visiblePools[visibleIndex].querySelector('.pool-title').textContent);
+                openWithdrawModal(pool || pools[index]);
+            });
+        });
+        
+        // 监听资产类型筛选按钮点击
+        document.querySelectorAll('.asset-type-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // 更新按钮状态
+                document.querySelectorAll('.asset-type-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                button.classList.add('active');
+                
+                // 获取筛选类型
+                const filterType = button.getAttribute('data-type');
+                
+                // 筛选池子
+                document.querySelectorAll('.pool-card').forEach(card => {
+                    if (filterType === 'all' || card.getAttribute('data-pool-type') === filterType) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // 打开存入模态框
+        function openDepositModal(pool) {
+            currentPool = pool;
+            
+            // 更新模态框显示
+            document.getElementById('depositPoolName').textContent = pool.name;
+            document.getElementById('depositPoolAPR').textContent = pool.apr;
+            
+            document.getElementById('asset1Name').textContent = pool.asset1.name;
+            document.getElementById('asset1Balance').textContent = pool.asset1.balance.toFixed(2);
+            
+            document.getElementById('asset2Name').textContent = pool.asset2.name;
+            document.getElementById('asset2Balance').textContent = pool.asset2.balance.toFixed(2);
+            
+            // 清空输入框
+            document.getElementById('asset1Amount').value = '';
+            document.getElementById('asset2Amount').value = '';
+            document.getElementById('lpTokenEstimate').textContent = '0.00 LP代币';
+            document.getElementById('sharePercentage').textContent = '0.00%';
+            document.getElementById('weeklyReward').textContent = '0.00 TPX';
+            
+            // 显示模态框
+            document.getElementById('depositModal').classList.add('active');
+        }
+        
+        // 打开提取模态框
+        function openWithdrawModal(pool) {
+            currentPool = pool;
+            
+            // 更新模态框显示
+            document.getElementById('withdrawPoolName').textContent = pool.name;
+            document.getElementById('yourLpTokens').textContent = pool.yourLpTokens.toFixed(2);
+            
+            // 设置资产显示
+            document.getElementById('receiveAsset1').textContent = `0.00 ${pool.asset1.name}`;
+            document.getElementById('receiveAsset2').textContent = `0.00 ${pool.asset2.name}`;
+            
+            // 清空输入框
+            document.getElementById('withdrawAmount').value = '';
+            document.getElementById('remainingShare').textContent = pool.yourShare;
+            document.getElementById('unclaimedRewards').textContent = '65.32 TPX';
+            document.getElementById('claimRewardsCheckbox').checked = true;
+            
+            // 显示模态框
+            document.getElementById('withdrawModal').classList.add('active');
+        }
+        
+        // 关闭模态框
+        document.querySelectorAll('[data-close-modal]').forEach(closeButton => {
+            closeButton.addEventListener('click', () => {
+                document.querySelectorAll('.modal-overlay').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+            });
+        });
+        
+        // 点击模态框外部关闭
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+        
+        // 输入金额时更新估算
+        document.getElementById('asset1Amount').addEventListener('input', updateDepositEstimates);
+        document.getElementById('asset2Amount').addEventListener('input', updateDepositEstimates);
+        
+        // 最大按钮功能
+        document.querySelectorAll('[data-asset]').forEach(button => {
+            button.addEventListener('click', () => {
+                const assetNum = button.getAttribute('data-asset');
+                const asset = assetNum === '1' ? currentPool.asset1 : currentPool.asset2;
+                document.getElementById(`asset${assetNum}Amount`).value = asset.balance.toFixed(2);
+                updateDepositEstimates();
+            });
+        });
+        
+        // 提取的最大按钮
+        document.querySelector('[data-withdraw-max]').addEventListener('click', () => {
+            document.getElementById('withdrawAmount').value = currentPool.yourLpTokens.toFixed(2);
+            updateWithdrawEstimates();
+        });
+        
+        // 提取金额输入更新
+        document.getElementById('withdrawAmount').addEventListener('input', updateWithdrawEstimates);
+        
+        // 更新存入估算
+        function updateDepositEstimates() {
+            const amount1 = parseFloat(document.getElementById('asset1Amount').value) || 0;
+            const amount2 = parseFloat(document.getElementById('asset2Amount').value) || 0;
+            
+            if (amount1 > 0 && amount2 > 0) {
+                // 简单估算LP代币和份额
+                const lpTokens = Math.sqrt(amount1 * amount2);
+                const sharePercentage = (lpTokens / (parseFloat(currentPool.tvl.replace('$', '').replace('M', '')) * 10)) * 100;
+                const weeklyReward = parseFloat(currentPool.weeklyReward.split(' ')[0]) * (sharePercentage / 100);
+                
+                document.getElementById('lpTokenEstimate').textContent = `${lpTokens.toFixed(2)} LP代币`;
+                document.getElementById('sharePercentage').textContent = `${sharePercentage.toFixed(4)}%`;
+                document.getElementById('weeklyReward').textContent = `${weeklyReward.toFixed(2)} TPX`;
+                document.getElementById('confirmDeposit').disabled = false;
+            } else {
+                document.getElementById('lpTokenEstimate').textContent = '0.00 LP代币';
+                document.getElementById('sharePercentage').textContent = '0.00%';
+                document.getElementById('weeklyReward').textContent = '0.00 TPX';
+                document.getElementById('confirmDeposit').disabled = true;
+            }
+        }
+        
+        // 更新提取估算
+        function updateWithdrawEstimates() {
+            const withdrawAmount = parseFloat(document.getElementById('withdrawAmount').value) || 0;
+            const maxLp = currentPool.yourLpTokens;
+            
+            if (withdrawAmount > 0 && withdrawAmount <= maxLp) {
+                const ratio = withdrawAmount / maxLp;
+                const asset1Amount = currentPool.asset1.balance * ratio * 0.99; // 0.99表示扣除0.3%手续费
+                const asset2Amount = currentPool.asset2.balance * ratio * 0.99;
+                
+                const remainingShare = parseFloat(currentPool.yourShare) * (1 - ratio);
+                
+                document.getElementById('receiveAsset1').textContent = `${asset1Amount.toFixed(4)} ${currentPool.asset1.name}`;
+                document.getElementById('receiveAsset2').textContent = `${asset2Amount.toFixed(4)} ${currentPool.asset2.name}`;
+                document.getElementById('remainingShare').textContent = `${remainingShare.toFixed(4)}%`;
+                document.getElementById('confirmWithdraw').disabled = false;
+            } else {
+                document.getElementById('receiveAsset1').textContent = `0.00 ${currentPool.asset1.name}`;
+                document.getElementById('receiveAsset2').textContent = `0.00 ${currentPool.asset2.name}`;
+                document.getElementById('remainingShare').textContent = currentPool.yourShare;
+                document.getElementById('confirmWithdraw').disabled = true;
+            }
+        }
+        
+        // 确认存入
+        document.getElementById('confirmDeposit').addEventListener('click', () => {
+            alert('存入成功！流动性已添加。');
+            document.getElementById('depositModal').classList.remove('active');
+        });
+        
+        // 确认提取
+        document.getElementById('confirmWithdraw').addEventListener('click', () => {
+            const claimRewards = document.getElementById('claimRewardsCheckbox').checked;
+            if (claimRewards) {
+                alert('提取成功！同时已领取65.32 TPX奖励。');
+            } else {
+                alert('提取成功！流动性已移除。');
+            }
+            document.getElementById('withdrawModal').classList.remove('active');
+        });
+    </script>
+</body>
+</html> 

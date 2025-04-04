@@ -1,0 +1,175 @@
+import { Callout, Cards, FileTree, Steps, Tabs } from 'nextra/components'
+
+# TPX 420池质押常见问题
+
+<Callout type="info">
+  关于Triplex 420质押池的完整指南。本文详细介绍TPX质押机制、收益分配策略和债务优化方案，帮助您充分了解Triplex去中心化流动性协议的核心功能。
+</Callout>
+
+<Tabs items={['基础架构', '收益机制', '债务优化', '风险管理']}>
+  <Tabs.Tab>
+    ### 基础架构
+
+    <details>
+      <summary>**420池的设计理念是什么？**</summary>
+      <div className="mt-3">
+        420池是Triplex协议的流动性核心，旨在优化质押体验。TPX持有者可在此流动性池中质押资产，按比例获取协议收益和流动性奖励。该设计消除了传统质押中的债务管理负担、抵押率监控和清算风险，实现"质押即收益"的简化模式。
+      </div>
+    </details>
+
+    <details>
+      <summary>**质押资产的流动性设计如何？**</summary>
+      <div className="mt-3">
+        协议采用7天冷却期机制 — 用户发起取消质押操作后，需等待7天才能提取其TPX资产。这一设计在保障用户资产自主权的同时，为协议提供了稳定的流动性基础。
+      </div>
+    </details>
+
+    <details>
+      <summary>**入池时机有何策略考量？**</summary>
+      <div className="mt-3">
+        质押池全天候开放！早期参与者将获得更多协议激励，包括优先级更高的债务优化和潜在的治理权重。不过，协议设计保证任何时间参与的质押者都能获得公平收益分配。
+      </div>
+    </details>
+
+    <details>
+      <summary>**锁仓（托管）的TPX如何处理？**</summary>
+      <div className="mt-3">
+        锁仓中的TPX资产将保持原有归属时间表，无缝迁移至420池。这些资产在完成原定归属周期前无法提取，但将正常参与收益分配，确保激励机制的连续性。
+      </div>
+    </details>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ### 收益机制
+
+    <details>
+      <summary>**420池的收益来源有哪些？**</summary>
+      <div className="mt-3">
+        420池通过优化资本效率实现多元化收益：基于池内TPX资产，协议可以200%的抵押率铸造合成稳定币，并将这些资产部署到Ethena、Aave、Maker、Berachain优质金库等高效DeFi策略中，创造持续性收益流。
+      </div>
+    </details>
+
+    <details>
+      <summary>**收益分配策略是什么？**</summary>
+      <div className="mt-3">
+        协议采用动态收益分配机制，根据市场条件和治理决策，将收益用于三个方向：自动复利增强APY、直接分配给质押者，以及市场回购TPX增强协议价值。这一三维策略确保了收益的最优配置。
+      </div>
+    </details>
+
+    <details>
+      <summary>**收益分配权益如何确定？**</summary>
+      <div className="mt-3">
+        收益权完全属于TPX质押者，采用精确的比例分配机制。质押者按持有份额享有对应权益 — 持有池内1%TPX质押量的用户将获得1%的全部协议收益，无论是稳定币收益还是回购的TPX资产。
+      </div>
+    </details>
+
+    <details>
+      <summary>**收益发放周期是怎样的？**</summary>
+      <div className="mt-3">
+        协议实行定期收益分配制度，确保质押者能够持续获取收益。具体分配频率将由Triplex治理根据资金池规模、市场条件和gas成本优化来动态调整，以最大化质押者的实际收益。
+      </div>
+    </details>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ### 债务优化
+
+    <details>
+      <summary>**债务优化机制的设计原理是什么？**</summary>
+      <div className="mt-3">
+        Triplex的债务优化是协议演进的关键环节。传统模式下，TPX持有者单独铸造合成稳定币，导致了坏账风险、资产利用率低下、价值流失和潜在的清算螺旋。420池通过集合风险模型，结合12个月线性债务优化计划，从根本上解决这些问题，实现协议的长期可持续发展。
+
+        债务优化采用线性模式（例如，6个月后可优化50%债务），同时设有提前退出调节机制，以平衡个人灵活性和协议稳定性。
+      </div>
+    </details>
+
+    <details>
+      <summary>**债务优化期间的流动性策略？**</summary>
+      <div className="mt-3">
+        质押者保持完全的流动性自主权，可随时选择退出资金池。退出时，需先结算剩余未优化债务（原债务减去已优化部分，再考虑提前退出调节系数），结算完成后即可提取资产，实现灵活与责任的平衡。
+      </div>
+    </details>
+
+    <details>
+      <summary>**提前退出调节机制如何运作？**</summary>
+      <div className="mt-3">
+        为维护协议稳定性，在12个月优化期结束前退出的质押者将适用调节系数，该系数会影响已优化的债务金额。
+
+        调节系数采用动态机制：质押首日为100%（即无优化效果），随后线性降低至第365天的50%，为长期参与者提供显著激励，同时兼顾短期灵活性。
+      </div>
+    </details>
+
+    <details>
+      <summary>**无债务持有者如何参与？**</summary>
+      <div className="mt-3">
+        清洁持有者（无债务TPX持有者）将获得特别激励机会！协议将在近期推出专属激励计划，为这些用户提供额外TPX奖励，鼓励他们加入420池生态系统。我们建议密切关注即将发布的详细公告，把握最佳入场时机。
+      </div>
+    </details>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    ### 风险管理
+
+    <details>
+      <summary>**420池如何消除清算风险？**</summary>
+      <div className="mt-3">
+        420池彻底消除了个体清算风险，实现"无忧质押"。质押者的TPX资产不再面临传统DeFi中常见的清算威胁，无需持续监控抵押率，可以专注于长期价值积累。
+      </div>
+    </details>
+
+    <details>
+      <summary>**在无清算模式下，如何维持稳定币价值？**</summary>
+      <div className="mt-3">
+        Triplex创新性地解决了无清算环境下的稳定币价值维护问题，依靠以下核心机制：
+
+        <Steps>
+          ### 集合风险管理模型
+          
+          - 采用全池共担风险架构，将个体风险分散至整个质押池
+          - 这种风险分散机制显著提高了系统的抗冲击能力，保护个体质押者
+          
+          ### 渐进式债务优化
+          
+          - 通过线性债务优化模式，避免了一次性债务处理带来的市场冲击
+          - 这种渐进机制为稳定币市场提供可预测性，防止供应波动导致的价格失衡
+          
+          ### 退出调节动态机制
+          
+          - 提前退出调节系数从初始100%逐步降至第364天的50%
+          - 该机制优化了质押期限结构，减少投机性行为，增强协议稳定性
+          
+          ### 协议演进架构
+          
+          - 420池是Triplex协议升级路线图中的战略组件
+          - 设计为从"分散债务"向"集中管理流动性"的范式转变，实现长期可持续发展
+          
+          ### 自适应参数治理
+          
+          - 部署先进的算法监控和调整债务与抵押品比率
+          - 通过DAO治理确定的风险参数，实现系统压力的实时平衡和优化
+        </Steps>
+      </div>
+    </details>
+  </Tabs.Tab>
+</Tabs>
+
+<Cards>
+  <Cards.Card
+    title="质押指南"
+    href="/zh-SG/TriplexProtocol/GetStarted"
+  >
+    完整了解如何参与420质押池并优化您的收益
+  </Cards.Card>
+  <Cards.Card
+    title="债务优化策略"
+    href="/zh-SG/TriplexProtocol/DebtManagement"
+  >
+    深入探索Triplex债务优化机制及最佳实践
+  </Cards.Card>
+  <Cards.Card
+    title="稳定币技术架构"
+    href="/zh-SG/TriplexProtocol/Stablecoin"
+  >
+    剖析Triplex稳定币系统的创新机制与价值保障模型
+  </Cards.Card>
+</Cards>

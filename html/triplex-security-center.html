@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安全中心 - Triplex</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #4285f4;
+            --background-color: #111827;
+            --card-color: #1f2937;
+            --text-color: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .user-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .page-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .security-score {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .score-title {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 8px solid var(--success-color);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .score-desc {
+            color: var(--text-secondary);
+        }
+        
+        .security-section {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+        
+        .security-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .item-info {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .item-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(26, 115, 232, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .item-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .item-desc {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+        
+        .item-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        .status-enabled {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+        
+        .status-disabled {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+        
+        .action-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .action-button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .action-button.danger {
+            background-color: var(--danger-color);
+        }
+        
+        .action-button.danger:hover {
+            background-color: #dc2626;
+        }
+        
+        .device-list {
+            margin-top: 20px;
+        }
+        
+        .device-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .device-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .device-name {
+            font-weight: 500;
+        }
+        
+        .device-details {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .security-item {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .item-status {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">T</div>
+                <span>Triplex</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="triplex-dashboard.html">仪表盘</a>
+                <a href="triplex-borrow.html">借贷</a>
+                <a href="triplex-collateral-management.html">抵押管理</a>
+                <a href="triplex-synthetic-assets.html">合成资产</a>
+                <a href="triplex-liquidity-mining.html">流动性挖矿</a>
+                <a href="triplex-governance.html">治理</a>
+                <a href="triplex-analytics.html">数据分析</a>
+                <a href="triplex-help-center.html">帮助中心</a>
+            </div>
+            <div class="user-links">
+                <a href="triplex-user-profile.html">个人中心</a>
+                <a href="triplex-notifications.html">通知</a>
+                <a href="triplex-security-center.html" class="active">安全中心</a>
+                <button class="wallet-button" onclick="alert('连接钱包功能将在实际部署中启用')">连接钱包</button>
+            </div>
+        </header>
+        
+        <h1 class="page-title">安全中心</h1>
+        
+        <div class="security-score">
+            <h2 class="score-title">账户安全评分</h2>
+            <div class="score-circle">85</div>
+            <p class="score-desc">您的账户安全状况良好，但仍有改进空间</p>
+        </div>
+        
+        <div class="security-section">
+            <div class="section-header">
+                <h2 class="section-title">基础安全</h2>
+            </div>
+            
+            <div class="security-item">
+                <div class="item-info">
+                    <div class="item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-title">双重认证</div>
+                        <div class="item-desc">使用Google Authenticator或其他2FA应用进行双重验证</div>
+                    </div>
+                </div>
+                <div class="item-status">
+                    <span class="status-badge status-enabled">已启用</span>
+                    <button class="action-button" onclick="alert('修改2FA设置功能将在实际部署中启用')">修改</button>
+                </div>
+            </div>
+            
+            <div class="security-item">
+                <div class="item-info">
+                    <div class="item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-title">邮箱验证</div>
+                        <div class="item-desc">用于接收安全通知和重要操作验证</div>
+                    </div>
+                </div>
+                <div class="item-status">
+                    <span class="status-badge status-enabled">已验证</span>
+                    <button class="action-button" onclick="alert('修改邮箱功能将在实际部署中启用')">修改</button>
+                </div>
+            </div>
+            
+            <div class="security-item">
+                <div class="item-info">
+                    <div class="item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-title">手机验证</div>
+                        <div class="item-desc">用于接收安全验证码和重要操作确认</div>
+                    </div>
+                </div>
+                <div class="item-status">
+                    <span class="status-badge status-disabled">未验证</span>
+                    <button class="action-button" onclick="alert('绑定手机功能将在实际部署中启用')">绑定</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="security-section">
+            <div class="section-header">
+                <h2 class="section-title">高级安全</h2>
+            </div>
+            
+            <div class="security-item">
+                <div class="item-info">
+                    <div class="item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-title">交易密码</div>
+                        <div class="item-desc">用于保护重要交易操作的额外密码</div>
+                    </div>
+                </div>
+                <div class="item-status">
+                    <span class="status-badge status-disabled">未设置</span>
+                    <button class="action-button" onclick="alert('设置交易密码功能将在实际部署中启用')">设置</button>
+                </div>
+            </div>
+            
+            <div class="security-item">
+                <div class="item-info">
+                    <div class="item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-title">白名单地址</div>
+                        <div class="item-desc">限制资产只能转入指定的地址</div>
+                    </div>
+                </div>
+                <div class="item-status">
+                    <span class="status-badge status-disabled">未启用</span>
+                    <button class="action-button" onclick="alert('设置白名单功能将在实际部署中启用')">设置</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="security-section">
+            <div class="section-header">
+                <h2 class="section-title">登录设备管理</h2>
+            </div>
+            
+            <div class="device-list">
+                <div class="device-item">
+                    <div class="device-info">
+                        <div class="device-name">Chrome - MacBook Pro</div>
+                        <div class="device-details">上次登录: 2024-04-02 12:30 · 北京</div>
+                    </div>
+                    <button class="action-button danger" onclick="alert('移除设备功能将在实际部署中启用')">移除</button>
+                </div>
+                
+                <div class="device-item">
+                    <div class="device-info">
+                        <div class="device-name">Safari - iPhone 13</div>
+                        <div class="device-details">上次登录: 2024-04-02 10:15 · 上海</div>
+                    </div>
+                    <button class="action-button danger" onclick="alert('移除设备功能将在实际部署中启用')">移除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 在实际应用中，这里会添加与后端API交互的代码
+            // 例如处理安全设置的更新、设备管理等
+        });
+    </script>
+</body>
+</html> 

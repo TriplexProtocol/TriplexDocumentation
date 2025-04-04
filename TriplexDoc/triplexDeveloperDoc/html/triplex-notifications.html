@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triplex - 通知中心</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #4285f4;
+            --background-color: #111827;
+            --card-color: #1f2937;
+            --text-color: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .wallet-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .wallet-button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 20px;
+            height: fit-content;
+        }
+        
+        .menu-item {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .menu-item.active {
+            background-color: rgba(26, 115, 232, 0.2);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .content-area {
+            flex: 1;
+        }
+        
+        .card {
+            background-color: var(--card-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .tab:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        .notification-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background: none;
+            color: var(--text-color);
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        
+        .notification-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .notification-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            transition: transform 0.2s ease;
+        }
+        
+        .notification-item:hover {
+            transform: translateY(-2px);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .icon-system {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .icon-security {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+        
+        .icon-update {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+        
+        .icon-promo {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+        }
+        
+        .notification-time {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+        
+        .notification-body {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .notification-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .notification-btn {
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: none;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .notification-badge {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .unread {
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .settings-section {
+            margin-top: 40px;
+        }
+        
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .toggle-label {
+            font-weight: 500;
+        }
+        
+        .toggle-desc {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--primary-color);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(22px);
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">T</div>
+                <span>Triplex</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="triplex-dashboard.html">仪表盘</a>
+                <a href="triplex-borrow.html">借贷</a>
+                <a href="triplex-collateral-management.html">抵押管理</a>
+                <a href="triplex-synthetic-assets.html">合成资产</a>
+                <a href="triplex-liquidity-mining.html">流动性挖矿</a>
+                <a href="triplex-governance.html">治理</a>
+                <a href="triplex-analytics.html">数据分析</a>
+                <a href="triplex-help-center.html">帮助中心</a>
+            </div>
+            <div class="user-links">
+                <a href="triplex-user-profile.html">个人中心</a>
+                <a href="triplex-notifications.html" class="active">通知</a>
+                <a href="triplex-transaction-history.html">交易历史</a>
+                <button class="wallet-button" onclick="alert('连接钱包功能将在实际部署中启用')">连接钱包</button>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="menu-item">个人概览</div>
+                <div class="menu-item">我的资产</div>
+                <div class="menu-item">借贷头寸</div>
+                <div class="menu-item">合成资产</div>
+                <div class="menu-item">交易历史</div>
+                <div class="menu-item">流动性挖矿</div>
+                <div class="menu-item active">通知中心</div>
+                <div class="menu-item">设置</div>
+            </div>
+            
+            <div class="content-area">
+                <div class="card">
+                    <h2>通知中心</h2>
+                    <div class="notification-filters">
+                        <button class="filter-btn active">全部</button>
+                        <button class="filter-btn">系统公告</button>
+                        <button class="filter-btn">安全提醒</button>
+                        <button class="filter-btn">更新动态</button>
+                        <button class="filter-btn">活动推广</button>
+                        <button class="filter-btn">未读</button>
+                    </div>
+                    
+                    <div class="notification-list">
+                        <div class="notification-item unread">
+                            <div class="notification-icon icon-security">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-header">
+                                    <div class="notification-title">
+                                        <span class="notification-badge"></span>安全提醒：市场波动较大，注意风险
+                                    </div>
+                                    <div class="notification-time">30分钟前</div>
+                                </div>
+                                <div class="notification-body">
+                                    近期市场波动较大，您的部分借贷头寸接近清算阈值。建议您及时调整借贷比率，避免被清算。您可以添加抵押品或者偿还部分借款来提高健康系数。
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="notification-btn btn-primary">查看头寸</button>
+                                    <button class="notification-btn btn-secondary">标记已读</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item unread">
+                            <div class="notification-icon icon-system">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                </svg>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-header">
+                                    <div class="notification-title">
+                                        <span class="notification-badge"></span>系统公告：治理提案投票已开始
+                                    </div>
+                                    <div class="notification-time">2小时前</div>
+                                </div>
+                                <div class="notification-body">
+                                    TIP-023提案投票已开始，该提案建议调整APT抵押品的清算阈值参数。作为TPX持有者，您有权参与此次投票。投票将持续7天，请及时参与。
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="notification-btn btn-primary">参与投票</button>
+                                    <button class="notification-btn btn-secondary">标记已读</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-icon icon-update">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="23 4 23 10 17 10"></polyline>
+                                    <polyline points="1 20 1 14 7 14"></polyline>
+                                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                                </svg>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-header">
+                                    <div class="notification-title">更新动态：合成资产市场扩展</div>
+                                    <div class="notification-time">昨天</div>
+                                </div>
+                                <div class="notification-body">
+                                    我们很高兴地宣布，Triplex协议现已支持四种新的合成资产：trxSOL、trxAPT、trxAVAX和trxMATIC。您现在可以在不持有原生资产的情况下，通过合成资产参与这些资产的价格波动。
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="notification-btn btn-primary">探索新资产</button>
+                                    <button class="notification-btn btn-secondary">了解更多</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-icon icon-promo">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-header">
+                                    <div class="notification-title">活动推广：流动性挖矿奖励翻倍</div>
+                                    <div class="notification-time">2天前</div>
+                                </div>
+                                <div class="notification-body">
+                                    为庆祝协议TVL突破1亿美元，我们将从下周开始，所有流动性池的TPX奖励翻倍，持续两周时间。这是提高您收益的好机会，不要错过！
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="notification-btn btn-primary">参与挖矿</button>
+                                    <button class="notification-btn btn-secondary">活动详情</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-icon icon-system">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                </svg>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-header">
+                                    <div class="notification-title">系统公告：预言机升级完成</div>
+                                    <div class="notification-time">上周</div>
+                                </div>
+                                <div class="notification-body">
+                                    我们已经完成了预言机系统的升级，现在使用多源数据并增加了更多验证节点，进一步提高了价格数据的准确性和安全性。此次升级不会影响您的正常使用。
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="notification-btn btn-primary">了解更多</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card settings-section">
+                    <h2>通知设置</h2>
+                    
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">电子邮件通知</div>
+                            <div class="toggle-desc">接收重要更新和安全提醒的电子邮件</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">安全警报</div>
+                            <div class="toggle-desc">接收关于账户安全和风险提醒的通知</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">系统公告</div>
+                            <div class="toggle-desc">接收关于协议更新和维护的通知</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">治理通知</div>
+                            <div class="toggle-desc">接收关于新提案和投票的通知</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">活动和推广</div>
+                            <div class="toggle-desc">接收关于新活动和促销的通知</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

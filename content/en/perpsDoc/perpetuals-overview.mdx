@@ -1,0 +1,49 @@
+# Perpetual Contracts Overview
+
+Perpetual contracts (Perpetual Swaps) are a type of derivative contract that allows traders to speculate on the price of an underlying asset without owning it, similar to futures contracts. Unlike traditional futures, perpetual contracts have no expiration or settlement date, allowing traders to hold positions indefinitely. Perpetual contracts achieve this through a mechanism called the funding rate, which periodically aligns the contract price with the market price of the underlying asset.
+
+## What is a Perpetual Contract?
+
+A perpetual contract is a special type of derivative contract that allows traders to speculate on an underlying asset without actually owning it. Unlike traditional futures contracts, perpetual contracts have no expiration or settlement date, meaning traders can hold positions indefinitely.
+
+The funding rate is a small payment exchanged between long and short traders to encourage market balance. This unique structure gives perpetual contracts high liquidity and versatility, making them ideal for hedging, leverage, or speculative trading.
+
+In decentralized finance (DeFi), perpetual contracts have become increasingly popular due to their accessibility and composability with other blockchain applications. Platforms like Triplex implement decentralized perpetual contracts using a liquidity pool model, eliminating the need for traditional market makers. Traders can access a wide range of synthetic assets with minimal slippage due to the deep liquidity and robust incentive systems provided by stakers. This on-chain approach removes intermediaries, reduces counterparty risk, and ensures a transparent trading environment, making perpetual contracts a cornerstone of the modern DeFi market.
+
+## Cross-Margin Accounts Enhance Risk Management Efficiency
+
+Cross-margin accounts are designed to help traders manage risk more effectively. This system increases liquidity and reduces the likelihood of forced liquidation by allowing collateral to cover losses across multiple positions. While cross-margining offers flexibility, it should be used with caution. High market volatility can lead to unrealized profits and losses exceeding the initial collateral, potentially liquidating the entire account.
+
+In Triplex V3, cross-margining is currently the default margin type. Isolated positions will be introduced in the future to provide traders with greater flexibility in managing risk.
+
+## Simplified Collateral Management in Triplex V3
+
+Triplex V3 simplifies collateral management with a new wrapping mechanism. Unlike earlier versions that directly used sUSD, traders can now seamlessly deposit and withdraw USDC at a 1:1 ratio. This update streamlines the onboarding and fund management process, making it easier and more flexible for users to participate.
+
+## Technical Terms
+
+- **Unrealized PnL (UPNL)** - Shows the potential profit or loss a trader may incur if they close their position. Calculated using the difference between the average entry price and the mark price.
+
+- **Realized PnL (PNL)** - Shows the profit or loss after a trader closes a position. Calculated using the difference between the average entry price and the exit price.
+
+- **Liquidation** - Refers to the forced closure or removal of a trader's open futures position due to insufficient margin or collateral to meet the minimum maintenance margin requirement.
+
+- **Open Interest (OI)** - Gives the total value of ongoing perpetual contracts held by traders.
+
+- **Account Health (Margin Ratio)** - Expressed as a percentage on the dashboard and main futures UI, indicating the health of a trader's account.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+When the equity balance matches the maintenance margin, account health will reach 100%, and the trader will be liquidated.
+</Callout>
+
+- **Initial Margin** - The percentage of a futures position that must be covered by cash or collateral when trading with leverage. (e.g., opening a $1,000 nominal trade with 10x leverage requires $100 initial margin)
+
+- **Maintenance Margin** - The minimum equity amount a trader must maintain in their trading account to keep a position open. If the account balance (including deposit balance and UPNL) falls to this mark, liquidation will occur.
+
+<Callout type="error">
+If account equity falls to the maintenance margin or below, liquidation will occur!
+</Callout>
+
+- **Account Equity** - The combination of a trader's account balance and UPNL, indicating the balance if all positions were closed at the current time. 

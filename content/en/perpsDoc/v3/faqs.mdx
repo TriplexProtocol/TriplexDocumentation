@@ -1,0 +1,391 @@
+# Frequently Asked Questions (FAQs)
+
+This page collects common questions about Triplex perpetual contract trading. If you have other questions, please contact our community support team.
+
+import { Callout } from 'nextra/components'
+import { Tabs } from 'nextra/components'
+
+<Callout type="info">
+This FAQ will be continuously updated as the platform evolves. Please check back regularly for the latest information.
+</Callout>
+
+## Basic Questions
+
+<Tabs items={['Account Related', 'Trading Related', 'Fee Related']}>
+  <Tabs.Tab>
+  ### How to start using Triplex?
+
+  To start using Triplex, follow these steps:
+
+  1. Visit the Triplex trading platform
+  2. Connect your compatible Web3 wallet (such as MetaMask)
+  3. Deposit collateral (USDC, ETH, tpxBTC, etc.)
+  4. Start trading perpetual contracts
+
+  ### What is an NFT account?
+
+  In Triplex V3, each trading account is an NFT (Non-Fungible Token). This design offers the following advantages:
+
+  - Accounts can transfer ownership
+  - You can authorize other addresses to operate your account
+  - Better privacy and security
+  - Support for account management across multiple wallets
+
+  ### Can I create multiple trading accounts?
+
+  Yes, you can create multiple trading accounts. Each account is an independent NFT and can have different collateral combinations and trading strategies.
+
+  ### Can I transfer assets from one account to another?
+
+  Yes, as long as both accounts are owned by you or you have permission to operate them. The transfer process requires:
+
+  1. Withdraw assets from the source account
+  2. Deposit assets into the target account
+
+  <Callout type="warning">
+  Please ensure the source account still has enough margin to maintain existing positions after withdrawal, or it may trigger liquidation.
+  </Callout>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+  ### What trading pairs does Triplex support?
+
+  Triplex supports a variety of cryptocurrency perpetual contract trading pairs, including but not limited to:
+
+  - BTC/USD
+  - ETH/USD
+  - LINK/USD
+  - SOL/USD
+  - And many other mainstream and emerging tokens
+
+  The list of trading pairs will continue to expand, please check the platform for the latest information.
+
+  ### What is one-click trading?
+
+  One-click trading is a feature of Triplex that allows users to execute trades without paying gas fees. By signing off-chain messages, trades are processed in the background, greatly improving trading efficiency and user experience.
+
+  ### What is the maximum leverage?
+
+  The maximum leverage provided by Triplex depends on several factors:
+
+  - Volatility of the trading pair
+  - Type of collateral you are using
+  - Market liquidity conditions
+  - Overall risk status of the account
+
+  Generally, mainstream currencies can use leverage up to 20-50 times, depending on market conditions.
+
+  ### How to set stop-loss or take-profit orders?
+
+  Triplex supports various order types, including stop-loss and take-profit:
+
+  1. Select "Advanced Order" in the order interface
+  2. Choose "Stop-Loss" or "Take-Profit" order type
+  3. Set the trigger price and execution price
+  4. Confirm and submit the order
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+  ### What fees does Triplex charge?
+
+  Triplex charges the following types of fees:
+
+  1. **Trading Fees**: Charged when opening and closing positions, usually 0.05%-0.1% of the nominal value
+  2. **Funding Rate**: Settled every 8 hours, varies based on market conditions
+  3. **Liquidation Fees**: Charged only when an account is liquidated, usually a certain percentage of the position value
+
+  ### How is the funding rate calculated?
+
+  The funding rate is calculated based on market premium/discount:
+
+  - **Positive Funding Rate**: Longs pay shorts
+  - **Negative Funding Rate**: Shorts pay longs
+
+  The funding rate is settled every 8 hours, and the calculation formula is:
+
+  ```
+  Funding Rate = Base Rate + Premium Index * Multiplier
+  ```
+
+  The base rate and multiplier are dynamically adjusted based on market conditions.
+
+  ### Are there any trading fee discounts?
+
+  Yes, Triplex offers multi-tiered trading fee discounts:
+
+  - **Volume Discount**: The higher the 30-day trading volume, the lower the rate
+  - **Staking Discount**: Staking platform tokens can earn additional discounts
+  - **Referral Program**: Inviting new users can earn additional rebates
+
+  Please refer to the platform's fee page for specific discount rates.
+
+  ### Are there fees for withdrawing funds?
+
+  Fees involved in withdrawing funds from Triplex:
+
+  - **Smart Contract Gas Fee**: Depends on Ethereum network congestion
+  - **No Platform Withdrawal Fee**: Triplex does not charge additional withdrawal fees
+
+  Small withdrawals may result in a higher proportion of gas fees, it is recommended to consolidate withdrawal operations appropriately.
+  </Tabs.Tab>
+</Tabs>
+
+## Margin and Collateral
+
+### What is cross-margin?
+
+Cross-margin is an account structure where all collateral is used to provide margin for all positions. This brings the following features:
+
+- **Higher capital efficiency**: Collateral can be used to support multiple positions simultaneously
+- **Automatic risk hedging**: Positions in different directions can offset each other's risk
+- **Centralized management**: No need to manage multiple separate margin accounts
+
+Compared to isolated margin, cross-margin can more efficiently utilize funds, but it also means that all positions share risk.
+
+### What collateral does Triplex support?
+
+Triplex V3 supports various types of collateral:
+
+- **USDC**: Main stablecoin collateral
+- **USDe**: Ethena stablecoin
+- **ETH/wETH**: Ethereum and wrapped Ethereum
+- **tpxBTC**: Bitcoin tokens supported by Threshold Network
+- **stataUSDC**: Aave-staked USDC
+
+Different collateral may have different margin coefficients and risk parameters.
+
+### How to add or withdraw collateral?
+
+Steps to add or withdraw collateral in Triplex:
+
+1. Click on "Wallet" or "Collateral" in the platform navigation menu
+2. Choose "Deposit" or "Withdraw" operation
+3. Select collateral type and amount
+4. Confirm transaction and wait for block confirmation
+
+<Callout type="warning">
+Before withdrawing collateral, please ensure your account has enough remaining margin to maintain existing positions. The system will prevent withdrawals that may trigger liquidation.
+</Callout>
+
+### What is the difference between different collateral types?
+
+The main differences between collateral types in the Triplex system:
+
+| Collateral | Volatility | Margin Efficiency | Features |
+|-------|-------|-----------|------|
+| USDC | Extremely low | Highest | Baseline stablecoin, highest margin efficiency |
+| USDe | Extremely low | High | Similar to USDC but with a slightly different mechanism |
+| ETH/wETH | Medium-high | Medium | Provides price protection against price increases but has volatility risk |
+| tpxBTC | High | Medium-low | Bitcoin exposure, higher volatility |
+| stataUSDC | Low | High | Provides additional yield but has some liquidity restrictions |
+
+## Trading and Risk Management
+
+### What is account health?
+
+Account health is a key indicator of collateral status in an account, calculated as:
+
+```
+Account Health = (Account Equity / Maintenance Margin Requirement) × 100%
+```
+
+- **Health > 100%**：Account is safe, will not be liquidated
+- **Health = 100%**：Account is at the critical state, any adverse price movement may trigger liquidation
+- **Health < 100%**：Account will be liquidated
+
+<Callout type="error">
+It is recommended to maintain account health above 150% especially when using volatile collateral or when market volatility is high.
+</Callout>
+
+### How to avoid liquidation?
+
+Best practices to avoid liquidation:
+
+1. **Monitor account health**：Regularly check, especially during market volatility
+2. **Set alerts**：Use Triplex's notification feature to set health alert
+3. **Moderate leverage**：Choose appropriate leverage based on your risk tolerance
+4. **Add collateral**：Increase collateral when health drops
+5. **Partial liquidation**：Reduce position size to lower margin requirement
+6. **Hedge positions**：Open small position in opposite direction to hedge risk
+
+### Can I continue trading after liquidation?
+
+Yes, after liquidation, you can continue trading as long as there is collateral in your account:
+
+- **Partial liquidation**：Only liquidate enough positions to restore health, remaining positions and collateral still available
+- **Full liquidation**：All positions are closed, but remaining collateral still available in account for new transactions
+- **Add collateral**：Can add new collateral at any time to start trading again
+
+### What is funding rate, and how does it affect my trading?
+
+Funding rate is a unique mechanism of perpetual contracts used to keep the contract price consistent with the spot price:
+
+- **Calculation cycle**：Usually settled every 8 hours
+- **Rate direction**：When contract premium, longs pay shorts; when contract discount, shorts pay longs
+- **Trading strategy impact**：High funding rate may significantly affect long-term position profitability
+
+<Tabs items={['Long Strategy', 'Short Strategy', 'Arbitrage Strategy']}>
+  <Tabs.Tab>
+   For long traders:
+
+  - **Positive funding rate**：Need to pay fees, reduce position yield
+  - **Negative funding rate**：Receive fees, increase position yield
+  
+  In a high positive funding rate environment, longs can consider:
+  
+  1. Shift to short-term trading instead of long-term holding
+  2. Wait for funding rate to return to reasonable range before opening position
+  3. Use limit order to get better opening price, offset part of fee cost
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+   For short traders:
+
+  - **Positive funding rate**：Receive fees, increase position yield
+  - **Negative funding rate**：Need to pay fees, reduce position yield
+  
+  In a high negative funding rate environment, shorts can consider:
+  
+  1. Shift to short-term trading strategy
+  2. Wait for funding rate to return to reasonable range
+  3. Calculate whether fee cost exceeds expected price decline yield
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+   Funding rate arbitrage strategy:
+
+   When funding rate is extreme (high positive or high negative), the following arbitrage strategy can be considered:
+  
+  1. **Spot-Perpetual Arbitrage**:
+     - High positive rate: Short perpetual + Buy spot
+     - High negative rate: Long perpetual + Short spot
+  
+  2. **Exchange Arbitrage**:
+     - Utilize funding rate differences between different exchanges
+     - Long in low-rate platform, short in high-rate platform
+  
+  Please note that arbitrage strategy needs to consider transaction fees, spread, and execution risk.
+  </Tabs.Tab>
+</Tabs>
+
+## Technical Questions
+
+### What blockchain does Triplex trading run on?
+
+Triplex mainly runs on Ethereum and its second layer expansion solutions:
+
+- **Ethereum Mainnet**: Used for core protocol and governance
+- **Optimism**: Main trading environment, providing low-cost high-speed trading
+- **Base**: Supports partial trading pairs, providing additional optional environment
+
+Users can choose the appropriate network based on personal preference and specific trading pair availability.
+
+### How to handle order execution failure?
+
+Common reasons for order execution failure and solutions:
+
+1. **Large slippage**：
+   - Adjust slippage tolerance
+   - Use limit order instead of market order
+
+2. **Insufficient margin**：
+   - Add more collateral
+   - Reduce order size
+   - Reduce used leverage
+
+3. **Network congestion**：
+   - Wait for network to return to normal
+   - Consider using one-click trading feature
+
+4. **Price extreme volatility**：
+   - Wait for market to stabilize
+   - Split large order into multiple small orders
+
+### How does one-click trading work?
+
+One-click trading works through the following steps:
+
+1. User uses private key to sign off-chain trading message
+2. Signed message sent to Triplex backend server
+3. Triplex batch processes multiple user orders and submits to chain
+4. After transaction confirmation, user account status updated
+
+This mechanism significantly reduces transaction costs and reduces confirmation time, improving overall user experience.
+
+### How to authorize other addresses to operate my account?
+
+Steps to authorize other addresses to operate your account (delegate trading):
+
+1. Navigate to account settings
+2. Choose "Delegate Management" or "Account Permissions"
+3. Input authorized address
+4. Set permission level (Only trading, Only deposit, All permissions, etc.)
+5. Confirm authorization
+
+You can view and revoke authorized addresses at any time. This is useful for team managing accounts, using trading robots, or backup access in case of emergency.
+
+## Other Questions
+
+### What is the difference between Triplex and other perpetual contract platforms?
+
+The main differences between Triplex and other platforms:
+
+1. **Multi-collateral support**：Support various assets as collateral, improve capital efficiency
+2. **NFT account system**：Accounts managed as NFTs, providing better transferability and security
+3. **One-click trading**：High-efficiency trading experience without paying gas fees
+4. **Cross-chain interoperability**：Support multi-chain trading, providing more possibilities
+5. **Order failure replacement**：Smartly handle failed orders, improve trading success rate
+6. **Optimized liquidation mechanism**：More fair and efficient liquidation process
+
+### How to participate in Triplex community and governance?
+
+Ways to participate in Triplex community and governance:
+
+1. **Social Media**:
+   - Follow official Twitter, Discord, and Telegram
+   - Participate in community discussions and activities
+
+2. **Governance Participation**:
+   - Hold and stake platform governance tokens
+   - Participate in proposal voting
+   - Submit improvement suggestions
+
+3. **Contributor Program**:
+   - Participate in testnet activities
+   - Submit error reports
+   - Contribute code or documentation
+
+### How to ensure security when using Triplex?
+
+Best practices for security when using Triplex:
+
+1. **Wallet Security**:
+   - Use hardware wallet to store large amounts of funds
+   - Enable all available security features (2FA, etc.)
+   - Do not share private key or mnemonic
+
+2. **Trading Security**:
+   - Start with small amounts to familiarize with platform
+   - Set stop-loss to limit risk
+   - Verify all transaction details
+
+3. **Account Security**:
+   - Regularly check authorized addresses
+   - Use different wallets to separate large amounts of funds
+   - Monitor account activity
+
+<Callout>
+If you encounter any security issues or suspect account compromise, please contact Triplex support team immediately.
+</Callout>
+
+### Where can I get more help?
+
+For more help, please use the following resources:
+
+1. **Official Documentation**: Detailed platform guide and tutorial
+2. **Community Support**: Official Discord and Telegram channels
+3. **Help Center**: Common questions and troubleshooting
+4. **Video Tutorial**: Teaching videos on official YouTube channel
+5. **Direct Support**: Submit support ticket through platform's help feature
+
+Triplex team is committed to providing comprehensive support to ensure all users can smoothly use the platform. 

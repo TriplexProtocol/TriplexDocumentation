@@ -1,0 +1,348 @@
+import { Callout, Cards, FileTree, Steps, Tabs } from 'nextra/components'
+
+# Synthetix V3 跨链系统
+
+<Callout type="info">
+  Synthetix V3 采用创新的跨链架构，实现了在多个区块链网络上的无缝运行。系统通过"枢纽和辐条"模型，以太坊主网作为核心枢纽，连接多个L2和其他链，提供扩展性、流动性和可用性。
+</Callout>
+
+## 架构设计
+
+### 跨链模型
+
+<Cards>
+  <Card title="主链枢纽">
+    以太坊主网作为治理和协调中心
+  </Card>
+  <Card title="辅助链">
+    L2解决方案和其他L1链的集成
+  </Card>
+  <Card title="消息传递">
+    基于Wormhole的跨链通信
+  </Card>
+  <Card title="状态同步">
+    确保链间操作的一致性
+  </Card>
+</Cards>
+
+### 模块分布
+
+<FileTree>
+  <FileTree.Folder name="Cross-chain Architecture" defaultOpen>
+    <FileTree.Folder name="Ethereum Mainnet" defaultOpen>
+      <FileTree.File name="CoreGovernance.sol" />
+      <FileTree.File name="GlobalConfig.sol" />
+      <FileTree.File name="CrossChainCoordinator.sol" />
+      <FileTree.File name="SNXToken.sol" />
+    </FileTree.Folder>
+    <FileTree.Folder name="L2 Networks">
+      <FileTree.File name="OptimismMarkets.sol" />
+      <FileTree.File name="ArbitrumMarkets.sol" />
+      <FileTree.File name="LocalOracle.sol" />
+      <FileTree.File name="WrappedSNX.sol" />
+    </FileTree.Folder>
+    <FileTree.Folder name="Bridge">
+      <FileTree.File name="WormholeConnector.sol" />
+      <FileTree.File name="MessageProcessor.sol" />
+      <FileTree.File name="StateSync.sol" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+## Wormhole 集成
+
+### 技术实现
+
+<Tabs items={['消息处理', '验证机制', '资产跨链']}>
+  <Tabs.Tab>
+    ```solidity
+    function sendCrossChainMessage(
+        uint16 targetChain,
+        bytes memory payload,
+        uint256 gasLimit
+    ) external payable returns (uint64 sequence) {
+        bytes memory encodedMessage = abi.encode(
+            messageType,
+            block.timestamp,
+            payload
+        );
+        
+        sequence = wormholeCore.publishMessage{value: msg.value}(
+            nonce,
+            encodedMessage,
+            consistencyLevel
+        );
+        
+        emit MessageSent(targetChain, sequence, payload);
+        return sequence;
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **消息验证**
+         - 验证消息真实性
+         - 防重放保护
+         - 权限控制
+      
+      2. **状态验证**
+         - 检查消息顺序
+         - 验证状态一致性
+         - 错误处理机制
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Card title="SNX跨链">
+        代币跨链转移机制
+      </Card>
+      <Card title="合成资产">
+        跨链资产表示
+      </Card>
+      <Card title="债务记录">
+        全局一致性维护
+      </Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+### 消息类型
+
+<Cards>
+  <Card title="治理消息">
+    议会决策和系统参数更新
+  </Card>
+  <Card title="市场数据">
+    价格和状态同步
+  </Card>
+  <Card title="用户操作">
+    跨链头寸和抵押管理
+  </Card>
+  <Card title="系统同步">
+    周期和债务更新
+  </Card>
+</Cards>
+
+## 跨链治理
+
+<Callout type="warning">
+  系统实现了多层次的跨链治理机制，确保所有链上的治理决策一致性和执行的原子性。
+</Callout>
+
+### 治理传播
+
+<Steps>
+  1. **议会选举**
+     - 主链选举流程
+     - 结果跨链传播
+     - 验证机制
+  
+  2. **提案执行**
+     - 主链发起投票
+     - 跨链传播执行
+     - 原子性保证
+  
+  3. **紧急机制**
+     - 跨链暂停功能
+     - 多链权限管理
+     - 紧急响应能力
+</Steps>
+
+### 投票聚合
+
+```solidity
+function aggregateVotes(
+    bytes32 proposalId,
+    uint16[] memory sourceChains,
+    bytes[] memory voteData
+) external {
+    for (uint i = 0; i < sourceChains.length; i++) {
+        (address voter, uint256 weight, bool support) = decodeAndVerifyVote(
+            sourceChains[i],
+            voteData[i]
+        );
+        
+        proposals[proposalId].votes[voter] = Vote({
+            weight: weight,
+            support: support,
+            counted: true
+        });
+    }
+    
+    checkAndFinalizeProposal(proposalId);
+}
+```
+
+## 流动性管理
+
+### 资金池协调
+
+<Tabs items={['债务记账', '流动性分配', '风险隔离']}>
+  <Tabs.Tab>
+    <Steps>
+      1. **全局视图**
+         - 统一债务头寸
+         - 跨链更新同步
+         - 实时抵押计算
+      
+      2. **记录维护**
+         - 债务状态追踪
+         - 同步机制
+         - 一致性检查
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Card title="需求分析">
+        全局需求评估
+      </Card>
+      <Card title="动态调整">
+        资金池容量管理
+      </Card>
+      <Card title="优化算法">
+        资本效率优化
+      </Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **风险参数**
+         - 链特定配置
+         - 限额管理
+         - 故障控制
+      
+      2. **隔离策略**
+         - 风险分区
+         - 影响控制
+         - 恢复机制
+    </Steps>
+  </Tabs.Tab>
+</Tabs>
+
+### 清算流程
+
+<Steps>
+  1. **触发识别**
+     - 监控健康因子
+     - 阈值检测
+     - 清算条件验证
+  
+  2. **跨链通知**
+     - 事件广播
+     - 状态同步
+     - 执行协调
+  
+  3. **抵押品处理**
+     - 重新平衡
+     - 价值转移
+     - 记录更新
+  
+  4. **债务更新**
+     - 全局记录修改
+     - 链间同步
+     - 一致性维护
+</Steps>
+
+## 预言机策略
+
+<Callout type="info">
+  跨链环境中的价格数据一致性通过多层机制保证，包括主链价格源、本地验证和优化的更新策略。
+</Callout>
+
+### 价格一致性
+
+<Tabs items={['主链价格', '本地验证', '更新策略']}>
+  <Tabs.Tab>
+    <Cards>
+      <Card title="基准价格">
+        以太坊主网预言机
+      </Card>
+      <Card title="传播机制">
+        Wormhole传递
+      </Card>
+      <Card title="争议解决">
+        最终价格源
+      </Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **本地预言机**
+         - 链上部署
+         - 交叉验证
+         - 偏差监控
+      
+      2. **验证流程**
+         - 数据比对
+         - 异常检测
+         - 警报系统
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Card title="更新频率">
+        成本效益平衡
+      </Card>
+      <Card title="触发机制">
+        波动触发更新
+      </Card>
+      <Card title="验证证明">
+        跨链价格验证
+      </Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 技术挑战
+
+### 时延处理
+
+<Steps>
+  1. **异步设计**
+     - 非阻塞操作
+     - 最终一致性
+     - 乐观执行
+  
+  2. **保护机制**
+     - 超时处理
+     - 失败回退
+     - 体验优化
+</Steps>
+
+### 原子性保证
+
+<Tabs items={['两阶段提交', '意图设计']}>
+  <Tabs.Tab>
+    <Steps>
+      1. **操作阶段**
+         - 准备阶段
+         - 确认阶段
+         - 状态恢复
+      
+      2. **验证机制**
+         - 不变量检查
+         - 一致性验证
+         - 回滚能力
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Card title="意图记录">
+        操作意图存储
+      </Card>
+      <Card title="状态变更">
+        延迟执行机制
+      </Card>
+      <Card title="验证执行">
+        条件检查与执行
+      </Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>

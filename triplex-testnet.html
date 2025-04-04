@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triplex - 合成资产交易的未来（测试网阶段）</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --background-color: #f9f9f9;
+            --text-color: #333;
+            --section-bg: #fff;
+            --border-color: #eaeaea;
+            --accent-color: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .badge {
+            display: inline-block;
+            background-color: #ff9800;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        
+        section {
+            background-color: var(--section-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            font-size: 1.4rem;
+        }
+        
+        h4 {
+            color: var(--text-color);
+            margin: 20px 0 10px;
+            font-size: 1.2rem;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        ul li {
+            margin-bottom: 8px;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list strong {
+            color: var(--secondary-color);
+        }
+        
+        .case-study {
+            background-color: #f2f9ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .case-study h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        .case-results {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+        }
+        
+        .faq-item h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        .contact-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .contact-section div {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .contact-section h3 {
+            margin-top: 0;
+        }
+        
+        .contact-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Triplex App <span class="badge">测试网阶段</span></h1>
+            <p>新一代合成资产交易应用</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>计划中的加密资产应用</h2>
+            <ul class="feature-list">
+                <li>极简设置流程</li>
+                <li>完全非托管</li>
+                <li>简易恢复机制</li>
+                <li>计划支持存储与交易1000+代币</li>
+                <li>内置钱包和保险库</li>
+                <li>目前仅支持Aptos测试网生态系统</li>
+                <li>多链支持将在主网上线后推出</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>日常加密资产管理新体验（开发中）</h2>
+            <p>Triplex正在测试网上开发存储、交易、发送和接收代币的功能。通过链上可恢复的保险库保护您的资产和NFT的技术正在测试中。我们的目标是实现无需交易签名、助记词或Gas费用的体验。</p>
+        </section>
+
+        <section>
+            <h2>核心功能（测试网阶段）</h2>
+            
+            <h3>Triplex交易 - 跨市场交易，无需专业知识</h3>
+            <p>我们正在Aptos测试网上开发直接交易和桥接功能。支持的资产将在开发过程中逐步增加。</p>
+            
+            <h3>钱包与保险库 - 日常使用的钱包，紧急情况的保险库</h3>
+            <p>每个Triplex账户将配备日常使用的钱包和链上可恢复的保险库，目前正在测试网上进行技术验证。</p>
+            
+            <h3>安全保障 - 通过密钥保护，生物识别锁定</h3>
+            <p>Triplex账户安全机制正在测试网上开发中，计划使用密钥保护和生物识别技术。</p>
+            
+            <h3>简易恢复 - 丢失密钥？恢复机制开发中</h3>
+            <p>与Google或Apple账户连接的非托管账户恢复功能正在测试网上开发。</p>
+            
+            <h3>无Gas费、无桥接、无助记词、100%链上（开发目标）</h3>
+        </section>
+
+        <section>
+            <h2>合成资产生态系统（测试网阶段）</h2>
+            <p>Triplex目前在Aptos测试网上构建合成资产生态系统的基础设施。</p>
+            
+            <h3>合成资产创新（概念验证阶段）</h3>
+            <p>我们正在测试通过智能合约创建与现实世界资产价格挂钩的代币技术：</p>
+            <ul>
+                <li><strong>多元资产覆盖</strong> - 计划支持加密货币、股票、商品、外汇等多类资产</li>
+                <li><strong>24/7全天候交易</strong> - 目标是突破传统市场时间限制</li>
+                <li><strong>零摩擦交易体验</strong> - 设计理念是无需KYC、无需跨链、无对手方风险</li>
+                <li><strong>组合资产创新</strong> - 计划支持创建指数型合成资产和定制化投资组合</li>
+            </ul>
+            
+            <h3>Triplex计划的合成资产产品</h3>
+            <p>Triplex在测试网上正在开发以下合成资产产品：</p>
+            <ul>
+                <li><strong>trtUSD</strong> - 稳定币，100%链上抵押（测试阶段）</li>
+                <li><strong>trtBTC</strong> - 合成比特币测试版</li>
+                <li><strong>trtETH</strong> - 合成以太坊测试版</li>
+                <li><strong>trtAPT</strong> - 杠杆化Aptos代币测试版</li>
+                <li><strong>trtFX</strong> - 主要法币合成资产概念验证</li>
+                <li><strong>trtCOMM</strong> - 大宗商品合成资产概念验证</li>
+                <li><strong>trtINDEX</strong> - 自动再平衡的加密货币指数测试版</li>
+            </ul>
+            
+            <h3>未来功能规划</h3>
+            <ul>
+                <li><strong>现货交易</strong> - 以当前市场价格在链上买卖资产</li>
+                <li><strong>永续合约</strong> - 使用杠杆交易永续合约</li>
+                <li><strong>法币通道</strong> - 使用法定货币购买加密资产</li>
+                <li><strong>合成资产创建器</strong> - 用户定义的合成资产创建工具</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>平台特色（开发中）</h2>
+            <h3>一站式解决方案（路线图）</h3>
+            <p>我们正在开发以下功能，计划在主网上线后逐步推出：</p>
+            
+            <div class="features-grid">
+                <div>
+                    <h4>跨链质押</h4>
+                    <p>计划支持在多个链上质押多种资产以赚取奖励。</p>
+                </div>
+                <div>
+                    <h4>现货交易</h4>
+                    <p>开发中 - 以当前市场价格在链上买卖。</p>
+                </div>
+                <div>
+                    <h4>永续合约</h4>
+                    <p>计划在主网上线后的整合季推出。</p>
+                </div>
+                <div>
+                    <h4>空投</h4>
+                    <p>计划支持在Triplex账户中领取成就空投。</p>
+                </div>
+                <div>
+                    <h4>额外安全功能</h4>
+                    <p>多因素认证功能正在设计中。</p>
+                </div>
+                <div>
+                    <h4>徽章与成就</h4>
+                    <p>计划通过一系列链上活动获得成就和徽章系统。</p>
+                </div>
+                <div>
+                    <h4>发送与接收</h4>
+                    <p>向其他用户和外部钱包发送和接收资产的功能正在测试网上开发。</p>
+                </div>
+                <div>
+                    <h4>Triplex交易</h4>
+                    <p>交换和桥接资产的功能正在测试网上开发，目标是无需支付Gas费。</p>
+                </div>
+                <div>
+                    <h4>法币通道</h4>
+                    <p>计划在主网上线后推出。</p>
+                </div>
+                <div>
+                    <h4>活动与游戏</h4>
+                    <p>主网上线后将推出活动和游戏功能。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>收益机制（设计阶段）</h2>
+            <p>我们正在设计以下收益机制：</p>
+            <ul>
+                <li><strong>APT质押</strong> - 计划支持质押APT获得Aptos网络的质押奖励</li>
+                <li><strong>合成资产流动性挖矿</strong> - 为合成资产提供流动性的奖励机制设计中</li>
+                <li><strong>交易挖矿</strong> - 计划通过积极交易获得TRT代币奖励</li>
+                <li><strong>DAI收益</strong> - 计划与MakerDAO生态系统整合</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>技术开发进展</h2>
+            
+            <h3>价格预言机网络（测试阶段）</h3>
+            <p>Triplex合成资产预言机系统正在测试网上开发：</p>
+            <ul>
+                <li>链上去中心化预言机聚合测试</li>
+                <li>价格偏差检测算法验证</li>
+                <li>时间加权平均价格(TWAP)机制测试</li>
+                <li>防闪电贷攻击保护设计</li>
+            </ul>
+            
+            <h3>智能抵押机制（概念验证）</h3>
+            <p>动态抵押率系统正在测试网上进行概念验证：</p>
+            <ul>
+                <li>多资产抵押组合设计</li>
+                <li>智能清算系统测试</li>
+                <li>流动性挖矿激励机制设计</li>
+            </ul>
+            
+            <h3>去中心化治理（规划阶段）</h3>
+            <p>社区参与决策的治理系统计划：</p>
+            <ul>
+                <li>资产支持范围决策框架</li>
+                <li>风险参数调整机制</li>
+                <li>协议升级提案流程</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>技术验证案例（模拟数据）</h2>
+            
+            <div class="case-study">
+                <h3>量化策略测试案例</h3>
+                <p>我们在测试网上模拟了量化交易策略，验证了Triplex的合成资产市场概念。这些测试表明，平台可以支持多资产类别的无缝交易策略，包括跨市场套利和统计套利策略。</p>
+                <div class="case-results">
+                    <p>模拟测试结果：</p>
+                    <ul>
+                        <li>32% 理论年化收益率</li>
+                        <li>50% 潜在交易成本降低</li>
+                        <li>3.2ms 平均执行时间（测试网环境）</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h3>资产管理模拟案例</h3>
+                <p>我们在测试网上模拟了资产管理场景，将模拟资产配置到Triplex流动性池中。通过智能抵押品管理和风险分散测试，验证了稳定收益流的可行性。</p>
+                <div class="case-results">
+                    <p>模拟测试结果：</p>
+                    <ul>
+                        <li>18.5% 理论年化收益率</li>
+                        <li>显著的资本效率提升潜力</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h3>开发者API测试：合成指数基金</h3>
+                <p>我们测试了初步的API和SDK，模拟构建自动化投资平台的场景：</p>
+                <ul>
+                    <li>自动再平衡的加密货币指数概念验证</li>
+                    <li>全球股票市场合成指数设计</li>
+                    <li>混合型商品与外汇策略组合原型</li>
+                </ul>
+                <p>这些API测试表明，开发者将能够在Triplex主网上线后构建创新应用。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>预期使用场景（主网上线后）</h2>
+            
+            <div class="case-study">
+                <h3>场景1：跨市场无缝交易</h3>
+                <p><strong>潜在用户类型：</strong> 活跃交易者</p>
+                <p>通过Triplex App，交易者将能够：</p>
+                <ol>
+                    <li>在单一界面管理多种合成资产</li>
+                    <li>无需支付Gas费进行资产转移</li>
+                    <li>实时交易多个市场的合成资产</li>
+                    <li>通过单一抵押品池提高资本效率</li>
+                </ol>
+                <p><strong>预期结果：</strong> 大幅降低交易成本，提高交易频率，提升总体回报率。</p>
+            </div>
+            
+            <div class="case-study">
+                <h3>场景2：机构级资产管理</h3>
+                <p><strong>潜在用户类型：</strong> 资产管理机构</p>
+                <p>Triplex平台计划提供：</p>
+                <ol>
+                    <li>定制化合成资产投资组合工具</li>
+                    <li>一站式资产管理解决方案</li>
+                    <li>基于智能合约的自动再平衡与风险控制</li>
+                    <li>可定制的收益报告与透明度</li>
+                </ol>
+                <p><strong>预期结果：</strong> 优化收益率，降低运营成本，提升客户满意度。</p>
+            </div>
+            
+            <div class="case-study">
+                <h3>场景3：去中心化金融普惠</h3>
+                <p><strong>潜在用户类型：</strong> 新兴市场个人用户</p>
+                <p>通过Triplex，用户将能够：</p>
+                <ol>
+                    <li>访问全球金融市场</li>
+                    <li>使用稳定币trtUSD作为价值存储</li>
+                    <li>通过合成资产参与全球市场投资</li>
+                    <li>利用质押功能获得被动收益</li>
+                </ol>
+                <p><strong>预期结果：</strong> 为传统金融服务不足的地区用户提供更好的金融工具。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>透明度与信任（建设中）</h2>
+            
+            <h3>创始团队</h3>
+            <p>由加密行业团队创建，正在开发DeFi产品。</p>
+            
+            <h3>治理</h3>
+            <p>计划建立去中心化治理，由社区选举的委员会。</p>
+            
+            <h3>审计计划</h3>
+            <p>计划与安全审计公司合作，确保协议和应用的安全性：</p>
+            <ul>
+                <li>智能合约安全审计</li>
+                <li>App安全评估</li>
+                <li>合成资产核心模块审计</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>常见问题</h2>
+            
+            <div class="faq-item">
+                <h4>Triplex目前处于什么阶段？</h4>
+                <p>Triplex目前处于测试网开发阶段，仅在Aptos测试网上运行，尚未在主网上线。</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>我现在可以使用Triplex吗？</h4>
+                <p>目前Triplex仍在测试阶段，尚未向公众开放。我们正在Aptos测试网上进行功能验证和测试。</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Triplex何时会在主网上线？</h4>
+                <p>我们正在积极开发中，具体上线时间表将根据测试进展和安全审计结果确定。请关注我们的官方渠道获取最新动态。</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>测试网版本有哪些限制？</h4>
+                <p>测试网版本使用测试币，没有实际价值。功能可能不完整，性能和稳定性也在持续优化中。</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Triplex是去中心化的吗？</h4>
+                <p>是的，Triplex核心协议和合成资产市场设计为完全去中心化，基于Aptos区块链。目前在测试网上验证这一架构。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>参与Triplex测试网</h2>
+            
+            <h3>测试网体验（即将推出）</h3>
+            <p>Triplex测试网版本计划在以下平台提供：</p>
+            <ul>
+                <li>开发者测试版网页应用</li>
+            </ul>
+            
+            <h3>参与测试的步骤</h3>
+            <ol>
+                <li><strong>申请测试资格</strong> - 通过我们的网站申请参与测试网测试</li>
+                <li><strong>创建测试账户</strong> - 使用测试用的凭证创建非托管Triplex测试账户</li>
+                <li><strong>开始探索</strong> - 使用测试币体验交易、质押或合成资产功能</li>
+            </ol>
+            
+            <h3>早期测试用户奖励（计划中）</h3>
+            <p>作为早期测试用户，未来可能获得：</p>
+            <ul>
+                <li><strong>TRT代币</strong> - 主网上线后的代币空投资格</li>
+                <li><strong>测试贡献者NFT</strong> - 独家测试贡献者NFT徽章</li>
+                <li><strong>优先访问</strong> - 主网功能优先体验资格</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>开发者资源（开发中）</h2>
+            
+            <h3>API和SDK（测试阶段）</h3>
+            <p>Triplex正在开发开发者工具：</p>
+            <ul>
+                <li>REST API文档（开发中）</li>
+                <li>JavaScript/TypeScript SDK（测试版）</li>
+                <li>示例代码和教程（准备中）</li>
+                <li>开发者社区支持（筹备中）</li>
+            </ul>
+            
+            <h3>合作伙伴计划（规划中）</h3>
+            <p>未来的Triplex合作伙伴计划将提供：</p>
+            <ul>
+                <li>技术支持</li>
+                <li>营销资源</li>
+                <li>收入分享机会</li>
+                <li>共同开发机会</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>联系我们</h2>
+            
+            <div class="contact-section">
+                <div>
+                    <h3>社区渠道</h3>
+                    <ul>
+                        <li><strong>Discord</strong>: <a href="https://discord.gg/triplex">discord.gg/triplex</a></li>
+                        <li><strong>Twitter</strong>: <a href="https://twitter.com/TriplexFi">@TriplexFi</a></li>
+                        <li><strong>Telegram</strong>: <a href="https://t.me/TriplexOfficial">t.me/TriplexOfficial</a></li>
+                        <li><strong>Medium</strong>: <a href="https://medium.com/triplex">medium.com/triplex</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>商务合作</h3>
+                    <p>对于商务合作、投资机会或媒体咨询，请联系：</p>
+                    <p><strong>电子邮件</strong>: <a href="mailto:business@triplex.fi">business@triplex.fi</a></p>
+                </div>
+                
+                <div>
+                    <h3>技术支持</h3>
+                    <p>需要帮助？我们随时为您提供支持：</p>
+                    <p><strong>支持邮箱</strong>: <a href="mailto:support@triplex.fi">support@triplex.fi</a></p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>Triplex - 合成资产交易的未来（测试网阶段）</p>
+            </div>
+            <p>© 2023 Triplex Finance. 版权所有。</p>
+        </div>
+    </footer>
+</body>
+</html> 

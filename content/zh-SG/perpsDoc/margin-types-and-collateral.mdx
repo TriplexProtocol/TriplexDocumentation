@@ -1,0 +1,33 @@
+# Margin Types & Collateral
+
+Margin types and collateral are key components of trading on the Synthetix Exchange. Understanding these concepts is essential for managing risk, optimizing capital efficiency, and improving trading performance.
+
+## Cross-Margining: Maximizing Capital Efficiency
+
+Cross-margining allows traders to leverage the total value of their account as collateral for multiple positions simultaneously. Instead of treating each trade individually, your entire portfolio acts as a unified source of collateral, which significantly enhances capital efficiency.
+
+This approach reduces the likelihood of forced liquidations on individual trades and minimizes margin requirements, as profits from one position can offset losses in another. However, traders should be cautious: if the overall account balance falls below the required margin, the entire account is subject to liquidation.
+
+In the future, isolated positions will be available to provide flexibility to traders.
+
+## Margin Types
+
+### Cross-Margin
+
+- Pools liabilities from multiple positions in an account.
+- Balances margins across positions, reducing the overall margin needed.
+- Helps prevent liquidations on isolated trades by using profits from other positions as a buffer.
+- Simplifies account management by consolidating all margins into a single balance.
+
+Traders should note that liquidations now are no longer isolated to single positions but the account in its entirety!
+
+### Isolated Margin
+
+- Limits the liability of each trade to its own initial margin.
+- Keeps risk confined to a specific position, preventing it from impacting the rest of the account.
+
+_Currently unavailable on Synthetix Exchange v3, but planned for future updates. Isolated margin is only enabled for V2 Legacy Perps._
+
+## What happened to sUSD?
+
+In v2, sUSD was the decentralized stablecoin used for trading. In v3, this process has been streamlined. While v3 still uses a synthetic USD for accounting purposes, all deposits and withdrawals are processed through a wrapper. This means traders can now deposit and withdraw USDC on a 1:1 basis, enabling seamless integration with other collateral types and simplifying fund management. 

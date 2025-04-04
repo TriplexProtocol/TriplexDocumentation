@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仪表盘 - Triplex</title>
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --background-color: #0f172a;
+            --card-background: #1e293b;
+            --text-color: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --success-color: #22c55e;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--card-background);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .wallet-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+
+        .wallet-button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .user-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .user-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .user-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .user-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .user-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon">T</div>
+            <span>Triplex</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="triplex-dashboard.html" class="active">仪表盘</a>
+            <a href="triplex-borrow.html">借贷</a>
+            <a href="triplex-collateral-management.html">抵押管理</a>
+            <a href="triplex-synthetic-assets.html">合成资产</a>
+            <a href="triplex-liquidity-mining.html">流动性挖矿</a>
+            <a href="triplex-governance.html">治理</a>
+            <a href="triplex-analytics.html">数据分析</a>
+            <a href="triplex-help-center.html">帮助中心</a>
+        </div>
+        <div class="user-links">
+            <a href="triplex-user-profile.html">个人中心</a>
+            <a href="triplex-notifications.html">通知</a>
+            <a href="triplex-rewards-center.html">奖励中心</a>
+            <button class="wallet-button" onclick="alert('连接钱包功能将在实际部署中启用')">连接钱包</button>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>总锁仓价值 (TVL)</h3>
+                <div class="stat-value">$1,234,567.89</div>
+                <div class="stat-change positive">+5.67%</div>
+            </div>
+            <div class="stat-card">
+                <h3>总借贷价值</h3>
+                <div class="stat-value">$789,012.34</div>
+                <div class="stat-change negative">-2.34%</div>
+            </div>
+            <div class="stat-card">
+                <h3>总交易量</h3>
+                <div class="stat-value">$9,876,543.21</div>
+                <div class="stat-change positive">+12.45%</div>
+            </div>
+            <div class="stat-card">
+                <h3>活跃用户数</h3>
+                <div class="stat-value">3,456</div>
+                <div class="stat-change positive">+8.90%</div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>锁仓价值趋势</h3>
+                <div class="chart-placeholder">图表将在实际部署中显示</div>
+            </div>
+            <div class="chart-card">
+                <h3>借贷量趋势</h3>
+                <div class="chart-placeholder">图表将在实际部署中显示</div>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>资产分布</h3>
+                <table class="asset-table">
+                    <thead>
+                        <tr>
+                            <th>资产</th>
+                            <th>价格</th>
+                            <th>24h 变化</th>
+                            <th>总锁仓量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="asset-name">
+                                    <div class="asset-icon">B</div>
+                                    BTC
+                                </div>
+                            </td>
+                            <td>$45,678.90</td>
+                            <td class="positive">+2.34%</td>
+                            <td>123.45 BTC</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="asset-name">
+                                    <div class="asset-icon">E</div>
+                                    ETH
+                                </div>
+                            </td>
+                            <td>$2,345.67</td>
+                            <td class="negative">-1.23%</td>
+                            <td>789.01 ETH</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="info-card">
+                <h3>最新交易</h3>
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>金额</th>
+                            <th>时间</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>借贷</td>
+                            <td>12.34 ETH</td>
+                            <td>5分钟前</td>
+                            <td><span class="status success">成功</span></td>
+                        </tr>
+                        <tr>
+                            <td>还款</td>
+                            <td>0.56 BTC</td>
+                            <td>15分钟前</td>
+                            <td><span class="status pending">处理中</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .dashboard {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-card h3 {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .positive {
+            color: var(--success-color);
+        }
+
+        .negative {
+            color: var(--error-color);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-card h3 {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .chart-placeholder {
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            color: var(--text-secondary);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-card h3 {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .asset-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .asset-icon {
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status.success {
+            background-color: rgba(34, 197, 94, 0.1);
+            color: var(--success-color);
+        }
+
+        .status.pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                padding: 1rem;
+            }
+
+            .charts-grid, .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-placeholder {
+                height: 200px;
+            }
+        }
+    </style>
+</body>
+</html> 

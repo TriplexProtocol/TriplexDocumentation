@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triplex协议流程图</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #1a73e8;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+        h2 {
+            color: #1a73e8;
+            border-bottom: 2px solid #1a73e8;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 1.8em;
+        }
+        .section {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        /* 流程图样式 */
+        .flow-diagram {
+            margin: 30px auto;
+            padding: 20px;
+            position: relative;
+        }
+        .flow-node {
+            border: 2px solid #1a73e8;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            background-color: #e8f0fe;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .flow-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .flow-arrow {
+            height: 50px;
+            position: relative;
+            margin: 0 auto;
+            width: 40px;
+        }
+        .flow-arrow:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-top-color: #1a73e8;
+            border-bottom: 0;
+            margin-left: -20px;
+            margin-bottom: -20px;
+        }
+        .flow-arrow:before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            bottom: 20px;
+            left: 50%;
+            width: 4px;
+            background: #1a73e8;
+            transform: translateX(-50%);
+        }
+        .collateral-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .collateral-item {
+            background-color: #fff;
+            border: 1px solid #d0e3ff;
+            border-radius: 5px;
+            padding: 10px;
+            width: 120px;
+            text-align: center;
+            font-size: 0.9em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .flow-split {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            position: relative;
+        }
+        .flow-split:before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 25%;
+            right: 25%;
+            height: 50px;
+            border-top: 4px solid #1a73e8;
+            border-left: 4px solid #1a73e8;
+            border-right: 4px solid #1a73e8;
+        }
+        .flow-column {
+            width: 30%;
+        }
+        .synth-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .synth-item {
+            background-color: #fff4de;
+            border: 1px solid #ffcb66;
+            border-radius: 5px;
+            padding: 8px;
+            min-width: 100px;
+            text-align: center;
+            font-size: 0.85em;
+        }
+        .highlight-node {
+            background-color: #ebf8ff;
+            border-color: #63b3ed;
+        }
+        .process-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+        .icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        /* 响应式布局 */
+        @media (max-width: 768px) {
+            .flow-split {
+                flex-direction: column;
+                align-items: center;
+            }
+            .flow-split:before {
+                display: none;
+            }
+            .flow-column {
+                width: 90%;
+                margin-bottom: 30px;
+            }
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .user-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .user-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .user-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .user-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon">T</div>
+            <span>Triplex</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="triplex-dashboard.html">仪表盘</a>
+            <a href="triplex-borrow.html">借贷</a>
+            <a href="triplex-collateral-management.html">抵押管理</a>
+            <a href="triplex-synthetic-assets.html">合成资产</a>
+            <a href="triplex-liquidity-mining.html">流动性挖矿</a>
+            <a href="triplex-governance.html">治理</a>
+            <a href="triplex-analytics.html">数据分析</a>
+            <a href="triplex-help-center.html">帮助中心</a>
+        </div>
+        <div class="user-links">
+            <a href="triplex-user-profile.html">个人中心</a>
+            <a href="triplex-notifications.html">通知</a>
+            <a href="triplex-rewards-center.html">奖励中心</a>
+            <button class="wallet-button" onclick="alert('连接钱包功能将在实际部署中启用')">连接钱包</button>
+        </div>
+    </header>
+    
+    <h1>Triplex协议流程图</h1>
+    
+    <div class="section">
+        <h2>完整流程图</h2>
+        
+        <div class="flow-diagram">
+            <!-- 抵押品部分 -->
+            <div class="flow-node">
+                <h3>抵押品</h3>
+                <div class="collateral-container">
+                    <div class="collateral-item">APT</div>
+                    <div class="collateral-item">stAPT</div>
+                    <div class="collateral-item">amAPT</div>
+                    <div class="collateral-item">WBTC</div>
+                    <div class="collateral-item">WETH</div>
+                    <div class="collateral-item">zWETH</div>
+                    <div class="collateral-item">zWBTC</div>
+                </div>
+            </div>
+            
+            <div class="flow-arrow"></div>
+            
+            <!-- CDP生成trxUSD -->
+            <div class="flow-node highlight-node">
+                <h3>CDP机制</h3>
+                <p>锁定抵押品，设置参数：</p>
+                <ul style="text-align: left; display: inline-block;">
+                    <li>最低抵押率</li>
+                    <li>清算阈值</li>
+                    <li>借贷上限</li>
+                </ul>
+                <p><strong>生成 trxUSD</strong></p>
+            </div>
+            
+            <div class="flow-arrow"></div>
+            
+            <!-- 合成资产铸造 -->
+            <div class="flow-node highlight-node">
+                <h3>使用trxUSD铸造合成资产</h3>
+            </div>
+            
+            <!-- 分支流程 -->
+            <div class="flow-split">
+                <!-- 加密货币合成资产 -->
+                <div class="flow-column">
+                    <div class="flow-node">
+                        <h3>加密货币合成资产</h3>
+                        <div class="synth-container">
+                            <div class="synth-item">tpxAPT</div>
+                            <div class="synth-item">tpxBTC</div>
+                            <div class="synth-item">tpxETH</div>
+                            <div class="synth-item">tpxSOL</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 实物资产RWA -->
+                <div class="flow-column">
+                    <div class="flow-node">
+                        <h3>实物资产 (RWA)</h3>
+                        <div class="synth-container">
+                            <div class="synth-item">tpxGOLD</div>
+                            <div class="synth-item">tpxSILVER</div>
+                            <div class="synth-item">tpxCRUDE</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>用户操作流程</h2>
+        
+        <div class="process-diagram">
+            <div class="flow-node">
+                <div class="icon">📱</div>
+                <h3>1. 连接钱包</h3>
+                <p>用户连接Aptos钱包与Triplex协议交互</p>
+            </div>
+            
+            <div class="flow-arrow"></div>
+            
+            <div class="flow-node">
+                <div class="icon">💰</div>
+                <h3>2. 存入抵押品</h3>
+                <p>选择抵押品类型与数量存入智能合约</p>
+            </div>
+            
+            <div class="flow-arrow"></div>
+            
+            <div class="flow-node">
+                <div class="icon">💵</div>
+                <h3>3. 铸造trxUSD</h3>
+                <p>基于已存抵押品，铸造稳定币trxUSD</p>
+            </div>
+            
+            <div class="flow-arrow"></div>
+            
+            <div class="flow-node">
+                <div class="icon">🔄</div>
+                <h3>4. 铸造合成资产</h3>
+                <p>使用trxUSD铸造所需的tpx系列合成资产</p>
+            </div>
+            
+            <div class="flow-arrow"></div>
+            
+            <div class="flow-node">
+                <div class="icon">📊</div>
+                <h3>5. 管理头寸</h3>
+                <p>监控抵押率、调整头寸避免清算风险</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>技术实现关键点</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 30px;">
+            <div style="width: 45%; min-width: 300px; background-color: #e8f0fe; padding: 20px; border-radius: 8px; box-shadow: 0 3px 6px rgba(0,0,0,0.1);">
+                <h3 style="color: #1a73e8;">预言机价格源</h3>
+                <p>Pyth网络提供实时价格数据，确保合成资产价格准确反映市场价值</p>
+            </div>
+            
+            <div style="width: 45%; min-width: 300px; background-color: #e8f0fe; padding: 20px; border-radius: 8px; box-shadow: 0 3px 6px rgba(0,0,0,0.1);">
+                <h3 style="color: #1a73e8;">清算机制</h3>
+                <p>当抵押率低于设定阈值时，系统自动触发清算流程，保障整体协议安全</p>
+            </div>
+            
+            <div style="width: 45%; min-width: 300px; background-color: #e8f0fe; padding: 20px; border-radius: 8px; box-shadow: 0 3px 6px rgba(0,0,0,0.1);">
+                <h3 style="color: #1a73e8;">费用结构</h3>
+                <p>铸造、赎回和清算过程中产生的费用，用于维护协议运营和激励LP提供者</p>
+            </div>
+            
+            <div style="width: 45%; min-width: 300px; background-color: #e8f0fe; padding: 20px; border-radius: 8px; box-shadow: 0 3px 6px rgba(0,0,0,0.1);">
+                <h3 style="color: #1a73e8;">风险参数</h3>
+                <p>不同抵押品类型有不同的风险系数和借贷上限，确保系统整体稳定性</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2023 Triplex Protocol. 保留所有权利。</p>
+    </div>
+</body>
+</html> 

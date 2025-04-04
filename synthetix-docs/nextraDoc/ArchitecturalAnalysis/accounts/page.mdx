@@ -1,0 +1,296 @@
+import { Callout, Cards, FileTree, Steps, Tabs } from 'nextra/components'
+
+# Synthetix V3 账户系统
+
+<Callout type="info">
+  Synthetix V3 采用创新的基于 NFT 的账户系统，突破传统 DeFi 中"地址即账户"的模式，提供更灵活的权限管理和更好的用户体验。系统支持多账户管理、细粒度权限控制和跨链账户关联。
+</Callout>
+
+## 系统架构
+
+### 核心特点
+
+<Cards>
+  <Cards.Card title="NFT 账户">
+    ERC-721 标准、可转移、可交易
+  </Cards.Card>
+  <Cards.Card title="账户隔离">
+    多账户管理、风险隔离、策略分离
+  </Cards.Card>
+  <Cards.Card title="统一管理">
+    多类资产、跨市场抵押、健康度计算
+  </Cards.Card>
+  <Cards.Card title="跨链支持">
+    多链关联、状态同步、消息传递
+  </Cards.Card>
+</Cards>
+
+### 系统结构
+
+<FileTree>
+  <FileTree.Folder name="Account System" defaultOpen>
+    <FileTree.Folder name="Core" defaultOpen>
+      <FileTree.File name="AccountModule.sol" />
+      <FileTree.File name="AccountNFT.sol" />
+      <FileTree.File name="PermissionManager.sol" />
+    </FileTree.Folder>
+    <FileTree.Folder name="Permissions">
+      <FileTree.File name="RBAC.sol" />
+      <FileTree.File name="Delegations.sol" />
+      <FileTree.File name="PermissionTypes.sol" />
+    </FileTree.Folder>
+    <FileTree.Folder name="Integration">
+      <FileTree.File name="CrossChainAccount.sol" />
+      <FileTree.File name="AssetManager.sol" />
+      <FileTree.File name="SecurityModule.sol" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+## NFT 账户模型
+
+### 账户创建
+
+<Tabs items={['创建流程', '账户属性', '所有权管理']}>
+  <Tabs.Tab>
+    ```solidity
+    interface IAccountModule {
+        function createAccount() external returns (uint256 accountId);
+        
+        function getAccountNFT(uint256 accountId) external view returns (address);
+        
+        function getAccountOwner(uint256 accountId) external view returns (address);
+        
+        function getAccountMetadata(uint256 accountId) 
+            external 
+            view 
+            returns (AccountMetadata memory);
+    }
+    
+    struct AccountMetadata {
+        uint256 creationTime;
+        uint8 accountType;
+        bytes32 customData;
+        string externalUri;
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="账户标识">
+        唯一ID、NFT代币、元数据URI
+      </Cards.Card>
+      <Cards.Card title="基础属性">
+        创建时间、账户类型、自定义数据
+      </Cards.Card>
+      <Cards.Card title="扩展属性">
+        外部资源、关联信息、状态数据
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **所有权验证**
+         - NFT持有验证
+         - 权限检查
+         - 操作授权
+      
+      2. **转移机制**
+         - NFT转移
+         - 资产保留
+         - 配置继承
+      
+      3. **多账户**
+         - 批量管理
+         - 独立配置
+         - 组合操作
+    </Steps>
+  </Tabs.Tab>
+</Tabs>
+
+## 权限控制系统
+
+### 权限类型
+
+<Cards>
+  <Cards.Card title="永续合约">
+    保证金管理、订单提交、仓位调整
+  </Cards.Card>
+  <Cards.Card title="现货市场">
+    抵押品管理、资产交换、流动性操作
+  </Cards.Card>
+  <Cards.Card title="管理权限">
+    账户配置、授权管理、安全设置
+  </Cards.Card>
+  <Cards.Card title="自定义权限">
+    用户定义、条件限制、时效控制
+  </Cards.Card>
+</Cards>
+
+### 权限管理
+
+<Tabs items={['权限结构', '验证流程', '授权机制']}>
+  <Tabs.Tab>
+    <Steps>
+      1. **核心权限**
+         - 操作类型定义
+         - 权限标识生成
+         - 分组管理
+      
+      2. **继承关系**
+         - 权限层级
+         - 冲突解决
+         - 默认规则
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    ```solidity
+    interface IPermissionManager {
+        function checkPermission(
+            uint256 accountId,
+            address operator,
+            bytes32 permission
+        ) external view returns (bool);
+        
+        function validatePermission(
+            uint256 accountId,
+            address operator,
+            bytes32 permission
+        ) external view;
+        
+        event PermissionChecked(
+            uint256 indexed accountId,
+            address indexed operator,
+            bytes32 indexed permission,
+            bool result
+        );
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="授权操作">
+        权限授予、权限撤销、状态查询
+      </Cards.Card>
+      <Cards.Card title="委托机制">
+        临时授权、条件委托、自动过期
+      </Cards.Card>
+      <Cards.Card title="审计追踪">
+        操作记录、事件日志、状态变更
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 跨链账户
+
+### 账户关联
+
+<Steps>
+  1. **关联机制**
+     - 跨链标识
+     - 状态映射
+     - 关系验证
+  
+  2. **状态同步**
+     - 消息传递
+     - 数据一致性
+     - 冲突解决
+  
+  3. **操作协调**
+     - 跨链授权
+     - 资产管理
+     - 风险控制
+</Steps>
+
+### 安全保障
+
+<Tabs items={['访问控制', '风险防护', '应急响应']}>
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="多重验证">
+        所有权验证、权限检查、操作确认
+      </Cards.Card>
+      <Cards.Card title="时效控制">
+        授权期限、操作窗口、冷却期
+      </Cards.Card>
+      <Cards.Card title="限额管理">
+        操作限额、频率控制、风险限制
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **风险监控**
+         - 异常检测
+         - 阈值告警
+         - 自动干预
+      
+      2. **防护措施**
+         - 操作延迟
+         - 多重签名
+         - 保护锁定
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="紧急暂停">
+        快速冻结、分级响应、恢复流程
+      </Cards.Card>
+      <Cards.Card title="漏洞修复">
+        热更新、降级方案、备份恢复
+      </Cards.Card>
+      <Cards.Card title="损失补偿">
+        保险机制、赔付流程、追责处理
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 用户体验
+
+<Callout type="warning">
+  账户系统的设计重点关注用户体验，通过直观的接口和安全的操作流程，降低用户使用门槛，同时保证资产安全。
+</Callout>
+
+### 操作流程
+
+<Steps>
+  1. **账户管理**
+     - 简化创建
+     - 直观转移
+     - 批量操作
+  
+  2. **权限配置**
+     - 可视化设置
+     - 模板应用
+     - 快速调整
+  
+  3. **资产操作**
+     - 统一视图
+     - 一键授权
+     - 状态监控
+</Steps>
+
+### 安全建议
+
+<Cards>
+  <Cards.Card title="账户保护">
+    多重验证、备份恢复、定期检查
+  </Cards.Card>
+  <Cards.Card title="权限管理">
+    最小权限、定期更新、紧急撤销
+  </Cards.Card>
+  <Cards.Card title="操作确认">
+    二次确认、延迟执行、操作回滚
+  </Cards.Card>
+  <Cards.Card title="监控预警">
+    状态监控、风险提醒、异常告警
+  </Cards.Card>
+</Cards>

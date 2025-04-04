@@ -1,0 +1,81 @@
+# Multi-Collateral Margin
+
+The multi-collateral feature allows traders to deposit assets such as ETH and tpxBTC. Traders can leverage the USD value of these asset types without losing exposure to them.
+
+## Advantages of Multi-Collateral
+
+The multi-collateral margin system offers traders several benefits, enabling them to utilize their asset portfolios more effectively:
+
+- **Improved Capital Efficiency**: Trade without converting assets into stablecoins.
+- **Maintain Market Exposure**: Continue benefiting from price appreciation of assets deposited as collateral.
+- **Reduced Slippage**: Avoid slippage from large asset conversions before trading.
+- **Simplified Portfolio Management**: Manage multiple asset types on a single platform.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+In Triplex V3, you can combine multiple collateral types in a unified margin account. The entire account's balance and positions are considered in the account health calculation.
+</Callout>
+
+## Supported Collateral Types
+
+### USDe
+
+Ethena's synthetic dollar USDe provides a crypto-native, scalable currency solution by hedging Ethereum and Bitcoin collateral. USDe is fully asset-backed and can be freely used in both centralized finance (CeFi) and decentralized finance (DeFi) ecosystems.
+
+To learn more about USDe, visit [Ethena Labs Documentation](https://ethena-labs.gitbook.io/ethena-labs).
+
+### tpxBTC
+
+Threshold's wrapped Bitcoin is tradable on EVM chains. While tpxBTC serves a similar purpose to other wrapped assets and stablecoins on Ethereum, Threshold decentralizes the management and custody of the underlying BTC. Oracles track the value of your tpxBTC deposits when opening trades and calculating maintenance margin.
+
+To learn more about tpxBTC, visit [Threshold Network Blog](https://blog.threshold.network/bridging-the-gap-the-basics-of-tbtc/).
+
+### ETH/wETH
+
+wETH is the wrapped ERC20 version of ETH, and all ETH margin deposits are wrapped to allow them to be used as collateral. ETH is, of course, the native asset of the Ethereum network, with good liquidity and broad support on EVM chains. Oracles track the value of your ETH deposits when opening trades and calculating maintenance margin.
+
+### USDC
+
+USDC is a fiat-backed stablecoin issued by Circle. It is pegged 1:1 to the US dollar and fully backed by reserves held in regulated financial institutions. USDC provides a highly liquid, reliable, and widely accepted stablecoin solution for users of decentralized and centralized financial applications.
+
+### stataUSDC
+
+stataUSDC is an interest-bearing version of USDC created by staking USDC into Aave's Base lending pool, generating yield while maintaining trading and collateral liquidity.
+
+## What is USDx?
+
+USDx is Triplex's internal synthetic stablecoin used for margin and trade settlement. When you deposit any collateral type, the system records its USD value as USDx. This design simplifies multi-collateral management while maintaining consistent margin accounting.
+
+### How USDx Works
+
+1. **Deposit Conversion**: When you deposit collateral, the system calculates its USD value based on current market prices.
+2. **USDx Minting**: The system mints the corresponding amount of USDx for internal accounting.
+3. **Price Updates**: The value of non-stablecoin collateral is continuously updated based on real-time prices provided by oracles.
+4. **Health Calculation**: Your account health is calculated by comparing the total value of USDx to your position requirements.
+
+<Callout type="warning">
+Please note that USDx is not a withdrawable or transferable token but an internal accounting unit that allows the system to handle different types of collateral consistently.
+</Callout>
+
+## Multi-Collateral Handling in Liquidation
+
+The multi-collateral system employs specific handling methods during liquidation:
+
+1. **Priority Liquidation**: The system first uses the most volatile collateral to handle liquidation, preserving stablecoin collateral.
+2. **Global Settlement**: If account health falls below the liquidation threshold, the entire account is at risk of liquidation, not just individual positions.
+3. **Collateral Conversion**: In some cases, liquidation may involve converting one type of collateral to another to meet maintenance margin requirements.
+
+## FAQ
+
+**Q**: Can I withdraw my collateral at any time?  
+**A**: You can withdraw collateral as long as your account maintains sufficient health. The system will prevent any withdrawals that would bring your account health to an unsafe level.
+
+**Q**: What are the differences between various collateral types?  
+**A**: The main differences lie in price volatility and associated risks. Stablecoins offer constant value, while crypto assets like ETH or tpxBTC may fluctuate, affecting your account health.
+
+**Q**: What happens if the value of my collateral drops?  
+**A**: If the value of your non-stablecoin collateral drops, your account health will decrease. If it falls below the liquidation threshold, your positions may be at risk of liquidation unless you add more collateral or reduce position size.
+
+**Q**: How can I optimize my multi-collateral portfolio?  
+**A**: The ideal portfolio depends on your trading strategy and risk preference. Conservative traders may prefer to use mostly stablecoins, while those seeking additional returns might include more crypto asset collateral. 

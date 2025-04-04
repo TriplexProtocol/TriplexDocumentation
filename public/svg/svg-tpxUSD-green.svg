@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 主圆形背景 -->
+  <circle cx="60" cy="60" r="60" fill="url(#gradient)" />
+  
+  <!-- 波纹效果 - 静态版本 -->
+  <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" />
+  <circle cx="60" cy="60" r="43" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" />
+  <circle cx="60" cy="60" r="38" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" />
+  
+  <!-- tpx前缀 -->
+  <text x="32" y="45" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">tpx</text>
+  
+  <!-- 字母U - 修改位置和尺寸 -->
+  <g transform="translate(60, 64)">
+    <!-- 左侧竖线 -->
+    <rect x="-10" y="-18" width="4" height="28" rx="2" fill="white" />
+    
+    <!-- 右侧竖线 -->
+    <rect x="6" y="-18" width="4" height="28" rx="2" fill="white" />
+    
+    <!-- 底部弧线 -->
+    <path d="M -10,10 Q -10,15 0,15 Q 10,15 10,10" fill="none" stroke="white" stroke-width="4" />
+  </g>
+  
+  <!-- 小圆点装饰 -->
+  <circle cx="18" cy="18" r="4" fill="white" />
+  <circle cx="102" cy="18" r="4" fill="white" />
+  <circle cx="18" cy="102" r="4" fill="white" />
+  <circle cx="102" cy="102" r="4" fill="white" />
+</svg> 

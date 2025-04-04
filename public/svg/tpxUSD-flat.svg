@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <style>
+      @keyframes ripple {
+        0% {
+          transform: scale(0.8);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1.1);
+          opacity: 0;
+        }
+      }
+      .ripple-1 {
+        animation: ripple 2s infinite ease-out;
+      }
+      .ripple-2 {
+        animation: ripple 2s infinite ease-out;
+        animation-delay: 0.5s;
+      }
+      .ripple-3 {
+        animation: ripple 2s infinite ease-out;
+        animation-delay: 1s;
+      }
+    </style>
+  </defs>
+  
+  <!-- 方形背景 - 扁平设计 -->
+  <rect x="0" y="0" width="120" height="120" rx="12" fill="#3B82F6" />
+  
+  <!-- 波纹效果 - 方形 -->
+  <rect class="ripple-1" x="12" y="12" width="96" height="96" rx="10" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="3" />
+  <rect class="ripple-2" x="17" y="17" width="86" height="86" rx="10" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="3" />
+  <rect class="ripple-3" x="22" y="22" width="76" height="76" rx="10" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="3" />
+  
+  <!-- tpx前缀 - 扁平风格更大字体 -->
+  <text x="32" y="45" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">tpx</text>
+  
+  <!-- 字母U - 更粗 -->
+  <g transform="translate(60, 70) scale(1.2)">
+    <!-- 左侧竖线 -->
+    <rect x="-10" y="-18" width="5" height="28" rx="2.5" fill="white" />
+    
+    <!-- 右侧竖线 -->
+    <rect x="5" y="-18" width="5" height="28" rx="2.5" fill="white" />
+    
+    <!-- 底部弧线 -->
+    <path d="M -10,10 Q -10,15 0,15 Q 10,15 10,10" fill="none" stroke="white" stroke-width="5" />
+  </g>
+  
+  <!-- 小圆点装饰 - 更大 -->
+  <circle cx="24" cy="24" r="5" fill="white" />
+  <circle cx="96" cy="24" r="5" fill="white" />
+  <circle cx="24" cy="96" r="5" fill="white" />
+  <circle cx="96" cy="96" r="5" fill="white" />
+</svg> 

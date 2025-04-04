@@ -11,7 +11,6 @@ import {
 } from 'nextra-theme-docs'
 import { Banner, Head } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
-import type { FC, ReactNode } from 'react'
 import { getDictionary, getDirection } from '../_dictionaries/get-dictionary'
 import { pageMap as graphqlEslintPageMap } from './graphql-eslint/[[...slug]]/page'
 import { pageMap as graphqlYogaPageMap } from './remote/graphql-yoga/[[...slug]]/page'
@@ -19,35 +18,28 @@ import './styles.css'
 
 export const metadata: Metadata = {
   description:
-    'SWR is a React Hooks library for data fetching. SWR first returns the data from cache (stale), then sends the fetch request (revalidate), and finally comes with the up-to-date data again.',
+    'Triplex是建立在Aptos上的去中心化流动性提供协议，提供模块化架构和灵活的流动性提供系统。',
   title: {
     absolute: '',
-    template: '%s | SWR'
+    template: '%s | Triplex'
   },
-  metadataBase: new URL('https://swr.vercel.app'),
+  metadataBase: new URL('https://triplex.fi'),
   openGraph: {
     images:
       'https://assets.vercel.com/image/upload/v1572282926/swr/twitter-card.jpg'
   },
   twitter: {
-    site: '@vercel'
+    site: '@triplex_io'
   },
   appleWebApp: {
-    title: 'SWR'
+    title: 'Triplex'
   },
   other: {
     'msapplication-TileColor': '#fff'
   }
 }
 
-type LayoutProps = Readonly<{
-  children: ReactNode
-  params: Promise<{
-    lang: string
-  }>
-}>
-
-const RootLayout: FC<LayoutProps> = async ({ children, params }) => {
+export default async function RootLayout({ children, params }) {
   const { lang } = await params
   const dictionary = await getDictionary(lang)
   let pageMap = await getPageMap(`/${lang}`)
@@ -65,8 +57,8 @@ const RootLayout: FC<LayoutProps> = async ({ children, params }) => {
     ]
   }
   const banner = (
-    <Banner storageKey="swr-2">
-      SWR 2.0 is out! <Link href="#">Read more →</Link>
+    <Banner storageKey="triplex-launch">
+      Triplex-- GZ & Phili & Alex_yue      "2025 APTOS EVERMOVE Hacker House" Project 
     </Banner>
   )
   const navbar = (
@@ -75,15 +67,15 @@ const RootLayout: FC<LayoutProps> = async ({ children, params }) => {
         <>
           <SwrIcon height="12" />
           <span
-            className="ms-2 select-none font-extrabold max-md:hidden"
-            title={`SWR: ${dictionary.logo.title}`}
+            className="ms-2 font-extrabold select-none max-md:hidden"
+            title={`Triplex: ${dictionary.logo.title}`}
           >
-            SWR
+            Triplex
           </span>
         </>
       }
-      projectLink="https://github.com/vercel/swr"
-      chatLink="https://discord.com"
+      projectLink="https://github.com/triplexlabs/triplex"
+      chatLink="https://discord.gg/triplex"
     >
       <LocaleSwitch lite />
     </Navbar>
@@ -120,19 +112,14 @@ const RootLayout: FC<LayoutProps> = async ({ children, params }) => {
           docsRepositoryBase="https://github.com/shuding/nextra/blob/main/examples/swr-site"
           i18n={[
             { locale: 'en', name: 'English' },
-            { locale: 'es', name: 'Español RTL' },
-            { locale: 'ru', name: 'Русский' }
+            { locale: 'zh-SG', name: '简体中文' }
           ]}
           sidebar={{
             defaultMenuCollapseLevel: 1,
             autoCollapse: true
           }}
           toc={{
-            backToTop: dictionary.backToTop,
-            extraContent: (
-              // eslint-disable-next-line @next/next/no-img-element -- we can't use with external urls
-              <img alt="placeholder cat" src="https://placecats.com/300/200" />
-            )
+            backToTop: dictionary.backToTop
           }}
           editLink={dictionary.editPage}
           pageMap={pageMap}
@@ -150,5 +137,3 @@ const RootLayout: FC<LayoutProps> = async ({ children, params }) => {
     </html>
   )
 }
-
-export default RootLayout

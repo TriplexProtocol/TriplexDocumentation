@@ -1,0 +1,299 @@
+import { Callout, Cards, FileTree, Steps, Tabs } from 'nextra/components'
+
+# Synthetix V3 性能优化系统
+
+<Callout type="info">
+  Synthetix V3 实现了全面的性能优化策略，从存储模式到计算优化，以及 Gas 效率的提升。系统通过多层次的优化手段，确保在以太坊和各 L2 网络上的高效运行。
+</Callout>
+
+## 存储优化
+
+### 存储策略
+
+<Cards>
+  <Cards.Card title="紧凑存储">
+    位打包、数据编码、分层存储
+  </Cards.Card>
+  <Cards.Card title="槽位优化">
+    结构体打包、变量缓存、懒加载
+  </Cards.Card>
+  <Cards.Card title="数据结构">
+    映射优化、数组管理、迭代控制
+  </Cards.Card>
+  <Cards.Card title="访问模式">
+    热点分离、批量操作、状态压缩
+  </Cards.Card>
+</Cards>
+
+### 实现技术
+
+<Tabs items={['位打包', '存储布局', '数据编码']}>
+  <Tabs.Tab>
+    ```solidity
+    struct MarketConfig {
+        // 将多个配置选项打包到单个uint256
+        // [0-15]: 市场标志
+        // [16-31]: 保留位
+        // [32-63]: 费率(基点)
+        // [64-127]: 价格系数
+        // [128-191]: 杠杆限制
+        uint256 packedConfig;
+    }
+    
+    function getMarketFeeRate(
+        uint256 packedConfig
+    ) internal pure returns (uint32) {
+        return uint32((packedConfig >> 32) & 0xFFFFFFFF);
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **结构体优化**
+         - 字段重排序
+         - 槽位最大化
+         - 访问优化
+      
+      2. **变量布局**
+         - 相关性分组
+         - 冷热数据分离
+         - 访问频率优化
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="整数压缩">
+        类型选择、范围限制、溢出保护
+      </Cards.Card>
+      <Cards.Card title="定点表示">
+        精度控制、计算优化、存储效率
+      </Cards.Card>
+      <Cards.Card title="自定义编码">
+        数据压缩、特殊格式、解码优化
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+## 计算优化
+
+### 数学优化
+
+<Tabs items={['定点数学', '近似计算', '缓存策略']}>
+  <Tabs.Tab>
+    ```solidity
+    library FixedPointMath {
+        uint256 private constant ONE = 1e18;
+        
+        function mulDiv(
+            uint256 x,
+            uint256 y,
+            uint256 z
+        ) internal pure returns (uint256) {
+            return (x * y) / z;
+        }
+        
+        function exp(
+            uint256 x
+        ) internal pure returns (uint256) {
+            // 使用泰勒级数近似
+            // 或查找表实现
+            // ...
+        }
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="线性近似">
+        分段线性、误差控制、边界处理
+      </Cards.Card>
+      <Cards.Card title="查找表">
+        预计算值、插值法、更新机制
+      </Cards.Card>
+      <Cards.Card title="二分查找">
+        范围收敛、精度控制、效率优化
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **中间结果**
+         - 计算缓存
+         - 重用优化
+         - 失效策略
+      
+      2. **派生数据**
+         - 状态同步
+         - 增量更新
+         - 一致性维护
+    </Steps>
+  </Tabs.Tab>
+</Tabs>
+
+### 批处理优化
+
+<Cards>
+  <Cards.Card title="交易批处理">
+    多操作组合、验证共享、状态优化
+  </Cards.Card>
+  <Cards.Card title="资产批处理">
+    多资产处理、计算共享、状态更新
+  </Cards.Card>
+  <Cards.Card title="结算批处理">
+    周期处理、奖励分配、状态同步
+  </Cards.Card>
+  <Cards.Card title="价格批处理">
+    预言机更新、验证优化、数据同步
+  </Cards.Card>
+</Cards>
+
+## Gas 效率
+
+### 合约优化
+
+<Tabs items={['代码优化', '库优化', '调用优化']}>
+  <Tabs.Tab>
+    <Steps>
+      1. **编译优化**
+         - 优化器设置
+         - 内联函数
+         - 字节码优化
+      
+      2. **逻辑优化**
+         - 条件简化
+         - 循环优化
+         - 分支减少
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    ```solidity
+    library OptimizedMath {
+        // 内部函数优化
+        function fastExp(
+            uint256 x
+        ) internal pure returns (uint256) {
+            // 优化的指数计算
+            // 使用位运算和查找表
+            // ...
+        }
+        
+        // 自定义数学函数
+        function customLog(
+            uint256 x
+        ) internal pure returns (uint256) {
+            // 优化的对数计算
+            // 使用二分查找
+            // ...
+        }
+    }
+    ```
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="内部调用">
+        函数内联、状态共享、上下文优化
+      </Cards.Card>
+      <Cards.Card title="跨合约调用">
+        批量调用、状态打包、接口优化
+      </Cards.Card>
+      <Cards.Card title="委托调用">
+        代理优化、上下文传递、安全检查
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+</Tabs>
+
+### 链下计算
+
+<Callout type="warning">
+  系统采用链下计算与链上验证相结合的策略，将复杂计算转移到链下执行，仅在链上进行必要的验证和状态更新，显著降低 Gas 成本。
+</Callout>
+
+<Steps>
+  1. **计算分离**
+     - 复杂运算链下执行
+     - 结果链上验证
+     - 状态安全更新
+  
+  2. **验证机制**
+     - 证明生成
+     - 结果验证
+     - 状态确认
+  
+  3. **数据同步**
+     - 状态一致性
+     - 数据可用性
+     - 更新机制
+</Steps>
+
+## 性能监控
+
+### 监控指标
+
+<Cards>
+  <Cards.Card title="Gas 消耗">
+    交易成本、操作效率、优化空间
+  </Cards.Card>
+  <Cards.Card title="存储使用">
+    槽位统计、访问模式、优化建议
+  </Cards.Card>
+  <Cards.Card title="计算负载">
+    执行时间、资源消耗、瓶颈分析
+  </Cards.Card>
+  <Cards.Card title="网络影响">
+    调用延迟、数据同步、网络优化
+  </Cards.Card>
+</Cards>
+
+### 优化反馈
+
+<Tabs items={['性能分析', '优化建议', '实施跟踪']}>
+  <Tabs.Tab>
+    <Steps>
+      1. **数据收集**
+         - 性能指标
+         - 资源使用
+         - 异常模式
+      
+      2. **分析评估**
+         - 瓶颈识别
+         - 影响评估
+         - 优化方向
+    </Steps>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Cards>
+      <Cards.Card title="代码优化">
+        逻辑改进、结构调整、实现优化
+      </Cards.Card>
+      <Cards.Card title="架构优化">
+        模块重构、接口优化、扩展性增强
+      </Cards.Card>
+      <Cards.Card title="配置优化">
+        参数调整、资源配置、运行优化
+      </Cards.Card>
+    </Cards>
+  </Tabs.Tab>
+  
+  <Tabs.Tab>
+    <Steps>
+      1. **实施计划**
+         - 优先级排序
+         - 资源分配
+         - 时间安排
+      
+      2. **效果评估**
+         - 指标对比
+         - 收益分析
+         - 持续优化
+    </Steps>
+  </Tabs.Tab>
+</Tabs>

@@ -1,0 +1,192 @@
+import { Callout, Cards, FileTree, Steps, Tabs } from 'nextra/components'
+
+# Triplex Architecture Analysis
+
+<Callout type="info">
+  Triplex is a decentralized finance project based on the Synthetix protocol architecture migrated to the Aptos blockchain, fully utilizing the security features and performance advantages of the Move virtual machine to provide synthetic assets, perpetual contracts, and other financial products.
+</Callout>
+
+## System Overview
+
+Triplex is a decentralized finance protocol that migrates the mature Synthetix protocol from Ethereum to the Aptos blockchain, focusing on providing diversified synthetic assets and derivatives trading services. By leveraging the advanced features of the Move virtual machine, Triplex achieves higher security, lower transaction costs, and better user experience.
+
+### Core Advantages
+
+<Cards>
+  <Cards.Card title="Security" href="/architecturalanalysis/security">
+    Move resource model and formal verification support higher security guarantees
+  </Cards.Card>
+  <Cards.Card title="Performance" href="/architecturalanalysis/performance">
+    Aptos parallel execution engine brings higher transaction throughput
+  </Cards.Card>
+  <Cards.Card title="Scalability" href="/architecturalanalysis/core">
+    Modular design supports flexible extension and upgrades
+  </Cards.Card>
+  <Cards.Card title="Asset Diversity" href="/architecturalanalysis/synthetic">
+    Rich synthetic asset types support global asset trading
+  </Cards.Card>
+</Cards>
+
+## System Components
+
+<Cards>
+  <Cards.Card title="Synthetic Asset System" href="/architecturalanalysis/synthetic">
+    Synthetic asset minting and trading based on Aptos blockchain
+  </Cards.Card>
+  <Cards.Card title="Account System" href="/architecturalanalysis/accounts">
+    Account management using Move resource model
+  </Cards.Card>
+  <Cards.Card title="Core Engine" href="/architecturalanalysis/core">
+    System core logic and contracts
+  </Cards.Card>
+  <Cards.Card title="Governance Mechanism" href="/architecturalanalysis/governance">
+    Decentralized governance process
+  </Cards.Card>
+  <Cards.Card title="Market System" href="/architecturalanalysis/markets">
+    Trading markets and price discovery
+  </Cards.Card>
+  <Cards.Card title="Oracle Integration" href="/architecturalanalysis/oracle">
+    Price data provision and verification
+  </Cards.Card>
+  <Cards.Card title="Liquidity Pool" href="/architecturalanalysis/pool">
+    Resource-based liquidity management
+  </Cards.Card>
+  <Cards.Card title="Cross-chain Bridge" href="/architecturalanalysis/cross-chain">
+    Interoperability with other blockchains
+  </Cards.Card>
+  <Cards.Card title="Security Mechanism" href="/architecturalanalysis/security">
+    Move language security features and risk control
+  </Cards.Card>
+  <Cards.Card title="Performance Optimization" href="/architecturalanalysis/performance">
+    System performance and scalability
+  </Cards.Card>
+  <Cards.Card title="Token Economics" href="/architecturalanalysis/tokenomics">
+    Token design and incentive mechanisms
+  </Cards.Card>
+  <Cards.Card title="Development Tools" href="/architecturalanalysis/tools">
+    Interfaces and developer tools
+  </Cards.Card>
+  <Cards.Card title="Integration Solutions" href="/architecturalanalysis/integration">
+    Integration with external systems
+  </Cards.Card>
+</Cards>
+
+# 欢迎来到Triplex用户文档
+
+<Steps>
+### 准备开始
+了解Triplex协议基础知识和入门指南
+
+### 质押TPX代币
+质押TPX并参与协议治理和收益
+
+### 提供流动性
+为Triplex协议提供流动性并赚取交易费
+
+### 交易
+利用Triplex交易所和杠杆代币进行交易
+
+### 使用代币
+了解如何在Triplex生态中使用各种代币
+</Steps>
+
+## 快速导航
+
+<Tabs items={['TPX质押', '提供流动性', '交易', '代币']}>
+  <Tabs.Tab>
+    - [将TPX存入420池](/zh-SG/TriplexProtocol/TPXStaking/page)
+    - [420池常见问题](/zh-SG/TriplexProtocol/TPXStakingFAQ/page)
+    - [V3 TPX质押 (已弃用)](/zh-SG/TriplexProtocol/TPXStakingV3/page)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    - [提供流动性](/zh-SG/TriplexProtocol/ProvideLiquidity/page)
+    - [费用](/zh-SG/TriplexProtocol/ProvideLiquidity/Fees/page)
+    - [债务](/zh-SG/TriplexProtocol/ProvideLiquidity/Debt/page)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    - [Triplex交易所](/zh-SG/TriplexProtocol/Trade/Exchange/page)
+    - [Triplex杠杆代币](/zh-SG/TriplexProtocol/Trade/LeveragedTokens/page)
+    - [集成商](/zh-SG/TriplexProtocol/Trade/Integrators/page)
+  </Tabs.Tab>
+  <Tabs.Tab>
+    - [在tpxUSD上赚取收益](/zh-SG/TriplexProtocol/Tokens/EarnYield/page)
+  </Tabs.Tab>
+</Tabs>
+
+## 更多资源
+
+- [Triplex V3](/zh-SG/TriplexProtocol/TriplexV3/page)
+- [治理](/zh-SG/TriplexProtocol/Governance/page)
+- [基于Triplex V3构建](/zh-SG/TriplexProtocol/BuildOnTriplexV3/page)
+- [安全与风险](/zh-SG/TriplexProtocol/SecurityAndRisks/page)
+- [品牌资产](/zh-SG/TriplexProtocol/BrandAssets/page)
+- [链接](/zh-SG/TriplexProtocol/Links/page)
+- [产品更新](/zh-SG/TriplexProtocol/ProductUpdates/page) 
+
+<div className="flex justify-center my-10">
+  <div style={{
+    width: '120px',
+    height: '120px',
+    position: 'relative',
+    transition: 'transform 0.3s ease'
+  }}
+  onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+  onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+  >
+    <div style={{
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      position: 'relative',
+      background: 'linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%)',
+      border: '2px solid #4F46E5',
+      boxShadow: '0 4px 8px rgba(79, 70, 229, 0.2)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
+      <div style={{
+        position: 'absolute',
+        width: '80%',
+        height: '80%'
+      }}>
+        <div style={{
+          position: 'absolute',
+          width: '60%',
+          height: '15%',
+          backgroundColor: 'white',
+          left: '20%',
+          top: '42.5%',
+          borderRadius: '4px'
+        }}></div>
+        <div style={{
+          position: 'absolute',
+          width: '15%',
+          height: '60%',
+          backgroundColor: 'white',
+          left: '42.5%',
+          top: '20%',
+          borderRadius: '4px'
+        }}></div>
+      </div>
+      <div style={{
+        position: 'absolute',
+        width: '100%',
+        height: '100%'
+      }}>
+        <div style={{ position: 'absolute', width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)', top: '30%', left: '10%' }}></div>
+        <div style={{ position: 'absolute', width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)', top: '10%', left: '30%' }}></div>
+        <div style={{ position: 'absolute', width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)', top: '30%', right: '10%' }}></div>
+        <div style={{ position: 'absolute', width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)', top: '10%', right: '30%' }}></div>
+        <div style={{ position: 'absolute', width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)', bottom: '10%', left: '30%' }}></div>
+        <div style={{ position: 'absolute', width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)', bottom: '30%', left: '10%' }}></div>
+        <div style={{ position: 'absolute', width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)', bottom: '10%', right: '30%' }}></div>
+        <div style={{ position: 'absolute', width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)', bottom: '30%', right: '10%' }}></div>
+        <div style={{ position: 'absolute', width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)', left: '0', top: '50%', transform: 'translateY(-50%)' }}></div>
+        <div style={{ position: 'absolute', width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)', right: '0', top: '50%', transform: 'translateY(-50%)' }}></div>
+        <div style={{ position: 'absolute', width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)', bottom: '0', left: '50%', transform: 'translateX(-50%)' }}></div>
+        <div style={{ position: 'absolute', width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', boxShadow: '0 0 4px rgba(255, 255, 255, 0.8)', top: '0', left: '50%', transform: 'translateX(-50%)' }}></div>
+      </div>
+    </div>
+  </div>
+</div> 

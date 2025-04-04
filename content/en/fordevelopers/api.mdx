@@ -1,0 +1,170 @@
+# API Reference Documentation
+
+## REST API
+
+Base URL: `https://api.triplex.io`
+
+### Authentication
+
+All API requests require an API key in the header:
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+### Market Data
+
+#### Get All Markets
+
+```http
+GET /v1/markets
+```
+
+Response:
+```json
+{
+    "markets": [
+        {
+            "symbol": "ETH-USD",
+            "price": "2000.00",
+            "24h_volume": "1000000.00",
+            "open_interest": "5000.00",
+            "funding_rate": "0.0001",
+            "next_funding_time": "2024-03-21T00:00:00Z"
+        }
+    ]
+}
+```
+
+#### Get Single Market
+
+```http
+GET /v1/markets/{symbol}
+```
+
+### Trading Interface
+
+#### Create Order
+
+```http
+POST /v1/orders
+```
+
+Request body:
+```json
+{
+    "symbol": "ETH-USD",
+    "side": "buy",
+    "type": "limit",
+    "price": "2000.00",
+    "size": "1.0",
+    "leverage": "10"
+}
+```
+
+#### Query Order
+
+```http
+GET /v1/orders/{order_id}
+```
+
+### Account Interface
+
+#### Get Account Information
+
+```http
+GET /v1/account
+```
+
+#### Get Positions
+
+```http
+GET /v1/positions
+```
+
+## WebSocket API
+
+WebSocket endpoint: `wss://ws.triplex.io`
+
+### Subscription Format
+
+```json
+{
+    "op": "subscribe",
+    "channel": "market",
+    "symbols": ["ETH-USD"]
+}
+```
+
+### Market Data Subscription
+
+```javascript
+// Subscribe to market data
+ws.send(JSON.stringify({
+    op: 'subscribe',
+    channel: 'market',
+    symbols: ['ETH-USD']
+}));
+
+// Receive data
+ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    console.log('Market update:', data);
+};
+```
+
+### Order Update Subscription
+
+```javascript
+ws.send(JSON.stringify({
+    op: 'subscribe',
+    channel: 'orders',
+    symbols: ['ETH-USD']
+}));
+```
+
+## Error Codes
+
+| Code | Description |
+|------|-------------|
+| 1001 | Invalid API key |
+| 1002 | Request rate limit exceeded |
+| 2001 | Order creation failed |
+| 2002 | Insufficient margin |
+| 3001 | Market trading suspended |
+
+## Rate Limits
+
+- Public endpoints: 10 requests/second
+- Private endpoints: 100 requests/minute
+- WebSocket connections: 5 per IP
+
+## SDK Examples
+
+```typescript
+import { TriplexAPI } from '@triplex/api';
+
+const api = new TriplexAPI({
+    apiKey: 'YOUR_API_KEY',
+    secret: 'YOUR_SECRET'
+});
+
+// Get market data
+const markets = await api.getMarkets();
+
+// Create order
+const order = await api.createOrder({
+    symbol: 'ETH-USD',
+    side: 'buy',
+    type: 'limit',
+    price: '2000.00',
+    size: '1.0'
+});
+
+// WebSocket subscription
+const ws = api.createWebSocket();
+ws.subscribe('market', ['ETH-USD']);
+ws.onMarketUpdate((data) => {
+    console.log('Market update:', data);
+});
+``` 
